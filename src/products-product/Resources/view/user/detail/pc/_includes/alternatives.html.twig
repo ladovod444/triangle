@@ -10,15 +10,15 @@
 <div class="border rounded-4 p-3 small">
 
     <table class="table table-borderless link-parent align-middle fs-12 mb-0">
-        <thead class="table-warning " style="letter-spacing:normal!important;">
+        <thead>
 
         <tr>
-            <th class="fw-normal px-3 radius" scope="col">Наименование</th>
-            <th class="fw-normal text-center" scope="col">Размер</th>
-            <th class="fw-normal text-center" scope="col">Характеристики</th>
-            <th class="fw-normal text-center" scope="col">Наличие</th>
-            <th class="fw-normal text-center" scope="col">Стоимость, шт.</th>
-            <th class="fw-normal text-center" scope="col">Купить</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Размер</th>
+            <th scope="col">Характеристики</th>
+            <th scope="col">Наличие</th>
+            <th scope="col">Стоимость, шт.</th>
+            <th scope="col">Купить</th>
         </tr>
 
         </thead>
@@ -62,9 +62,9 @@
 
                 {# НАИМЕНОВАНИЕ #}
                 <th class="fw-normal py-3" scope="row">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex gap-3 align-items-center">
 
-                        <a class="text-black fw-bold text-decoration-none "
+                        <a class="text-decoration-none"
                            href="{{ path('products-product:user.detail', {
                                category: alt.categoryUrl,
                                url: alt.productUrl,
@@ -107,9 +107,9 @@
                 {# НАЛИЧИЕ, СТОИМОСТЬ, СКИДКА, КНОПКИ "ИЗБРАННОЕ/КОРЗИНА" #}
                 {% if inStock == true %}
 
-                    <td class="py-3 fw-bold text-center"> {{ alternativeQuantity }}</td>
+                    <td class="text-success fw-bold"> {{ alternativeQuantity }}</td>
 
-                    <td class="py-3 text-center fw-bold">
+                    <td>
 
                         {% if discount %}
 
@@ -137,9 +137,9 @@
 
                 {% else %}
 
-                    <td class="text-danger fw-bold py-3 text-center">Нет в наличии</td>
+                    <td class="text-danger fw-bold py-3">Нет в наличии</td>
 
-                    <td class="text-danger fw-bold py-3 text-center">Цена по запросу</td>
+                    <td class="text-danger fw-bold py-3">Цена по запросу</td>
 
                     {# В ИЗБРАННОЕ #}
                     <td class="py-3 text-end">

@@ -29,7 +29,7 @@
             value: default_input,
             attr: {
                 style : 'width: 60px;',
-                class:  'border py-2 px-4 rounded-5 m-0 text-secondary total',
+                class:  'form-control-lg mx-1 total form-control',
                 'data-max': card.productQuantity,
                 'data-min': card.categoryMinimal,
                 'data-price' : ''~price,
@@ -54,8 +54,8 @@
 
 
         <div class="mb-3">
-            <button type="submit" class="btn bg-primary py-2 fw-bold rounded-3 w-100 mb-4">
-                <span class="basket-text">В корзину</span>
+            <button type="submit" class="btn btn-lg btn-primary text-nowrap btn">
+                <span class="h6 text-uppercase px-3 basket-text">В корзину</span>
                 <span class="spinner-border spinner-border-sm vertical-middle d-none"></span>
             </button>
         </div>

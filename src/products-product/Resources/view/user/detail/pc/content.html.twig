@@ -16,7 +16,7 @@
 
     <section class="main container px-4">
 
-        <h2 class="fs-4 text-uppercase fw-bold ">
+        <h1 class="h3 text-uppercase fw-bolder">
             {{ card.productName }}
 
             {{ card.productVariationValue|call_twig_func(card.productVariationReference~'_render')
@@ -25,7 +25,7 @@
             {{ card.productOfferValue|call_twig_func(card.productOfferReference~'_render') }}
 
             {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null )|replace({ '/': '-' }) }}
-        </h2>
+        </h1>
 
         <div class="d-flex align-items-center gap-5 mb-5">
 
@@ -83,6 +83,24 @@
 
             {# Альтернативы #}
             {{ include(_self|replace({ "content.html.twig" : "_includes/alternatives.html.twig" }), {alternative}, with_context = false) }}
+
+
+            {# Описание  #}
+
+{#            {{ dd(card) }}#}
+
+            {% if card.productPreview or card.productDescription %}
+
+                <section>
+                    <div class="d-flex justify-content-between">
+                        <h3 class="h5 text-uppercase fw-bolder py-3">Описание</h3>
+                    </div>
+                    <div class="pb-4">
+                        {{ card.productPreview|raw }}
+                        {{ card.productDescription|raw }}
+                    </div>
+                </section>
+            {% endif %}
 
 
         </div>
