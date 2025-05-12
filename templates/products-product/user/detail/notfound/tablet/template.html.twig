@@ -1,0 +1,38 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/user/base.html.twig') %}
+
+{% block title %}Triangle Sports TH201 195/45 R16 84W{% endblock %}
+
+
+{# ---- CSS ------------------------------------------------------------ #}
+{# {% block stylesheets %} #}
+{#    <link href="{{ path('user_posts_home_css') }}" rel="stylesheet"> #}
+{# {% endblock %} #}
+
+{# ---- HEADER-БЛОК ------------------------------------------------------------ #}
+{# {% block header %}
+    {{ include(_self|replace({ "template.html.twig": "header.html.twig" })) }}
+{% endblock %} #}
+
+
+{# ---- LEFT-БЛОК ------------------------------------------------------------ #}
+{# {% block left %} #}
+{#   {% include '@Template/flowers/left.html.twig' %} #}
+{# {% endblock %} #}
+
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+    {{ include(_self|replace({ "template.html.twig" : (baks_settings.device ?: 'pc') ~ "/content.html.twig" })) }}
+{% endblock %}
+
+
+{# ---- FOOTER-БЛОК ------------------------------------------------------------ #}
+{#{% block footer %}
+    #}{#{{ include(_self|replace({ "template.html.twig": "footer.html.twig" })) }}#}{#
+{% endblock %}#}
+
+{# {% block javascript %} #}
+{# <script defer src="{{ path('user_posts_home_js') }}"></script> #}
+{# {% endblock %} #}
+

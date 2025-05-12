@@ -1,0 +1,149 @@
+{# {{ include(_self|replace({ "content.html.twig": "header.html.twig" })) }} #}
+
+<main class="main">
+
+    {# Обновить #}
+    {#    <a href="/refresh" class="btn  btn-link text-muted">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+             class="mb-1" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"></path>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"></path>
+        </svg>
+    </a> #}
+
+    {{ include(_self|replace({ "content.html.twig": "banner.html.twig" })) }}
+
+    {{ include(_self|replace({ "content.html.twig": "filter.html.twig" })) }}
+
+
+    {# {{ dd(category) }} #}
+
+    {# {% for key, cat in category %} #}
+
+    {# {% if products[key]|length %} #}
+
+
+    <section class="cards-box mt-5">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-9">
+                    <div class="d-flex gap-4">
+                        <h2 class="text-uppercase h5 fw-bolder">Автомобильные шины</h2>
+                        <a href="{# {{ path('products-product:user.catalog.category', { category : cat.category_url }) }} #}"
+                           class="small text-lowercase">Все шины</a> {# {{ cat.category_name }} #}
+                    </div>
+
+                    {# {{ dump(cat) }}
+						{{ dd(products) }} #}
+
+                    <div class="row cards-box-body mt-3">
+                        {# {% for product in products[key] %} #}
+                        {% for product in products %}
+                            <div class="col-3">
+                                {% include Template('/user/pc/includes/card.html.twig') with { 'card': product } %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-3">
+
+                    {# ЛИДЕРЫ ПРОДАЖ #}
+
+                    <div class="block-heading">
+                        <h2 class="text-uppercase h5 fw-bolder mb-4">Лидеры продаж</h2>
+                    </div>
+
+                    <div class="rounded-4 bg-light d-flex flex-column gap-3 p-3">
+                        {# {% include Template('user/'~ (baks_settings.device ?: 'pc') ~'/includes/leader.html.twig') with { 'leader' : leader[key] } %} #}
+                        {% include Template('user/'~ (baks_settings.device ?: 'pc') ~'/includes/leader.html.twig') with { 'leader' : leader } %}
+                    </div>
+
+
+                    {# Малый банер #}
+                    <div class="rounded-4 lazy bg-cover mt-3"
+                         data-bg="/triangle/banner/mobile/banner_1.png" style="min-height: 235px;">
+                    </div>
+
+                    <div class="rounded-4 lazy bg-cover mt-3"
+                         data-bg="/triangle/banner/mobile/banner_2.png" style="min-height: 235px;">
+                    </div>
+
+                    {# МЕСТО ВАШЕЙ РЕКЛАМЫ #}
+
+                    {# <a href="#" class="side-bar-image rounded-4 overflow-hidden w-100 mt-4 d-flex"
+								title="Место Вашей рекламы">
+							<img data-src="/temp/img/reimage.webp" src="/assets/img/empty.png" class="lazy w-100" alt="...">
+						</a> #}
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {# {% endif %} #}
+    {# {{ dump(products[cat.id]) }} #}
+
+    {# {% endfor %} #}
+
+
+    {# СКИДКИ #}
+
+
+    {# <section id="action" class="mt-4 container">
+		<div class="w-100 d-flex gap-3 justify-content-between">
+			
+			{% for i in 0..3 %}
+    #}{# {% include('@Template/default/user/pc/includes/action.html.twig') %} #}{#
+    {% include(Template('/user/pc/includes/action.html.twig')) %}
+{% endfor %}
+</div>
+</section> #}
+
+
+    {# ПРОСТМОРЕННЫЕ #}
+    {# <section id="viewed" class="mt-4 container">
+		<div class="rounded-4 bg-light">
+			<h2 class="text-uppercase h5 fw-bolder px-3 pt-3">Просмотренные</h2>
+			
+			<div class="w-100 d-flex gap-3 justify-content-between p-4">
+				{% for i in 0..3 %}
+    #}{# {% include('@Template/default/user/pc/includes/viewed.html.twig') %} #}{#
+    {% include(Template('/user/pc/includes/viewed.html.twig')) %}
+{% endfor %}
+</div>
+</div>
+</section> #}
+
+
+    <section class="about-box mt-5">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col">
+
+                    <h2 class="text-uppercase h5 fw-bolder mb-4">ООО «Triangle-шины»</h2>
+
+                    {{ include(_self|replace({ "content.html.twig": "maps.html.twig" })) }}
+                </div>
+
+                {# ОТЗЫВЫ #}
+                {# <div class="col-3">
+					<div class="d-flex align-items-stretch mb-4">
+						<h2 class="text-uppercase me-4 h5 fw-bolder">отзывы</h2>
+						<a href="#" class="">Все отзывы</a>
+					</div>
+                #}{# {{ include(_self|replace({ "content.html.twig": "reviews.html.twig" })) }} #}{#
+                #}{# {% include('@Template/default/user/pc/includes/reviews.html.twig') %} #}{#
+                {% include(Template('/user/pc/includes/reviews.html.twig')) %}
+            </div> #}
+
+            </div>
+        </div>
+    </section>
+</main>
+

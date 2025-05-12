@@ -1,0 +1,24 @@
+{#{% set dir = 'product' %}#}
+
+<hr class="mb-0">
+
+<main>
+
+    {#    {% include Template('/public/'~baks_settings.device~'/_includes/'~dir~'/breadcrumb.html.twig') %} #}
+    {{ include(_self|replace({ "content.html.twig" : "_includes/breadcrumb.html.twig" })) }}
+
+    {#    {% include Template('/public/'~baks_settings.device~'/_includes/'~dir~'/productPage.html.twig') %} #}
+    {{ include(_self|replace({ "content.html.twig" : "_includes/product_page.html.twig" })) }}
+
+    {#    {% include Template('/public/'~baks_settings.device~'/_includes/'~dir~'/viewed.html.twig') %} #}
+
+    <section class="container py-4">
+        <h2 class="fs-6 text-uppercase fw-bold mb-3">
+            вы смотрели
+        </h2>
+
+        {{ render_products_viewed(card.product_invariable_id) }}
+    </section>
+
+</main>
+

@@ -1,0 +1,218 @@
+{% if card %}
+
+
+    {% set arr_property = card.category_section_field | json_decode %}
+
+    {% set product_offers = card.product_offers | json_decode %}
+
+    {% set product_offer = product_offers|first %}
+
+    {% set isProduct = ((product_offers|length) <= 1 ? true : false) %}
+
+    <div id='{{ card.id }}' class="card rounded-5 border-0 mb-3 p-1">
+
+
+        <div class="card-image-wrap overflow-hidden rounded-5 border" style="height: 200px;">
+
+            <div class="d-flex justify-content-between">
+
+                <button class="btn btn-link opacity-0 card-favorites"
+                        title="Добавить в избранное"
+                        data-id='{{ card.id }}'
+                >
+                    <img data-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiNCMUI2QkIiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNOCAxLjMxNEMxMi40MzgtMy4yNDggMjMuNTM0IDQuNzM1IDggMTUtNy41MzQgNC43MzYgMy41NjItMy4yNDggOCAxLjMxNHoiPjwvcGF0aD48L3N2Zz4K"
+                         width="16" height="16"
+                         src="/assets/img/empty.png"
+                         class="lazy"
+                         alt="Добавить в избранное"
+                    />
+                </button>
+
+                <div class="mt-2 me-2">
+                    {# <span class="badge bg-success rounded-2 me-1">Новинка</span> #}
+                    {# <span class="badge bg-danger rounded-2 me-1">Акция</span> #}
+                </div>
+
+            </div>
+
+
+            {% if isProduct %}
+            <a href="{{ path('products-product:user.detail', { url: card.url,
+                offer : product_offer.offer_value,
+                variation : product_offer.variation_value,
+                modification : product_offer.modification_value
+            }) }}">
+                {% else %}
+                <a href="{{ path('products-product:user.model', { url: card.url }) }}">
+                    {% endif %}
+
+
+
+                    {# Обложка  #}
+                    {% set image_path = '/assets/img/blank.svg' %}
+
+                    {% if card.product_image_ext is defined and card.product_image_ext is not null %}
+                        {% set img_host = card.product_image_cdn == true  ? CDN_HOST : '' %}
+                        {% set img_dir = card.product_image %}
+                        {% set img_file = (img_host is empty ? '/image.' : '/small.') ~ card.product_image_ext %}
+                        {% set image_path = img_host ~ img_dir ~ img_file %}
+                    {% endif %}
+
+
+                    <div class="lazy h-100 bg-cover position-relative"
+                         data-bg="{{ image_path }}"
+                         title="{{ card.product_name }}">
+                        <div class="position-absolute bottom-0 mb-5 ms-3">
+                            {% for name_property in arr_property | filter(preview => preview.field_photo == true) %}
+                                {{ name_property.field_value|call_twig_func(name_property.field_type~'_render') }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+                    {# style="margin-bottom: -50px;" #}
+
+        </div>
+
+
+        <div class="card-body p-3">
+
+
+            <h2 class="card-title mb-2 h6" style='min-height: 2rem;'>
+
+
+                {% if isProduct %}
+
+                    <a href="{{ path('products-product:user.detail', { url: card.url,
+                        offer : product_offer.offer_value,
+                        variation : product_offer.variation_value,
+                        modification : product_offer.modification_value
+                    }) }}" class="text-decoration-none text-dark">
+
+
+                        {{ card.product_name }}
+
+                        {# Значение множественного варианта ТП #}
+                        {{ product_offer.variation_value|call_twig_func(product_offer.variation_reference~'_render') ~
+                        product_offer.modification_value|call_twig_func(product_offer.modification_reference~'_render') }}
+
+                        {# Значение торгового предложения #}
+                        {{ product_offer.offer_value|call_twig_func(product_offer.offer_reference~'_render') }}
+
+                    </a>
+
+                {% else %}
+
+
+                    <a href="{{ path('products-product:user.model', { url: card.url
+                    }) }}" class="text-decoration-none text-dark">
+
+                        {{ card.product_name }}
+
+                        {% if filter.vars.data.variation %}
+                            {{ product_offer.variation_value|call_twig_func(product_offer.variation_reference~'_render') }}
+                        {% endif %}
+
+                        {% if filter.vars.data.modification %}
+
+                            {% if filter.vars.data.variation %}
+                                {{ product_offer.modification_value|call_twig_func(product_offer.modification_reference) }}
+                            {% else %}
+                                {{ product_offer.modification_value|call_twig_func(product_offer.modification_reference~'_render') }}
+                            {% endif %}
+                        {% endif %}
+
+                        {% if filter.vars.data.offer %}
+                            {{ product_offer.offer_value|call_twig_func(product_offer.offer_reference~'_render') }}
+                        {% endif %}
+                    </a>
+
+                {% endif %}
+
+                {# <a href="{{ path('products-product:user.detail', { url: card.url,
+						offer : card.product_offer_value,
+						variation : card.product_variation_value,
+						modification : card.product_modification_value
+					}) }}" class="text-decoration-none text-dark"> #}
+
+
+                {# Значение торгового предложения #}
+                {# {{ card.product_offer_value|call_twig_func(card.product_offer_reference) }} #}
+
+                {# Значение множественного варианта ТП #}
+                {# {{ card.product_variation_value|call_twig_func(card.product_variation_reference) }} #}
+
+                {# Значение модификации множественного варианта ТП #}
+                {# {{ card.product_modification_value|call_twig_func(card.product_modification_reference) }} #}
+
+
+
+                {# Свойства, учавствующие в названии #}
+                {% for name_property in arr_property | filter(props => props.field_name == true) %}
+                    {{ name_property.field_value|call_twig_func(name_property.field_type) }}
+                {% endfor %}
+
+
+                </a>
+            </h2>
+
+            {# {{ dd(filter.vars.data.offer) }} #}
+
+            {#  #}
+            {% if isProduct %}
+                {# Цена продукта  #}
+                {{ include(_self|replace({ "card.html.twig": "price/price.html.twig" })) }}
+
+            {% else %}
+
+                {# {% if filter.vars.data.modification %}
+				
+				{% elseif filter.vars.data.variation %}
+					{{ include(_self|replace({ "card.html.twig": "price/modification.html.twig" })) }}
+				{% elseif filter.vars.data.offer %}
+					{{ include(_self|replace({ "card.html.twig": "price/variation.html.twig" })) }}
+				{% else %}
+					{{ include(_self|replace({ "card.html.twig": "price/offer.html.twig" })) }}
+				{% endif %} #}
+
+                {{ include(_self|replace({ "card.html.twig": "price/offer.html.twig" })) }}
+
+            {% endif %}
+
+
+
+
+            {#            <div class="d-flex justify-content-between">
+				
+				
+				
+				<div class="d-flex gap-1 small align-items-center">
+            #}{# Рейтинг товара #}{#
+            <div class="d-flex gap-1 align-items-center">
+                {{ include(_self|replace({ "card/card.html.twig": "rating.html.twig" })) }}
+            </div>
+            #}{# Количество отзывов  #}{#
+            <a href="#" class="small ms-1">99 отзывов</a>
+
+        </div>
+
+
+        <div class="badge bg-hit rounded-2">
+            Хит
+        </div>
+
+    </div> #}
+
+            <div class="card-labels d-flex align-items-center gap-2 mt-2">
+                {# Свойства, учавствующие в ПРЕВЬЮ #}
+
+
+                {% for name_property in arr_property | filter(preview => preview.field_card == true) %}
+                    {{ name_property.field_value|call_twig_func(name_property.field_type~'_render') }}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+{% endif %}

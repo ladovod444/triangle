@@ -1,0 +1,44 @@
+
+
+
+			<li class="list-group-item bg-transparent mb-3">
+				<div class="row g-0">
+					{# <div class="col-4 image-wrap rounded-4">
+										<img src="/img/card-img/shina-1.webp" class="img-fluid rounded-start" alt="...">
+									</div> #}
+
+					<div class="col-4">
+						{#<img data-src="img/card-img/shina-1.webp" src="/assets/img/empty.png"
+							 class="lazy img-fluid rounded-4 border border-light shadow"
+							 alt="...">#}
+
+						<span class="icon bg-cover rounded-4 lazy mb-2" data-bg="/temp/img/card-img/shina-1.webp"
+							  style="width: 95px; height: 95px;"
+							  ></span>
+
+					</div>
+
+					<div class="col-8 ps-2 small">
+
+							{# Рейтинг #}
+						<div class="d-flex gap-1 ">
+							{{ include(_self|replace({ "reviews.html.twig": "rating.html.twig" })) }}
+							{#{% include '@Template/default/user/mobile/includes/rating.html.twig' %}#}
+							<a href="#reviews" class="small ms-2" title="Отзывы">9 отзывов</a>
+						</div>
+						<div class="mt-2 lh-1">
+							<a href="{#{ path('products-product:user.detail') }#}" class="small text-uppercase fw-bold h6 text-decoration-none text-dark ">
+								Triangle Sports TH201 195/45 R16 84W
+							</a>
+
+							<p class="small mt-1 lh-sm text-truncate-2">
+								Отличные шины, беру каждый сезон, корда почти нет )) А что было дальше мы не узнаем..
+							</p>
+						</div>
+
+					</div>
+				</div>
+			</li>
+
+
+

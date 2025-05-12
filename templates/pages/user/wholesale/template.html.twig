@@ -1,0 +1,11 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/user/base.html.twig') %}
+
+{% block title %}Оптовое предложение{% endblock %}
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+    {{ include(_self|replace({ "template.html.twig" : (baks_settings.device ?: 'pc') ~ "/content.html.twig" })) }}
+{% endblock %}
+
+

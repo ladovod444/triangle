@@ -1,0 +1,66 @@
+{# {{ include(_self|replace({ "content.html.twig": "header.html.twig" })) }} #}
+
+<main class="main container px-4">
+
+	<div class="mt-3">
+		{{ include(_self|replace({ "content.html.twig": "breadcrumb.html.twig" })) }}
+	</div>
+
+	{{ include(_self|replace({ "content.html.twig": "calc.html.twig" })) }}
+
+	<hr class="mt-3 rounded-circle border-0" style="height: 20px; box-shadow: 0 20px 20px -6px #000;">
+
+	<section id="param" class="mt-5">
+		<div class="d-flex justify-content-between gap-5">
+
+			<div class="w-100">
+
+				<h2 class="h5 text-uppercase fw-bolder py-2">Шины по выбранным параметрам</h2>
+
+				{{ include(_self|replace({ "content.html.twig": "alternative.html.twig" })) }}
+			</div>
+
+			<div class="w-25">
+
+				<h3 class="h5 text-uppercase fw-bolder py-2">Товар дня</h3>
+
+				<div class="row cards-box">
+					<div class="col">
+						{% include '@Template/default/user/pc/includes/card.html.twig' %}
+					</div>
+				</div>
+
+				<a href="#" class="side-bar-image rounded-4 overflow-hidden w-100 mt-4 d-flex"
+				   aria-label="Место вашей рекламы"
+				   title="Место вашей рекламы"
+				>
+					<img src="/img/adimage.webp" class="w-100" alt="Место вашей рекламы">
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<hr class="mt-3 rounded-circle border-0" style="height: 20px; box-shadow: 0 20px 20px -6px #000;">
+
+
+	{{ include(_self|replace({ "content.html.twig": "calc_width.html.twig" })) }}
+
+
+	{# ПРОСТМОРЕННЫЕ #}
+	<section id="viewed" class="mt-4 container">
+		<div class="rounded-4 bg-light">
+			<h2 class="text-uppercase h5 fw-bolder p-3 pb-2">Просмотренные</h2>
+
+			<div class="w-100 d-flex gap-3 justify-content-between p-3">
+				{% for i in 0..3 %}
+					{% include('@Template/default/user/pc/includes/viewed.html.twig') %}
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+	<hr class="my-5 rounded-circle border-0" style="height: 20px; box-shadow: 0 20px 20px -6px #000;">
+
+</main>
+
+

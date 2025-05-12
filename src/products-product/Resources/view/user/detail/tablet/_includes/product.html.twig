@@ -1,0 +1,95 @@
+{# @var card \BaksDev\Products\Product\Repository\ProductDetailByValue\ProductDetailByValueResult #}
+
+{# Обложка категории  #}
+{% set categoryCover = '/assets/img/blank.svg' %}
+{% if card.categoryCoverCdn is not null %}
+    {% set categoryCover = cdn_image_path(card.categoryCoverPath, card.categoryCoverExt, card.categoryCoverCdn) %}
+{% endif %}
+
+ {% include Template('@products-product/public/'~baks_settings.device~'/images_carousel_modal.html.twig') with {card} only %}
+
+<section class="container pt-3">
+
+    {# Полное название продукта #}
+    <h2 class="fs-5 text-uppercase fw-bold">
+        {{ card.productName }}
+
+        {{ card.productVariationValue|call_twig_func(card.productVariationReference~'_render')
+        ~ card.productModificationValue|call_twig_func(card.productModificationReference~'_render') }}
+
+        {{ card.productOfferValue|call_twig_func(card.productOfferReference~'_render') }}
+
+        {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null )|replace({ '/': '-' }) }}
+    </h2>
+
+    <div class="d-flex align-items-center gap-4 mb-4">
+
+        <div class="d-flex align-items-center gap-1">
+
+            <div class="d-flex align-items-center gap-1">
+
+                {# Свойства продукта #}
+                {% for Field in card.categorySectionField %}
+                    {{ Field.field_value|call_twig_func(Field.field_type~'_render') }}
+                {% endfor %}
+
+            </div>
+
+            {# Бейджи #}
+            {% if date() < card.productActiveFrom|date_modify("+1 month") %}
+                <button class="btn btn-success fw-bold rounded-5 fs-10 py-1 px-2">
+                    НОВИНКА
+                </button>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="row gy-4">
+
+        {# Изображения продукта с каруселью #}
+        <div class="col-6">
+            {% include Template('@products-product/public/'~baks_settings.device~'/images_carousel.html.twig') with {card} only %}
+        </div>
+
+        {# Блок с ценой и кнопками добавления в корзину #}
+        <div class="col-6">
+            {{ include(_self|replace({ "product.html.twig" : "add_basket.html.twig" })) }}
+        </div>
+
+        <div class="col-6">
+            <h3 class="fs-6 text-uppercase fw-bold mb-4">
+                характеристики
+            </h3>
+
+            {# Свойста продукта #}
+            {% include Template('@products-product/public/'~(baks_settings.device)~'/properties_product.html.twig') with {card} only %}
+        </div>
+
+        <hr class="mb-0">
+
+        {# Альтернативы #}
+        <div class="col-12">
+            {{ include(_self|replace({ "product.html.twig" : "alternatives.html.twig" })) }}
+        </div>
+
+        <div class="col-12 mb-2">
+        </div>
+    </div>
+
+    <hr class="row mb-4">
+
+    <h3 class="fs-6 text-uppercase mb-3 fw-bold">
+        лидер продаж
+    </h3>
+
+    <div class="row gap-3 px-3 flex-nowrap overflow-x-scroll">
+        {{ render_bestseller(baks_settings.device) }}
+
+        {% include Template('/public/'~(baks_settings.device)~'/_includes/banners/banner_lg.html.twig') only %}
+        {% include Template('/public/'~(baks_settings.device)~'/_includes/banners/banner_lg.html.twig') only %}
+    </div>
+
+{#    <hr class="row mt-4 mb-2">#}
+
+</section>

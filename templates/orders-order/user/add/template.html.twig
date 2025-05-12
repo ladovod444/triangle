@@ -1,0 +1,35 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/user/base.html.twig') %}
+
+{# ---- CSS ------------------------------------------------------------ #}
+{% block stylesheets %}
+	<meta name="robots" content="none">
+{% endblock %}
+
+{# ---- HEADER-БЛОК ------------------------------------------------------------ #}
+{# {% block header %}
+    {{ include(_self|replace({ "template.html.twig": "header.html.twig" })) }}
+{% endblock %} #}
+
+{# ---- LEFT-БЛОК ------------------------------------------------------------ #}
+{# {% block left %} #}
+{#   {% include '@Template/flowers/left.html.twig' %} #}
+{# {% endblock %} #}
+
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+	{{ include(_self|replace({ "template.html.twig" : (baks_settings.device ?: 'pc') ~ "/content.html.twig" })) }}
+{% endblock %}
+
+
+{# ---- FOOTER-БЛОК ------------------------------------------------------------ #}
+{#
+{% block footer %}
+    {{ include(_self|replace({ "template.html.twig": "footer.html.twig" })) }}
+{% endblock %}
+#}
+
+{% block javascript %}
+{#<script defer src="{{ path(app.request.attributes.get('_route')~'.js') }}"></script>#}
+{% endblock %}

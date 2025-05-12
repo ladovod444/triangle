@@ -1,0 +1,176 @@
+<div class="accordion accordion-flush mt-3" id="accordionExample">
+	<div class="accordion-item rounded-4 {# bg-info #} shadow">
+
+		<h2 id="headingOne">
+			<button class="accordion-button rounded-4 ps-4 pe-2 py-2 border-0 bg-primary shadow-none collapsed"
+					type="button"
+					title="Подбор шин"
+					data-bs-toggle="collapse"
+					data-bs-target="#collapseOne"
+					aria-expanded="true"
+					aria-controls="collapseOne">
+						<span class="h5 text-uppercase fw-bold text-white mb-0">
+							Подбор шин
+						</span>
+			</button>
+		</h2>
+
+		<div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+
+			<ul class="nav nav-pills d-flex justify-content-center gap-3 mb-2" id="pills-tab" role="tablist">
+
+
+
+				<li class="nav-item " role="presentation">
+					<div class="w-100">
+						<button class="btn nav-link fw-bolder px-2 active" id="pills-profile-tab" data-bs-toggle="pill"
+								data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+						>
+
+                            <span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+											 fill="currentColor"
+											 class="bi bi-gear-fill" viewBox="0 0 16 16">
+											<path
+													d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+										</svg>
+									</span>
+							<span class="ms-3 text-uppercase fw-bolder">По параметрам</span>
+						</button>
+					</div>
+				</li>
+
+				<li class="nav-item" role="presentation">
+					<button class="btn nav-link fw-bolder px-2 " id="pills-home-tab" data-bs-toggle="pill"
+							data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+							aria-selected="true" tabindex="-1">
+                            <span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+											 fill="currentColor"
+											 class="bi bi-car-front-fill" viewBox="0 0 16 16">
+											<path
+													d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+										</svg>
+									</span>
+
+						<span class="ms-3 text-uppercase fw-bolder">По авто</span>
+
+					</button>
+				</li>
+
+			</ul>
+
+
+			<div class="accordion-body">
+
+
+				{# <ul class="nav nav-pills w-100 z-index-5 d-flex justify-content-between gap-1" id="pills-tab"
+                    role="tablist"
+				#}{# style="margin-top: -67px; margin-left: 185px;" #}{# >
+
+                    <li class="nav-item" role="presentation">
+
+                        <button class="btn  active rounded-4 px-3 "
+                                id="pills-home-tab"
+                                data-bs-toggle="pill"
+                                data-bs-target="#pills-home"
+                                type="button"
+                                role="tab"
+                                title="По авто"
+                                aria-controls="pills-home"
+                                aria-selected="true"
+                        >
+
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-car-front-fill" viewBox="0 0 16 16">
+											<path
+                                                    d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+										</svg>
+									</span>
+
+                            <span class="ms-3 text-uppercase fw-bolder">По авто</span>
+                        </button>
+
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <button class="btn rounded-4 px-3 " id="pills-profile-tab"
+                                data-bs-toggle="pill"
+                                data-bs-target="#pills-profile" type="button"
+                                role="tab"
+                                title="По параметрам"
+                                aria-controls="pills-profile"
+                                aria-selected="false">
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-gear-fill" viewBox="0 0 16 16">
+											<path
+                                                    d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+										</svg>
+									</span>
+                            <span class="ms-3 text-uppercase fw-bolder">По параметрам</span>
+                        </button>
+                    </li>
+                </ul> #}
+
+
+				<div class="tab-content" id="pills-tabContent">
+
+
+					<div class="tab-pane fade show active"
+						 id="pills-profile"
+						 role="tabpanel"
+						 tabindex="0"
+					>
+
+						{{ form_start(filter_tire) }}
+
+
+						{% for field in filter_tire %}
+
+							{% if field.vars.name == 'filter' %}
+
+
+								{# ПОДОБРАТЬ ШИНЫ #}
+								<div class="w-100">
+
+									{{ form_widget(filter_tire.filter,
+										{
+											label: 'Подобрать шины',
+											attr: { class: 'btn-danger w-100 h-100 rounded-4 text-uppercase fw-bolder'
+										}}
+									) }}
+								</div>
+
+
+							{% else %}
+								<div class="mb-3">
+									{{ form_row(field, {attr: { 'data-select' : 'false' }}) }}
+								</div>
+							{% endif %}
+
+						{% endfor %}
+
+
+						{{ form_end(filter_tire) }}
+
+
+					</div>
+
+					<div class="tab-pane fade"
+						 id="pills-home"
+						 role="tabpanel"
+						 tabindex="0"
+					>
+						{% include '@reference-cars/user/filter/mobile/filter.html.twig' %}
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+

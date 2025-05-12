@@ -1,0 +1,39 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/user/base.html.twig') %}
+
+{% block title %}Шинный калькулятор{% endblock %}
+
+{# ---- CSS ------------------------------------------------------------ #}
+ {% block stylesheets %}
+     <style>.w-75px { width: 75px; }</style>
+     <link rel="preload" as="image" href="/assets/calc/img/calc-1-1.webp">
+ {% endblock %}
+
+{# ---- HEADER-БЛОК ------------------------------------------------------------ #}
+{# {% block header %}
+    {{ include(_self|replace({ "template.html.twig": "header.html.twig" })) }}
+{% endblock %} #}
+
+
+{# ---- LEFT-БЛОК ------------------------------------------------------------ #}
+{# {% block left %} #}
+{#   {% include '@Template/flowers/left.html.twig' %} #}
+{# {% endblock %} #}
+
+
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+    {{ include(_self|replace({ "template.html.twig" : (baks_settings.device ?: 'pc') ~ "/content.html.twig" })) }}
+{% endblock %}
+
+
+{# ---- FOOTER-БЛОК ------------------------------------------------------------ #}
+{#{% block footer %}
+    #}{#{{ include(_self|replace({ "template.html.twig": "footer.html.twig" })) }}#}{#
+{% endblock %}#}
+
+ {% block javascript %}
+ <script nonce="{{ csp_nonce() }}" data-src="/assets/calc/script.min.js?v={{ version }}" class="lazy"></script>
+ {% endblock %}
+

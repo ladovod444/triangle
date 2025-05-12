@@ -1,0 +1,15 @@
+<hr class="mb-0">
+<main>
+
+    {{ include(_self|replace({ "content.html.twig" : "_includes/breadcrumb.html.twig" })) }}
+
+    <section class="container py-5 ">
+        {#        {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/tireService.html.twig') %} #}
+        {{ include(_self|replace({ "content.html.twig" : "_includes/tire_service.html.twig" })) }}
+
+        {#        {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/diskEditing.html.twig') %} #}
+        {{ include(_self|replace({ "content.html.twig" : "_includes/disk_editing.html.twig" })) }}
+
+    </section>
+</main>
+

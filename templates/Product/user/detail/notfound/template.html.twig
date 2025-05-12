@@ -1,0 +1,92 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/user/base.html.twig') %}
+
+{% block title %}
+	{{ card.product_name }}
+	
+	{# Значение торгового предложения #}
+	{{ card.product_offer_value|call_twig_func(card.product_offer_reference) }}
+	
+	{# Значение множественного варианта ТП #}
+	{{ card.product_variation_value|call_twig_func(card.product_variation_reference) }}
+	
+	{# Значение модификации множественного варианта ТП #}
+	{{ card.product_modification_value|call_twig_func(card.product_modification_reference) }}
+{% endblock %}
+
+{# ---- CSS ------------------------------------------------------------ #}
+
+{# ---- HEADER-БЛОК ------------------------------------------------------------ #}
+{# {% block header %}
+    {{ include(_self|replace({ "template.html.twig": "header.html.twig" })) }}
+{% endblock %} #}
+
+
+{# ---- LEFT-БЛОК ------------------------------------------------------------ #}
+{# {% block left %} #}
+{#   {% include '@Template/flowers/left.html.twig' %} #}
+{# {% endblock %} #}
+
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+	
+	{% set arr_property = card.category_section_field|json_decode %}
+	
+	
+	
+	{{ include(_self|replace({ "template.html.twig":baks_settings.device~"/content.html.twig" })) }}
+	<div style="display: none !important;" class='accordion accordion-button btn-link p-0 collapsed align-items-center align-items-end bg-light bi bi-boxes bi-circle-fill bi-info-circle bi-truck btn btn-lg btn-link btn-primary card card-img card-img-overlay card-price card-text card-title d-flex flex-column form-control form-control-lg fw-bold fw-bolder gap-3 h3 h4 h5 h6 justify-content-around lazy lh-1 mb-2 me-1 me-2 ms-1 ms-5 mt-3 mt-5 mx-1 opacity-25 opacity-50 overflow-hidden p-3 position-absolute position-relative px-3 px-5 py-4 rounded-4 small start-100 text-bg-dark text-decoration-none text-muted text-secondary text-success text-uppercase top-0 w-100 w-75 ms-2'>
+	</div>
+	{# CSS #}
+	{# <div style="display: none !important;" class="ms-3 dropdown-menu dropright w-400px menu-content d-flex align-items-center px-3 symbol symbol-50px me-5 symbol-circle symbol-label flex-column fw-bolder fs-5 text-dark badge badge-light-success  fs-8 px-2 py-1 ms-2 fw-bold text-muted text-hover-primary fs-7 dropdown-divider dropdown-item p-1 rounded bg-light  position-absolute end-0 me-2 px-4 float-start text-hover-dark"></div> #}
+{% endblock %}
+
+
+{# ---- FOOTER-БЛОК ------------------------------------------------------------ #}
+{# {% block footer %}
+    {{ include(_self|replace({ "template.html.twig": "footer.html.twig" })) }}
+{% endblock %} #}
+
+{#
+/*<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>*/
+/*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>*/
+
+/*<script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.2/dist/index.bundle.min.js"></script>*/
+#}
+
+{% block javascript %}
+{# <script defer src="{{ path('user_posts_home_js') }}"></script> #}
+<script nonce="{{ csp_nonce() }}">
+document.querySelectorAll('.img-product').forEach((el) => el.addEventListener('click', () => document.getElementById('img-product').style.backgroundImage = el.style.backgroundImage ));
+
+document.getElementById('plus').addEventListener('click', () => { document.getElementById('result').value = document.getElementById('result').value * 1 + 1 } );
+document.getElementById('minus').addEventListener('click', () => {
+    let result = document.getElementById('result').value;
+    if (result > 1) document.getElementById('result').value = result * 1 - 1 } );
+
+</script>
+{#<script>
+
+
+ window.addEventListener('load', function () {
+
+     /*jsRequire('https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.2/dist/index.bundle.min.js');*/
+
+     /*import Lightbox from 'bs5-lightbox';*/
+
+/*const options = {
+	keyboard: true,
+	size: 'fullscreen'
+};
+
+document.querySelectorAll('.my-lightbox-toggle').forEach((el) => el.addEventListener('click', (e) => {
+	e.preventDefault();
+	const lightbox = new Lightbox(el, options);
+	lightbox.show();
+}));*/
+ });
+</script>#}
+
+{% endblock %}
+

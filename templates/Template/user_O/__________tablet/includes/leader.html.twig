@@ -1,0 +1,32 @@
+{#<nav class="nav">
+	<a class="nav-link active" aria-current="page" href="#">Active</a>
+	<a class="nav-link" href="#">Link</a>
+	<a class="nav-link" href="#">Link</a>
+	<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+</nav>#}
+
+
+
+
+
+	<ul class="leader list-group list-group-flush list-group-numbered ">
+
+		{% for card in leader %}
+
+			{#{% set arr_property = card.category_section_field|json_decode %}#}
+
+			<li class="list-group-item bg-transparent border-0 text-truncate rounded-5">
+
+				<a href="{{ path('products-product:user.model', {
+					category: card.category_url,
+					url: card.url
+				}) }}"
+				   class="text-decoration-none text-dark "
+				   title="{{ card.product_name }}"
+				>
+					{{ card.product_name }}
+				</a>
+			</li>
+		{% endfor %}
+
+	</ul>

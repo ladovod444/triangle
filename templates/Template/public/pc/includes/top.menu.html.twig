@@ -1,0 +1,193 @@
+{% set route = app.request.get('_route') %}
+
+<nav class="navbar navbar-expand navbar-dark rounded-4 p-2 mt-4 bg-primary text-uppercase fw-bold">
+	
+	<div class="navbar-nav justify-content-between flex-grow-1 p-1">
+		
+		<a class="nav-link rounded-3 px-3 text-white{{ route == 'core:user.homepage' ? ' active' }}"
+				href="{{ path('core:user.homepage') }}">
+			{{ 'breadcrumb.homepage.user'|trans({}, 'pages') }}
+		</a>
+		
+		{#  <a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.catalog.category' ? ' active' }}"
+               href="{{ path('products-product:user.catalog.category') }}">Продукция</a> #}
+		
+		
+		
+		{% if baks_user_menu is defined %}
+		
+		
+		
+		{% if baks_user_menu|length > 1 %}
+		
+		<a href='#'
+				class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.catalog.category' ? ' active' }}"
+				type="button"
+				id="dropdownMenu2"
+				data-bs-toggle="dropdown"
+				aria-expanded="false">
+			Каталог
+		</a>
+		
+		<div class="dropdown-menu w-100 rounded-3 p-4">
+			
+			<div class="d-flex align-items-start">
+				
+				<ul class=" leader list-group list-group-flush gap-3 nav-mouse"
+						id="v-pills-tab"
+						role="tablist"
+						aria-orientation="vertical">
+					
+					
+					{% set parent_active = false %}
+					
+					{% for key, menu in baks_user_menu %}
+						
+						
+						{% set menu_active = '' %}
+						
+						{% if category.parent_category_url is defined %}
+							{% set menu_active = (menu.category_url == category.category_url or menu.category_url == category.parent_category_url) ? 'active' : '' %}
+							
+							{% if menu.category_url == category.category_url or menu.category_url == category.parent_category_url %}
+								{% set parent_active = menu.category_url %}
+							{% endif %}
+						
+						{% endif %}
+						
+						
+						<li class="list-group-item bg-transparent border-0 text-truncate rounded-5 {{ menu_active }}"
+								
+								id="{{ key }}-tab"
+								data-bs-target="#v-pills-{{ key }}"
+								aria-controls="v-pills-{{ key }}"
+								aria-selected="{{ loop.first ? 'true' : 'false' }}"
+								title="{{ menu.category_name }}"
+								style='margin-top: 0 !important;'
+						
+						>
+							
+							<a href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}"
+									class="text-decoration-none text-dark d-flex gap-3 align-items-center w-100 justify-content-start">
+								
+
+								{# Обложка  #}
+								{% set image_path = '/assets/img/blank.svg' %}
+
+								{% if menu.category_cover_ext is defined and menu.category_cover_ext is not null %}
+									{% set img_host = menu.category_cover_cdn == true  ? CDN_HOST : '' %}
+									{% set img_dir = menu.category_cover_dir %}
+									{% set img_file = (img_host is empty ? '/image.' : '/small.') ~ menu.category_cover_ext %}
+									{% set image_path = img_host ~ img_dir ~ img_file %}
+								{% endif %}
+
+								<div>
+										<span class="icon rounded-circle bg-contain lazy p-1"
+												style="width: 43px; height: 43px;"
+												data-bg="{{ image_path }}"
+										>
+										</span>
+								</div>
+								
+								{{ menu.category_name }}
+							</a>
+						</li>
+					{% endfor %}
+				
+				</ul>
+				
+				<div class="tab-content ms-5 w-100">
+				
+				{% for key, menu in baks_user_menu %}
+					
+					<div class="tab-pane {{ parent_active ?  (menu.category_url == parent_active ? 'show active') : loop.first ? 'show active' }}"
+							id="v-pills-{{ key }}"
+							tabindex="0">
+						
+						<div class='d-flex w-100 flex-wrap gap-3'>
+							
+							
+							{% set parent_category = menu.parent_category|json_decode %}
+							
+							{% for parent in parent_category %}
+								
+								{% if parent.parent_category_counter %}
+									<a href="{{ path('products-product:user.catalog.category', { category : parent.parent_category_url }) }}"
+											class="text-decoration-none text-dark justify-content-start small text-decoration-none"
+											style='width: 23%;'>
+										{{ parent.parent_category_name }}
+										<span class='small text-muted ms-3'>{{ parent.parent_category_counter }}</span>
+									</a>
+								{% endif %}
+							
+							{% endfor %}
+						</div>
+					</div>
+				{% endfor %}
+			
+			</div>
+		</div>
+		
+		
+		{# ОДНОУРОВНЕВОЕ МЕНЮ   #}
+		{# {{ dd(baks_user_menu) }} #}
+		
+		{# <ul class="leader list-group list-group-flush list-group-horizontal flex-wrap gap-3">
+						
+						{% for menu in baks_user_menu %}
+							<li class="list-group-item bg-transparent border-0 text-truncate rounded-5"
+									style='width: 32%;'>
+								
+								<a href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}"
+										class="text-decoration-none text-dark d-flex gap-3 align-items-center w-100 justify-content-start"
+										title="{{ menu.category_name }}">
+									
+
+									<div>
+										<span class="icon rounded-circle bg-cover lazy p-1"
+												style="width: 43px; height: 43px;"
+												data-bg="{{ menu.category_cover_dir ? img_path ~ menu.category_cover_dir ~ category_cover_ext : '/assets/img/blank.svg' }}"
+										>
+										</span>
+									</div>
+									
+									{{ menu.category_name }}
+								</a>
+							
+							</li>
+						{% endfor %}
+					</ul> #}
+	</div>
+	
+	{% else %}
+		{% for menu in baks_user_menu %}
+			<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.catalog.category' ? ' active' }}"
+					href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}">
+				Каталог
+			</a>
+		{% endfor %}
+	{% endif %}
+	
+	{% endif %}
+	
+	
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.about' ? ' active' }}"
+			href="{{ path('about:public.index') }}">О компании</a>
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'delivery:user.delivery' ? ' active' }}"
+			href="{{ path('delivery:user.delivery') }}">Доставка</a>
+
+		<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.services' ? ' active' }}"
+		   href="{{ path('services:public.index') }}">Шиномонтаж</a>
+
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.wholesale' ? ' active' }}"
+			href="{{ path('wholesale:public.index') }}">Опт</a>
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.guaranty' ? ' active' }}"
+			href="{{ path('guaranty:public.index') }}">Гарантия</a>
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.calc' ? ' active' }}"
+			href="{{ path('calc:public.index') }}">Шинный калькулятор</a>
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'contacts-region:user.contact' ? ' active' }}"
+			href="{{ path('contacts-region:user.contact') }}">Контакты</a>
+	</div>
+
+</nav>
+

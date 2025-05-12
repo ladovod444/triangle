@@ -1,0 +1,32 @@
+<div class="modal fade cart-modal" id="cartModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content p-3 border-bottom border-5 border-primary">
+			<form action="#">
+				<div class="modal-header">
+					<h3 class="modal-title">Товар добавлен<br> в корзину</h3>
+					<ul class="modal-link-list">
+						<li class="modal-link-list__item">
+							<a href="{{ path('orders-order:user.orders') }}" title="Перейти в корзину">Перейти в корзину</a>
+						</li>
+					</ul>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" title="Закрыть"></button>
+				</div>
+				<div class="modal-body">
+					<ul class="cart-modal-list">
+						<li class="cart-modal-list__item">
+							<span class="text">Позиций в корзине:</span>
+							<span class="number">1</span>
+						</li>
+						<li class="cart-modal-list__item">
+							<span class="text">На сумму:</span>
+							<span class="number"><strong>27 000 РУБ.</strong></span>
+						</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

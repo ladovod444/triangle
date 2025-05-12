@@ -1,0 +1,356 @@
+<header class="py-4 shadow" id="site-header">
+	<div class="container">
+		<div class="d-flex justify-content-between">
+			<div class="d-flex align-content-start mb-1 small">
+				<a href="tel:+7(495)260-17-17" class="me-2 text-decoration-none text-dark h6 fw-bolder">
+					+7 (495) 260-17-17
+				</a>
+				<span class="small phone-description">(Звонок бесплатный)</span>
+			</div>
+		</div>
+
+		
+		<div class="row">
+			<div class="col-8" style="height: 38px;">
+				<a href="{{ path('core:user.homepage') }}" title="Главная">
+					<img src="/logo.webp"
+						 width="432" height="100"
+						 alt="..."
+						 class="img-fluid w-100">
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="position-relative">
+
+		<nav class="navbar position-fixed top-0 end-0 z-index-5">
+
+			<div class="d-flex flex-column">
+				<button class="btn btn-primary rounded-circle shadow mt-3 mx-3"
+						data-bs-toggle="offcanvas"
+						data-bs-target="#offcanvasNavbar"
+						aria-controls="offcanvasNavbar"
+						title="Меню пользователя"
+						style="width: 50px; height: 50px">
+
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+						 class="text-white"
+						 viewBox="0 0 16 16">
+						<path fill-rule="evenodd"
+							  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+					</svg>
+				</button>
+
+				{% if baks_basket is defined %}
+
+					{# КОРЗИНА #}
+					<a href="{{ path('orders-order:user.basket') }}"
+							class="btn rounded-circle shadow m-3 pt-2 bg-white position-relative"
+					        title="Корзина"
+							style="width: 50px; height: 50px">
+
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+								class="text-muted mt-1" viewBox="0 0 16 16">
+							<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+						</svg>
+
+						<div class="position-absolute top-0 bg-danger rounded-circle text-white ms-4 small-sm d-flex align-items-center justify-content-center {{ baks_basket.counter > 0 ?:'d-none' }}"
+								style="width: 16px; height: 16px;">
+							<span>{{ baks_basket.counter }}</span>
+						</div>
+					</a>
+
+				{% endif %}
+
+			</div>
+
+
+
+
+
+
+			<div class="offcanvas text-bg-dark offcanvas-end w-75 bg-primary" tabindex="-1" id="offcanvasNavbar">
+
+				<div class="offcanvas-header py-0">
+					<div></div>
+
+					<button type="button" class="btn btn-close rounded-circle shadow m-3 pt-2 bg-white"
+							data-bs-dismiss="offcanvas" title="Закрыть"
+							style="width: 30px; height: 30px">
+					</button>
+				</div>
+
+				<div class="offcanvas-body">
+
+					<ul class="navbar-nav navbar-dark justify-content-end flex-grow-1 pe-3 gap-3">
+
+
+						{% if app.user %}
+
+						{% else %}
+
+
+
+							<li class="nav-item">
+								<a href="{{ path('auth-email:user.login') }}"
+								   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+								   title="Войти в кабинет"
+								>
+
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+											class="bi bi-lock" viewBox="0 0 16 16">
+										<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+									</svg>
+
+									<span class="ms-3 text-uppercase fw-bolder small">Войти в кабинет</span>
+								</a>
+							</li>
+
+						{% endif %}
+
+
+
+						<li class="nav-item">
+							<a href="{{ path('core:user.homepage') }}"
+							   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+							   title="Главная"
+							>
+
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+									 viewBox="0 0 16 16">
+									<path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z" />
+								</svg>
+
+								<span class="ms-3 text-uppercase fw-bolder small">Главная</span>
+							</a>
+						</li>
+
+
+
+						{% if baks_user_menu is defined %}
+
+						{% if baks_user_menu|length > 1 %}
+
+
+							<li class="nav-item dropdown">
+
+								<a class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+										 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+										 width="16" height="16" fill="currentColor"
+										 viewBox="0 0 254.532 254.532"
+									>
+										<path d="M127.267,0C57.092,0,0,57.091,0,127.266s57.092,127.266,127.267,127.266c70.174,0,127.266-57.091,127.266-127.266   S197.44,0,127.267,0z M127.267,217.656c-49.922,0-90.391-40.468-90.391-90.39s40.469-90.39,90.391-90.39   c49.92,0,90.39,40.468,90.39,90.39S177.186,217.656,127.267,217.656z" />
+										<path d="M127.267,48.578c-43.39,0-78.689,35.299-78.689,78.688c0,43.389,35.3,78.688,78.689,78.688   c43.389,0,78.688-35.299,78.688-78.688C205.955,83.877,170.655,48.578,127.267,48.578z M195.878,122.249h-38.18   c-0.78-4.825-2.686-9.275-5.435-13.079l26.954-26.954C188.679,93.112,194.771,106.996,195.878,122.249z M132.204,58.648   c15.244,1.087,29.123,7.156,40.025,16.591l-26.948,26.949c-3.804-2.748-8.253-4.653-13.077-5.433V58.648z M122.329,58.648v38.106   c-4.824,0.78-9.274,2.685-13.078,5.434L82.302,75.24C93.204,65.805,107.085,59.735,122.329,58.648z M75.313,82.217l26.955,26.954   c-2.749,3.803-4.654,8.253-5.434,13.077h-38.18C59.761,106.996,65.853,93.113,75.313,82.217z M58.643,132.123h38.192   c0.779,4.824,2.685,9.274,5.434,13.078l-27.029,27.029C65.788,161.308,59.714,147.398,58.643,132.123z M122.329,195.884   c-15.285-1.09-29.197-7.188-40.113-16.666l27.035-27.035c3.804,2.749,8.254,4.654,13.078,5.434V195.884z M122.329,147.459v0.072   c-2.131-0.518-4.131-1.36-5.953-2.474l0.047-0.047c-2.85-1.738-5.244-4.132-6.982-6.983l-0.046,0.046   c-1.114-1.822-1.956-3.821-2.474-5.952h0.071c-0.385-1.585-0.611-3.233-0.611-4.937c0-1.704,0.227-3.352,0.611-4.937h-0.071   c0.518-2.13,1.359-4.129,2.474-5.951l0.046,0.046c1.738-2.85,4.133-5.245,6.982-6.982l-0.047-0.047   c1.822-1.114,3.822-1.957,5.953-2.474v0.072c1.586-0.385,3.233-0.612,4.938-0.612s3.352,0.227,4.938,0.612v-0.072   c2.131,0.518,4.13,1.359,5.951,2.473l-0.047,0.047c2.851,1.737,5.245,4.132,6.983,6.982l0.046-0.046   c1.115,1.822,1.957,3.822,2.475,5.953h-0.071c0.385,1.585,0.611,3.233,0.611,4.937c0,1.704-0.227,3.352-0.611,4.937h0.071   c-0.518,2.131-1.359,4.131-2.475,5.953l-0.046-0.046c-1.738,2.85-4.133,5.244-6.983,6.982l0.047,0.046   c-1.821,1.114-3.82,1.956-5.951,2.474v-0.072c-1.586,0.385-3.233,0.612-4.938,0.612S123.915,147.845,122.329,147.459z    M132.204,195.884v-38.267c4.824-0.78,9.273-2.685,13.077-5.433l27.034,27.034C161.4,188.696,147.488,194.794,132.204,195.884z    M179.292,172.23l-27.028-27.028c2.749-3.804,4.654-8.254,5.435-13.079h38.191C194.818,147.398,188.745,161.308,179.292,172.23z" />
+									</svg>
+
+									<span class="ms-3 text-uppercase fw-bolder small">Каталог</span> &nbsp;
+								</a>
+
+								<ul class="dropdown-menu dropdown-menu-dark text-bg-primary border-0 gap-3">
+									{% for menu in baks_user_menu %}
+
+										<li class="nav-item mb-1">
+											<a href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}"
+											   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+											   title="{{ menu.category_name }}"
+											>
+												<span class="ms-3 text-uppercase fw-bolder small"></span>
+
+												<span class="ms-3 text-uppercase fw-bolder small">{{ menu.category_name }}</span>
+											</a>
+										</li>
+
+									{% endfor %}
+
+
+								</ul>
+							</li>
+
+
+
+							{% else  %}
+
+								{% for menu in baks_user_menu %}
+
+									<li class="nav-item">
+										<a href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}"
+										   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+										   title="{{ menu.category_name }}"
+										>
+
+											<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+												 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+												 width="16" height="16" fill="currentColor"
+												 viewBox="0 0 254.532 254.532"
+											>
+
+												<path d="M127.267,0C57.092,0,0,57.091,0,127.266s57.092,127.266,127.267,127.266c70.174,0,127.266-57.091,127.266-127.266   S197.44,0,127.267,0z M127.267,217.656c-49.922,0-90.391-40.468-90.391-90.39s40.469-90.39,90.391-90.39   c49.92,0,90.39,40.468,90.39,90.39S177.186,217.656,127.267,217.656z" />
+												<path d="M127.267,48.578c-43.39,0-78.689,35.299-78.689,78.688c0,43.389,35.3,78.688,78.689,78.688   c43.389,0,78.688-35.299,78.688-78.688C205.955,83.877,170.655,48.578,127.267,48.578z M195.878,122.249h-38.18   c-0.78-4.825-2.686-9.275-5.435-13.079l26.954-26.954C188.679,93.112,194.771,106.996,195.878,122.249z M132.204,58.648   c15.244,1.087,29.123,7.156,40.025,16.591l-26.948,26.949c-3.804-2.748-8.253-4.653-13.077-5.433V58.648z M122.329,58.648v38.106   c-4.824,0.78-9.274,2.685-13.078,5.434L82.302,75.24C93.204,65.805,107.085,59.735,122.329,58.648z M75.313,82.217l26.955,26.954   c-2.749,3.803-4.654,8.253-5.434,13.077h-38.18C59.761,106.996,65.853,93.113,75.313,82.217z M58.643,132.123h38.192   c0.779,4.824,2.685,9.274,5.434,13.078l-27.029,27.029C65.788,161.308,59.714,147.398,58.643,132.123z M122.329,195.884   c-15.285-1.09-29.197-7.188-40.113-16.666l27.035-27.035c3.804,2.749,8.254,4.654,13.078,5.434V195.884z M122.329,147.459v0.072   c-2.131-0.518-4.131-1.36-5.953-2.474l0.047-0.047c-2.85-1.738-5.244-4.132-6.982-6.983l-0.046,0.046   c-1.114-1.822-1.956-3.821-2.474-5.952h0.071c-0.385-1.585-0.611-3.233-0.611-4.937c0-1.704,0.227-3.352,0.611-4.937h-0.071   c0.518-2.13,1.359-4.129,2.474-5.951l0.046,0.046c1.738-2.85,4.133-5.245,6.982-6.982l-0.047-0.047   c1.822-1.114,3.822-1.957,5.953-2.474v0.072c1.586-0.385,3.233-0.612,4.938-0.612s3.352,0.227,4.938,0.612v-0.072   c2.131,0.518,4.13,1.359,5.951,2.473l-0.047,0.047c2.851,1.737,5.245,4.132,6.983,6.982l0.046-0.046   c1.115,1.822,1.957,3.822,2.475,5.953h-0.071c0.385,1.585,0.611,3.233,0.611,4.937c0,1.704-0.227,3.352-0.611,4.937h0.071   c-0.518,2.131-1.359,4.131-2.475,5.953l-0.046-0.046c-1.738,2.85-4.133,5.244-6.983,6.982l0.047,0.046   c-1.821,1.114-3.82,1.956-5.951,2.474v-0.072c-1.586,0.385-3.233,0.612-4.938,0.612S123.915,147.845,122.329,147.459z    M132.204,195.884v-38.267c4.824-0.78,9.273-2.685,13.077-5.433l27.034,27.034C161.4,188.696,147.488,194.794,132.204,195.884z    M179.292,172.23l-27.028-27.028c2.749-3.804,4.654-8.254,5.435-13.079h38.191C194.818,147.398,188.745,161.308,179.292,172.23z" />
+											</svg>
+
+											<span class="ms-3 text-uppercase fw-bolder small">Каталог</span>
+										</a>
+									</li>
+
+								{% endfor %}
+							{% endif %}
+
+
+						{% endif %}
+
+
+						<li class="nav-item">
+							<a href="{{ path('core:search') }}"
+							   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+							   title="Поиск"
+							>
+
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+									<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+								</svg>
+
+								<span class="ms-3 text-uppercase fw-bolder small">Поиск</span>
+							</a>
+						</li>
+
+
+						<li class="nav-item">
+							<a href="{{ path('pages:user.services') }}"
+							   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+							   title="Шиномонтаж"
+							>
+
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wrench-adjustable-circle" viewBox="0 0 16 16">
+									<path d="M12.496 8a4.5 4.5 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11q.04.3.04.61"/>
+									<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-1 0a7 7 0 1 0-13.202 3.249l1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.5 4.5 0 0 1-1.592-.29L4.747 14.2A7 7 0 0 0 15 8m-8.295.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27z"/>
+								</svg>
+
+								<span class="ms-3 text-uppercase fw-bolder small">Шиномонтаж</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ path('pages:user.about') }}"
+							   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+							   title="О компании"
+							>
+
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										 class="bi bi-info-circle" viewBox="0 0 16 16">
+										<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+										<path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+									</svg>
+
+								<span class="ms-3 text-uppercase fw-bolder small">О компании</span>
+							</a>
+						</li>
+
+
+						<li class="nav-item">
+							<a href="{{ path('delivery:user.delivery') }}" class="btn nav-link btn-primary active rounded-4 px-2  text-start w-100"
+							   title="Доставка"
+							  >
+
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										 class="bi bi-truck" viewBox="0 0 16 16">
+										<path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+									</svg>
+
+								<span class="ms-3 text-uppercase fw-bolder small">Доставка</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ path('pages:user.wholesale') }}"
+							   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+							   title="Опт"
+							   >
+
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										 class="bi bi-boxes" viewBox="0 0 16 16">
+										<path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z"></path>
+									</svg>
+
+								<span class="ms-3 text-uppercase fw-bolder small">Опт</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ path('pages:user.guaranty') }}"
+							   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+							   title="Гарантия" >
+
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										 class="bi bi-shield-check" viewBox="0 0 16 16">
+										<path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z" />
+										<path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+									</svg>
+
+								<span class="ms-3 text-uppercase fw-bolder small">Гарантия</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ path('pages:user.calc') }}" class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+							   title="Шинный калькулятор"
+							   >
+
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										 class="bi bi-calculator" viewBox="0 0 16 16">
+										<path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+										<path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+									</svg>
+
+								<span class="ms-3 text-uppercase fw-bolder small">Шинный калькулятор</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ path('contacts-region:user.contact') }}" class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+							   title="Контакты"
+							   >
+
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										 class="bi bi-geo-alt" viewBox="0 0 16 16">
+										<path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+										<path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+									</svg>
+
+								<span class="ms-3 text-uppercase fw-bolder small">Контакты</span>
+							</a>
+						</li>
+
+
+						{% if app.user %}
+							<li class="nav-item">
+
+								<a href="{{ path('auth-email:user.logout') }}"
+								   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+								   title="Контакты"
+								>
+
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-escape" viewBox="0 0 16 16">
+										<path d="M8.538 1.02a.5.5 0 1 0-.076.998 6 6 0 1 1-6.445 6.444.5.5 0 0 0-.997.076A7 7 0 1 0 8.538 1.02Z"/>
+										<path d="M7.096 7.828a.5.5 0 0 0 .707-.707L2.707 2.025h2.768a.5.5 0 1 0 0-1H1.5a.5.5 0 0 0-.5.5V5.5a.5.5 0 0 0 1 0V2.732l5.096 5.096Z"/>
+									</svg>
+
+									<span class="ms-3 text-uppercase fw-bolder small">Выход</span>
+								</a>
+							</li>
+						{% endif %}
+
+					</ul>
+					{# <form class="d-flex mt-3" role="search">
+						<input class="form-control me-2" type="search" placeholder="Search" title="Search">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</form> #}
+				</div>
+			</div>
+
+		</nav>
+	</div>
+
+</header>
+

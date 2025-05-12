@@ -1,0 +1,62 @@
+<div class="bg-light rounded-4 p-2 mt-3">
+
+    <ul class="list-group list-group-flush list-group-numbered">
+
+
+        {% for card in leader %}
+
+            {#{% set arr_property = card.category_section_field|json_decode %}#}
+
+            <li class="list-group-item bg-transparent border-0 text-truncate">
+
+                <a href="{{ path('products-product:user.model', {
+                    category: card.category_url,
+                    url: card.url
+                }) }}"
+                   class="text-decoration-none text-dark "
+                   title="{{ card.product_name }}"
+                >
+                    {{ card.product_name }}
+                </a>
+            </li>
+        {% endfor %}
+
+    </ul>
+</div>
+
+{#
+
+<ul class="list-group list-group-flush list-group-numbered ">
+
+
+    <li class="list-group-item bg-transparent border-0 text-truncate">
+        <a href="#" class="text-decoration-none text-dark" title="Sailun Ice Blazer WST3">Sailun Ice Blazer WST3</a>
+    </li>
+    <li class="list-group-item bg-transparent border-0 text-truncate">
+        <a href="#" class="text-decoration-none text-dark" title="Triangle TI501 IceLynX">Triangle TI501 IceLynX</a>
+    </li>
+    <li class="list-group-item bg-transparent border-0 text-truncate">
+        <a href="#" class="text-decoration-none text-dark" title="Kormoran Snow">Kormoran Snow</a>
+    </li>
+    <li class="list-group-item bg-transparent border-0 text-truncate">
+        <a href="#" class="text-decoration-none text-dark" title="Cordiant Snow Cross">Cordiant Snow Cross</a>
+    </li>
+    <li class="list-group-item bg-transparent border-0 text-truncate">
+        <a href="#" class="text-decoration-none text-dark" title="Windforce Snowblazer UHP">Windforce Snowblazer UHP</a>
+    </li>
+    <li class="list-group-item bg-transparent border-0 text-truncate">
+        <a href="#" class="text-decoration-none text-dark" title="Windforce Snowblazer">Windforce Snowblazer</a>
+    </li>
+    <li class="list-group-item bg-transparent border-0 text-truncate">
+        <a href="#" class="text-decoration-none text-dark" title="Triangle PL02">Triangle PL02</a>
+    </li>
+    <li class="list-group-item bg-transparent border-0 text-truncate">
+        <a href="#" class="text-decoration-none text-dark" title="Sailun Ice Blazer Alpine Evo 1">Sailun Ice Blazer
+            Alpine Evo 1</a>
+    </li>
+    <li class="list-group-item bg-transparent border-0 text-truncate">
+        <a href="#" class="text-decoration-none text-dark" title="Viatti Brina Nordico">Viatti Brina Nordico</a>
+    </li>
+</ul>
+</div>
+#}

@@ -1,0 +1,12 @@
+ru: Русский
+en: English
+app:
+  success: 'Успешно'
+  danger: 'Ошибка'
+  warning: 'Предупреждение'
+btn:
+  save: 'Сохранить'
+  delete: 'Удалить'
+breadcrumb:
+  homepage:
+    user: 'Главная'

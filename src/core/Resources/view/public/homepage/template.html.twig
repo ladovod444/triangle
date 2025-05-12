@@ -1,0 +1,26 @@
+{% extends Template('/public/base.html.twig') %}
+
+{% block title %}
+	Официальный магазин шин Triangle (Триангл)
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+	{{ include(_self|replace({ "template.html.twig" : baks_settings.device~"/content.html.twig" })) }}
+
+{% endblock %}
+
+{% block javascript %}
+<script nonce="{{ csp_nonce() }}" data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}' class='lazy'></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/js/radio.input.min.js?v={{ version }}" class="lazy"></script>
+<script nonce="{{ csp_nonce() }}" data-src='/assets/reference-cars/cars_filter.min.js?v={{ version }}' class='lazy'></script>
+
+{# Для корзины #}
+<script nonce="{{ csp_nonce() }}" data-src="/assets/orders-order/modal_basket.min.js?v={{ version }}" class='lazy'></script>
+{#<script nonce="{{ csp_nonce() }}" data-src="/assets/orders-order/orders_basket.min.js?v={{ version }}" class='lazy'></script>#}
+
+{% endblock %}

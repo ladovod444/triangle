@@ -1,0 +1,323 @@
+<section id="calc">
+
+	<h1 class="h4 text-uppercase fw-bolder py-2">Шинный калькулятор</h1>
+
+	<div class="d-flex justify-content-between gap-5">
+
+		<div class="w-100 d-flex justify-content-start flex-column">
+
+			<div class="d-flex justify-content-between gap-4">
+
+				<div class="w-100 d-flex gap-3">
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							 class="text-primary" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
+						</svg>
+					</div>
+					<div>
+						<h2 class="my-1 h6 mb-3">Для чего нужен шинный калькулятор</h2>
+
+						<p>С помощью этого шинного калькулятора вы легко можете посчитать
+							как изменятся: внешние размеры
+							колеса, высота дорожного просвета (клиренс), показания спидометра и другие
+							характеристики, при установке шин с
+							другим типоразмером на ваш автомобиль.</p>
+					</div>
+
+				</div>
+
+				<div class="w-100 d-flex gap-3">
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							 class="text-primary" viewBox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
+						</svg>
+					</div>
+					<div>
+						<h3 class="my-1 h6 mb-3">Как пользоваться</h3>
+
+						<p>Введите сначала типоразмер установленный на вашем автомобиле, а
+							затем тот, который вы хотите
+							установить
+							и нажмите «Рассчитать».</p>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="d-flex justify-content-between gap-3">
+				<hr class="w-100">
+				<hr class="w-100">
+			</div>
+
+			<div class="d-flex justify-content-between gap-3">
+				<div class="w-100 lazy" data-bg="/assets/calc/img/calc-1.webp" style="background-repeat: no-repeat;">
+					{# <img data-src="/assets/calc/img/calc-1.webp" src="/assets/img/empty.png"
+							 class="lazy img-fluid"
+							 alt="..."
+						> #}
+				</div>
+
+				<div class="w-100 d-flex flex-column justify-content-between">
+
+					<div>
+						<div class="mb-3 d-flex gap-3 align-items-center">
+							<label for="oldWidth" class="w-50">Старый размер:</label>
+
+							<div class=" d-flex align-items-center gap-2 w-100">
+								<select id="oldWidth" aria-label="Старый размер" class=" form-select rounded-4 w-75px">
+									<option value="145">145</option>
+									<option value="155">155</option>
+									<option value="165">165</option>
+									<option value="175" selected>175</option>
+									<option value="185">185</option>
+									<option value="195">195</option>
+									<option value="205">205</option>
+									<option value="215">215</option>
+									<option value="225">225</option>
+									<option value="235">235</option>
+									<option value="245">245</option>
+									<option value="255">255</option>
+									<option value="265">265</option>
+									<option value="275">275</option>
+									<option value="285">285</option>
+									<option value="295">295</option>
+									<option value="305">305</option>
+									<option value="315">315</option>
+									<option value="325">325</option>
+								</select>
+
+								<span>/</span>
+								<select id="oldProfile" class=" form-select rounded-4 w-75px"
+										aria-label="Старый профиль">
+									<option value="0">—</option>
+									<option value="30">30</option>
+									<option value="35">35</option>
+									<option value="40">40</option>
+									<option value="45">45</option>
+									<option value="50">50</option>
+									<option value="55">55</option>
+									<option value="60">60</option>
+									<option value="65">65</option>
+									<option value="70" selected>70</option>
+									<option value="75">75</option>
+									<option value="80">80</option>
+									<option value="85">85</option>
+								</select>
+
+								<span>R</span>
+								<select id="oldRadius" class=" form-select rounded-4 w-75px"
+										aria-label="Старый радиус">
+									<option value="12">12</option>
+									<option value="13" selected>13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="mb-3 d-flex gap-3 align-items-center">
+							<label for="newWidth" class="w-50">Новый размер:</label>
+							<div class=" d-flex align-items-center gap-2 w-100">
+								<select id="newWidth" class=" form-select rounded-4 w-75px"
+										aria-label="Новый размер">
+									<option value="145">145</option>
+									<option value="155">155</option>
+									<option value="165">165</option>
+									<option value="175" selected>175</option>
+									<option value="185">185</option>
+									<option value="195">195</option>
+									<option value="205">205</option>
+									<option value="215">215</option>
+									<option value="225">225</option>
+									<option value="235">235</option>
+									<option value="245">245</option>
+									<option value="255">255</option>
+									<option value="265">265</option>
+									<option value="275">275</option>
+									<option value="285">285</option>
+									<option value="295">295</option>
+									<option value="305">305</option>
+									<option value="315">315</option>
+									<option value="325">325</option>
+								</select>
+
+								<span>/</span>
+								<select id="newProfile" class=" form-select rounded-4 w-75px"
+										aria-label="Новый профиль">
+									<option value="0">—</option>
+									<option value="30">30</option>
+									<option value="35">35</option>
+									<option value="40">40</option>
+									<option value="45">45</option>
+									<option value="50">50</option>
+									<option value="55">55</option>
+									<option value="60">60</option>
+									<option value="65">65</option>
+									<option value="70" selected>70</option>
+									<option value="75">75</option>
+									<option value="80">80</option>
+									<option value="85">85</option>
+								</select>
+
+								<span>R</span>
+								<select id="newRadius" class=" form-select rounded-4 w-75px"
+										aria-label="Новый радиус">
+									<option value="12">12</option>
+									<option value="13" selected>13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="my-3">
+
+							<button type="button"
+									class="btn btn-lg btn-danger px-5 rounded-3 small text-uppercase fw-bolder align-items-center"
+							>
+								<span class="small text-uppercase fw-bolder">Рассчитать</span>
+								<span id="indicator-calc" class="spinner-border spinner-border-sm d-none" role="status"
+									  aria-hidden="true" aria-label="Рассчитать"></span>
+							</button>
+
+						</div>
+
+					</div>
+
+					<hr>
+
+					<div class="w-100 d-flex gap-3">
+						<div>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-primary" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"></path></svg>
+						</div>
+
+						<p>Разница в показаниях спидометра и реальной скоростью зависит от скорости автомобиля, чем
+							больше скорость, тем больше разница</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="w-50">
+
+			<div class="border rounded-4 px-3 py-1 small mb-3">
+
+				<table class="table table-striped table-borderless">
+					<thead>
+					<tr class="small">
+						<th>Внешние размеры</th>
+						<th>Старый</th>
+						<th>Новый</th>
+						<th>Сравнение</th>
+					</tr>
+					</thead>
+
+					<tbody class="small">
+
+					<tr>
+						<td>Ширина шины, мм (A)</td>
+						<td id="oldA" class="text-center fw-bolder"></td>
+						<td id="newA" class="text-center fw-bolder"></td>
+						<td id="difA" class="text-center fw-bolder"></td>
+					</tr>
+					<tr>
+						<td>Высота профиля, мм (B)</td>
+						<td id="oldB" class="text-center fw-bolder"></td>
+						<td id="newB" class="text-center fw-bolder"></td>
+						<td id="difB" class="text-center fw-bolder">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>Внутренний диаметр, мм (C)</td>
+						<td id="oldC" class="text-center fw-bolder"></td>
+						<td id="newC" class="text-center fw-bolder"></td>
+						<td id="difC" class="text-center fw-bolder"></td>
+					</tr>
+					<tr>
+						<td>Внешний диаметр, мм (D)</td>
+						<td id="oldD" class="text-center fw-bolder"></td>
+						<td id="newD" class="text-center fw-bolder"></td>
+						<td id="difD" class="text-center fw-bolder"></td>
+					</tr>
+					<tr>
+						<td colspan="3">Изменение дорожного просвета, мм</td>
+						<td id="difClearense" class="text-center fw-bolder"></td>
+					</tr>
+
+					</tbody>
+				</table>
+
+				<table class="table table-striped table-borderless">
+
+					<thead>
+					<tr class="small">
+						<th colspan="2" class="text-center">Показания спидометра</th>
+					</tr>
+					</thead>
+					<tbody class="small">
+
+					<tr>
+						<td class="vertical-middle">Показания спидометра, км/ч</td>
+						<td class="text-center">
+							<input type="number" min="1" max="400" value="90" id="oldSpeed"
+								   class="form-control form-control-sm"
+								   aria-label="Показания спидометра"
+								   ></td>
+					</tr>
+
+					<tr>
+						<td>Реальная скорость, км/ч</td>
+						<td id="newSpeed" class="text-center fw-bolder"></td>
+					</tr>
+					<tr>
+						<td>Разница, км/ч</td>
+						<td id="difSpeed" class="text-center fw-bolder"></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="alert alert-warning d-flex small gap-3 rounded-4 p-2" role="alert">
+				<div>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+						 class="text-primary" viewBox="0 0 16 16">
+						<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+					</svg>
+				</div>
+
+				<div class="small lh-normal">
+					<strong>Внимание!</strong> Старайтесь выбирать типоразмер из тех, которые предлагает завод
+					изготовитель автомобиля именно для данной модели автомобиля. Установка нестандартных
+					типоразмеров шин может привезти к негативным результатам. Шина может начать задевать за крыло
+					или подкрылок автомобиля, а так же за другие детали кузова или подвески. Может ухудшиться
+					управляемость и увеличиться нагрузка на подвеску и трансмиссию автомобиля.
+				</div>
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</section>

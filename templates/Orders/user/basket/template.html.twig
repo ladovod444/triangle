@@ -1,0 +1,48 @@
+{% trans_default_domain('user.order') %}
+
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/user/base.html.twig') %}
+
+{% block title %}{{ 'user.page.index'|trans }}{% endblock %}
+
+
+{# ---- CSS ------------------------------------------------------------ #}
+{# {% block stylesheets %} #}
+{#    <link href="{{ path('user_posts_home_css') }}" rel="stylesheet"> #}
+{# {% endblock %} #}
+
+{# ---- HEADER-БЛОК ------------------------------------------------------------ #}
+{# {% block header %}
+    {{ include(_self|replace({ "template.html.twig": "header.html.twig" })) }}
+{% endblock %} #}
+
+
+{# ---- LEFT-БЛОК ------------------------------------------------------------ #}
+{# {% block left %} #}
+{#   {% include '@Template/flowers/left.html.twig' %} #}
+{# {% endblock %} #}
+
+{% set isProducts = baks_basket.counter > 0 ? true : false %}
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+	
+	
+	{{ include(_self|replace({ "template.html.twig":baks_settings.device~"/content.html.twig" })) }}
+	
+	{# CSS #}
+	<div style="display: none !important;"
+			class="tooltip bs-tooltip-bottom bs-tooltip-start bs-tooltip-end tooltip-inner align-items-center align-items-stretch align-self-center badge bg-contain bg-success bi bi-x border border-white btn btn-danger btn-link btn-outline-light btn-sm col col-2 container d-flex float-end form-control form-control-sm fw-bolder h3 h4 h5 icon justify-content-between justify-content-center justify-content-end lazy mb-2 me-1 me-3 mt-1 mx-1 opacity-50 p-1 pt-0 pt-1 pt-3 py-2 rounded-2 rounded-3 rounded-4 row shadow-sm small table text-center text-dark text-decoration-underline text-end text-muted text-primary text-uppercase vertical-middle w-25 alert alert-secondary align-items-center align-items-end align-items-stretch btn btn-danger d-flex flex-column form-check form-check-input form-check-label form-control form-select fw-bolder gap-3 gap-5 h3 h4 justify-content-between justify-content-end lh-1 mb-0 me-3 mt-1 opacity-50 p-2 pt-1 pt-2 py-2 py-4 rounded-4 small text-uppercase w-100 w-25 w-50 w-75"></div>
+{% endblock %}
+
+
+{# ---- FOOTER-БЛОК ------------------------------------------------------------ #}
+{# {% block footer %}
+    {{ include(_self|replace({ "template.html.twig": "footer.html.twig" })) }}
+{% endblock %} #}
+
+ {% block javascript %}
+ <script nonce="{{ csp_nonce() }}" data-src="/assets/order_orders/orders_basket{{ app.environment != 'dev'?'.min' }}.js" class='lazy'></script>
+
+ {% endblock %}
+

@@ -1,0 +1,70 @@
+<div class="card rounded-4 mb-3 mx-1">
+
+	<div class="card-image-wrap overflow-hidden border rounded-4 " style="height: 150px;">
+		<div class="d-flex justify-content-between">
+
+			<div class="btn text-secondary opacity-25 card-favorites px-1 pt-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+					 class="bi bi-heart-fill" viewBox="0 0 16 16">
+					<path fill-rule="evenodd"
+						  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+				</svg>
+			</div>
+
+			<div class="mt-2 me-1">
+				<span class="badge bg-success rounded-2 me-1">Новинка</span>
+				<span class="badge bg-danger rounded-2">Акция</span>
+			</div>
+
+		</div>
+
+		<a href="{{ path('pages:user.detail') }}" class="py-3">
+			<img data-src="/temp/img/card-img/shina-1.webp" src="/assets/img/empty.png" class="lazy card-img-top"
+				 width="250"
+				 alt="Triangle Sports TH201 195/45 R16 84W"> {# style="margin-bottom: -50px;" #}
+		</a>
+
+	</div>
+
+	<div class="card-body p-2">
+		<div class="card-price-wrap d-flex justify-content-between ">
+
+			<span class="fw-bolder h4">4 800 Р.</span>
+			<small class="small text-decoration-line-through text-danger fw-bold">6 000 Р.</small>
+
+			{# <button class="btn btn-sm btn-danger py-0 pb-1 rounded-3" role="button" title="Купить">
+					<span class="px-2">купить</span>
+					<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+						 class="bi bi-cart3" viewBox="0 0 16 16">
+						<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+					</svg>
+				</button> #}
+		</div>
+
+		<div class="small lh-normal fw-bolder">
+			<a href="{{ path('pages:user.detail') }}" class="text-uppercase  text-decoration-none text-dark">
+				Triangle Sports TH201 195/45 R16 84W
+			</a>
+		</div>
+
+		<div class="d-flex justify-content-between">
+
+			<div class="d-flex gap-1 align-items-center">
+				{#{{ include(_self|replace({ "content.html.twig": "rating.html.twig" })) }}#}
+				{% include '@Template/default/user/mobile/includes/rating.html.twig' %}
+				{#<a href="#reviews" class="small ms-2" title="Отзывы" title="Отзывы">9 отзывов</a>#}
+			</div>
+
+			<div>
+				<span class="badge bg-hit rounded-2">Хит</span>
+			</div>
+		</div>
+
+		<div class="card-labels d-flex gap-2 mt-2">
+			<img data-src="/temp/img/sun.png" src="/assets/img/empty.png" class="lazy" alt="..." style="width: 13px; height: 13px;">
+			<img data-src="/assets/img/snowflake.png" src="/assets/img/empty.png" class="lazy" alt="..." style="width: 13px; height: 13px;">
+			<img data-src="/assets/img/sun-2.png" src="/assets/img/empty.png" class="lazy" alt="..." style="width: 13px; height: 13px;">
+			<img data-src="/assets/img/ship.png" src="/assets/img/empty.png" alt="..." class="lazy" style="width: 13px; height: 13px;">
+		</div>
+	</div>
+</div>

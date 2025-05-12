@@ -1,0 +1,103 @@
+<?php
+/*
+ *  Copyright 2023.  Baks.dev <admin@baks.dev>
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is furnished
+ *  to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in all
+ *  copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
+ *
+ *
+ */
+
+namespace Pages\Controller\User;
+
+use Pages\Repository\LiderProduct\LiderProductInterface;
+use Pages\Repository\PageProduct\PageProductInterface;
+use BaksDev\Core\Controller\AbstractController;
+use BaksDev\Orders\Order\UseCase\User\Basket\Add\OrderProductDTO;
+use BaksDev\Orders\Order\UseCase\User\Basket\Add\OrderProductForm;
+use BaksDev\Products\Category\Repository\AllCategory\AllCategoryInterface;
+use BaksDev\Products\Category\Repository\AllCategoryByMenu\AllCategoryByMenuInterface;
+use BaksDev\Products\Category\Type\Id\ProductCategoryUid;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class HomeController extends AbstractController
+{
+	#[Route('/', name: 'user.homepage')]
+	public function index(
+		//AllCategoryInterface $allCategory,
+		PageProductInterface $pageProduct,
+        LiderProductInterface $leaderProduct,
+		AllCategoryByMenuInterface $allCategory,
+
+	) : Response
+	{
+		
+		//dd($allCategory->fetchProductParentAllAssociative());
+		
+		$categorys = $allCategory->fetchAllCatalogMenuAssociative(); //  fetchProductParentAllAssociative()->getData();
+		
+		$blockCategoryProducts = null;
+		
+		$basketForms = null;
+		
+		foreach($categorys as $key => $category)
+		{
+			$blockCategoryProducts[$key] = $pageProduct->fetchPageProductAssociative(new ProductCategoryUid($key));
+			$leaderCategoryProducts[$key] = $leaderProduct->fetchPageProductAssociative(new ProductCategoryUid($key));
+
+			foreach($blockCategoryProducts[$key] as $productCard)
+			{
+				/* Корзина */
+				
+				$AddProductBasketDTO = new OrderProductDTO();
+				$form = $this->createForm(OrderProductForm::class, $AddProductBasketDTO, [
+					'action' => $this->generateUrl('Orders:user.add',
+						[
+							'product' => $productCard['event'],
+							'offer' => $productCard['product_offer_uid'],
+							'variation' => $productCard['product_variation_uid'],
+							'modification' => $productCard['product_modification_uid'],
+						]
+					),
+				]);
+				
+				
+				$basketForms[$productCard['event'].$productCard['product_offer_uid'].$productCard['product_variation_uid'].$productCard['product_modification_uid']] = $form->createView();
+				
+			}
+			
+		}
+		
+		//dd($basketForms);
+
+
+		
+		// Exit
+		return $this->render([
+			'category' => $categorys,
+			'products' => $blockCategoryProducts,
+			'leader' => $leaderCategoryProducts,
+			'basket' => $basketForms,
+		]);
+	}
+	
+}

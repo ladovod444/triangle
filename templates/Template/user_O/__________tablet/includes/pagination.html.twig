@@ -1,0 +1,174 @@
+{% if pagination is defined %}
+
+
+    {% set params = { limit: app.request.get('limit') } %}
+
+
+    {# {{ dump(app.request.get('_route_params')) }} #}
+
+    {% for key, route_params in app.request.get('_route_params') | filter((v, k) => k != '_locale' and k != 'page') %}
+        {% set params =  add_array(key, route_params, params) %}
+    {% endfor %}
+
+
+    {# {% set param_previous = params|merge({ page: pagination.previous}) %}
+	{% set param_next = params|merge({ page: pagination.next }) %} #}
+
+
+
+    {% set param_previous = add_array('page', pagination.previous, params) %}
+    {% set param_next = add_array('page', pagination.next, params) %}
+
+    {# {{ dump(params) }}
+	{{ dump(pagination.previous) }}
+	{{ dump(pagination.next) }}
+	{{ dump(param_previous) }} #}
+    {# {{ dd(param_next) }} #}
+
+    {# {% include(Template('/user/pc/includes/pagination.html.twig') with { 'pagination' : products } ) %} #}
+
+    <nav>
+        <ul class="pagination">
+
+            <li class="page-item">
+
+                {# {{ dd(pagination) }} #}
+
+                {# <a
+					href="{{ path(pagination.path, params) }}"
+					data-dt-idx="0" tabindex="0"
+					class="btn py-1 {{ pagination.previous is not null ? 'btn-outline-light text-dark' : 'btn-outline-light disabled' }}">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+					<path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+				</svg>
+			</a> #}
+
+
+                {% if pagination.previous is null %}
+
+                    <button class="btn btn-sm btn-link shadow me-4 rounded-3 text-muted opacity-25"
+                            disabled='disabled'
+                            title="На первую страницу"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                            <path fill-rule="evenodd"
+                                  d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                        </svg>
+                    </button>
+
+                {% else %}
+
+                    <a class="btn btn-sm btn-link shadow me-4 rounded-3"
+                       href="{{ path(pagination.path, params) }}"
+                       title="На первую страницу"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                            <path fill-rule="evenodd"
+                                  d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                        </svg>
+                    </a>
+
+                {% endif %}
+
+
+            </li>
+
+            <li class="page-item">
+
+
+                {% if pagination.previous is null %}
+
+                    <button class="btn btn-sm btn-link shadow rounded-3 text-muted opacity-25"
+                            disabled='disabled'
+                            title="На предыдущую"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                        </svg>
+                    </button>
+
+                {% else %}
+
+                    <a class="btn btn-sm btn-link shadow rounded-3"
+                       href="{{ path(pagination.path, param_previous) }}"
+                       title="На предыдущую"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                        </svg>
+                    </a>
+
+                {% endif %}
+
+
+            </li>
+
+
+            <li class="page-item">
+
+                {% if pagination.previous is null %}
+                    <button class="btn btn-sm btn-link text-decoration-none text-dark px-5"
+                            disabled='disabled'
+                            title="На первую страницу">Страница {{ pagination.page }}
+                    </button>
+                {% else %}
+                    <a class="btn btn-sm btn-link text-decoration-none text-dark px-5"
+                       href="{{ path(pagination.path, params) }}"
+                       title="На первую страницу">
+                        Страница {{ pagination.page }}
+                    </a>
+                {% endif %}
+
+
+            </li>
+
+            {# {{ dump(pagination.path) }}
+		{{ dd(param_next) }} #}
+
+            <li class="page-item">
+
+                {% if  pagination.next > 0 and pagination.pagination != 0 %}
+
+                    <a class="btn btn-sm btn-link shadow  rounded-3"
+                       href="{{ path(pagination.path, param_next) }}"
+                       title="На следующую"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
+                             viewBox="0 0 16 16" class="fw-bolder">
+                            <path fill-rule="evenodd"
+                                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+                        </svg>
+                    </a>
+
+                {% else %}
+
+                    <button class="btn btn-sm btn-link shadow  rounded-3 text-muted opacity-25"
+                            disabled='disabled'
+                            title="На следующую"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
+                             viewBox="0 0 16 16" class="fw-bolder">
+                            <path fill-rule="evenodd"
+                                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+                        </svg>
+                    </button>
+
+                {% endif %}
+
+
+            </li>
+        </ul>
+    </nav>
+
+{% endif %}

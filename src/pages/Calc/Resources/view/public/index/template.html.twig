@@ -1,0 +1,19 @@
+{% set lgScreen = false %}
+{% extends Template('/public/base.html.twig') %}
+
+{% block title %}
+    Услуги
+{% endblock %}
+
+{% block stylesheets %}
+    <link href="/assets/blackdragon/css/style.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {{ include(_self|replace({ "template.html.twig" : baks_settings.device~"/content.html.twig" })) }}
+{% endblock %}
+
+{% block javascript %}
+
+
+{% endblock %}

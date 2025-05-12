@@ -1,0 +1,60 @@
+{# @var card \BaksDev\Products\Product\Repository\ProductDetailByValue\ProductDetailByValueResult #}
+
+{# Обложка категории  #}
+{% set categoryCover = '/assets/img/blank.svg' %}
+{% if card.categoryCoverCdn is not null %}
+    {% set categoryCover = cdn_image_path(card.categoryCoverPath, card.categoryCoverExt, card.categoryCoverCdn) %}
+{% endif %}
+
+<section class="container">
+
+    {# Полное название продукта #}
+    <h2 class="fs-6 text-uppercase fw-bold ">
+        {{ card.productName }}
+
+        {{ card.productVariationValue|call_twig_func(card.productVariationReference~'_render')
+        ~ card.productModificationValue|call_twig_func(card.productModificationReference~'_render') }}
+
+        {{ card.productOfferValue|call_twig_func(card.productOfferReference~'_render') }}
+
+        {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null )|replace({ '/': '-' }) }}
+    </h2>
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+
+        {# Бейджи #}
+        {% if date() < card.productActiveFrom|date_modify("+1 month") %}
+            <button class="btn btn-success fw-bold rounded-5 fs-8 py-1 px-2">
+                НОВИНКА
+            </button>
+        {% endif %}
+
+        {# Иконки свойств продукта #}
+        <div class="d-flex align-items-center gap-1">
+            {# Свойства #}
+            {% for Field in card.categorySectionField %}
+                {{ Field.field_value|call_twig_func(Field.field_type~'_render') }}
+            {% endfor %}
+        </div>
+    </div>
+
+    {# Изображения #}
+    {% include Template('@products-product/public/'~baks_settings.device~'/images_carousel.html.twig') with {card} only %}
+
+    {# БЛОК С ЦЕНОЙ И КНОПКОЙ ДОБАВЛЕНИЯ В КОРЗИНУ #}
+    {{ include(_self|replace({ "product.html.twig" : "add_basket.html.twig" })) }}
+
+    <hr class="row mb-0">
+
+    {% include Template('@products-product/public/'~baks_settings.device~'/properties_product.html.twig') with {card} only %}
+
+    <hr class="row mb-3">
+
+    {# АЛЬТЕРНАТИВЫ - СПИСОК #}
+    <div class="mb-3">
+        {{ include(_self|replace({ "product.html.twig" : "alternatives.html.twig" })) }}
+    </div>
+
+    {{ render_bestseller(baks_settings.device) }}
+
+</section>

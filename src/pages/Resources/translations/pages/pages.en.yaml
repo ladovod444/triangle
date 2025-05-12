@@ -1,0 +1,15 @@
+ru: Русский
+en: English
+app:
+  success: 'Success'
+  danger: 'Error'
+  warning: 'Warning'
+btn:
+  save: 'Save'
+  delete: 'delete'
+breadcrumb:
+  homepage:
+    user: 'Home'
+
+user:
+  title: 'Home'

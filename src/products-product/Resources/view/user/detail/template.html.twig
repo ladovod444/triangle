@@ -1,0 +1,38 @@
+{# @var card \BaksDev\Products\Product\Repository\ProductDetailByValue\ProductDetailByValueResult #}
+
+{% extends Template('/public/base.html.twig') %}
+
+{% block title %}
+    {{ card.productName }}
+
+    {{ card.productVariationValue|call_twig_func(card.productVariationReference~'_render')
+    ~ card.productModificationValue|call_twig_func(card.productModificationReference~'_render') }}
+
+    {{ card.productOfferValue|call_twig_func(card.productOfferReference~'_render') }}
+
+    {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null )|replace({ '/': '-' }) }}
+
+{% endblock %}
+
+{% block stylesheets %}
+    <link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    {{ include(_self|replace({ "template.html.twig" : baks_settings.device~"/content.html.twig" })) }}
+
+{% endblock %}
+
+{% block javascript %}
+<script nonce='{{ csp_nonce() }}'  data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}' class='lazy'></script>
+
+<script nonce="{{ csp_nonce() }}" data-src="/assets/blackdragon/js/scroll.js" class="lazy"></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/blackdragon/js/clickOnCarousel.js" class="lazy"></script>
+
+{# Для корзины #}
+<script nonce="{{ csp_nonce() }}" data-src="/assets/orders-order/modal_basket.min.js?v={{ version }}" class='lazy'></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/orders-order/orders_basket.min.js?v={{ version }}" class='lazy'></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/orders-order/basket_items.min.js?v={{ version }}" class='lazy'></script>
+
+{% endblock %}

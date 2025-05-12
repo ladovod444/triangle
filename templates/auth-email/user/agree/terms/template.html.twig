@@ -1,0 +1,18 @@
+{% trans_default_domain('agree.terms') %}
+
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('user/base.html.twig') %}
+
+{% block stylesheets %}
+	<meta name="robots" content="none">
+{% endblock %}
+
+{% block title %}{{ 'user.page'|trans }}{% endblock %}
+
+{% set homepage = url('core:user.homepage') %}
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+	{{ include(_self|replace({ "template.html.twig" : (baks_settings.device ?: 'pc') ~ "/content.html.twig" })) }}
+{% endblock %}
+

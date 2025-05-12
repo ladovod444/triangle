@@ -1,0 +1,136 @@
+{# МОДАЛКА С ИЗОБРАЖЕНИЯМИ #}
+
+<div class="modal fade"
+     id="ModalProductCarousel"
+     tabindex="-1"
+     aria-labelledby="ModalProductCarousel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+
+             Карусель
+            <div class="modal-body d-flex align-items-center">
+                <div id="carouselExample" class="carousel carousel-dark slide w-100">
+
+                    <div class="carousel-inner">
+
+                        {% for key, photo in photos %}
+
+                            {% set image_path = '/assets/img/blank.svg' %}
+
+                            {% if photo.product_img_ext is defined and photo.product_img_ext is not null %}
+                                {% set image_path = cdn_image_path(photo.product_img, photo.product_img_ext, photo.product_img_cdn) %}
+                            {% endif %}
+
+                            <div class="carousel-item {{ key == 0 ? 'active' : '' }}">
+                                <img style="height: 50vh; max-height: 100%;"
+                                     src="{{ image_path }}"
+                                     class="d-block m-auto"
+                                     alt="Изображение товара">
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Предыдущий</span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Следующий</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{# LIGHTBOX  #}
+
+{#<div class="w-100">#}
+
+{#    #}{# ГЛАВНОЕ ФОТО #}
+
+{#    {% set product_photo = card.product_images|json_decode %}#}
+{#    {% set root_image = null %}#}
+
+
+{#    {% if root_image is null %}#}
+{#        {% for product_images in photos | filter(img => img.product_img_root is defined and img.product_img_root == true) %}#}
+{#            {% set root_image = product_images %}#}
+{#        {% endfor %}#}
+{#    {% endif %}#}
+
+{#    #}{# Обложка #}
+{#    {% set image_path = '/assets/img/blank.svg' %}#}
+
+{#    {% if root_image %}#}
+
+{#        {% if root_image.product_img_ext is defined and root_image.product_img_ext is not null %}#}
+{#            {% set img_host =  root_image.product_img_cdn == true  ? CDN_HOST : '' %}#}
+{#            {% set img_dir = root_image.product_img %}#}
+{#            {% set img_file = (img_host is empty ? '/image.' : '/medium.') ~ root_image.product_img_ext %}#}
+{#            {% set image_path = img_host ~ img_dir ~ img_file %}#}
+{#            {% set image_path = cdn_image_path(photo.product_img, photo.product_img_ext, photo.product_img_cdn) %}#}
+{#        {% endif %}#}
+
+{#    {% endif %}#}
+
+
+{#    <div id="img-product" data-bs-toggle="modal" data-bs-target="#lightboxModal"#}
+{#         class="icon rounded-5 border lazy bg-cover shadow-none" style="width: 350px; height: 350px;"#}
+{#         data-bg="{{ image_path }}"#}
+{#         title="{{ productName }}"#}
+{#    >#}
+
+{#    </div>#}
+
+
+{#    #}{# ДОПОЛНИТЕЛЬНЫЕ ФОТО #}
+
+{#    <div class="d-flex justify-content-center gap-3 mt-4 ">#}
+
+
+
+{#        {% for product_images in photos | filter(img => img.product_img_ext is defined) | sort((a, b) => a.product_img_root < b.product_img_root) %}#}
+
+
+{#            #}{# Обложка #}
+{#            {% set image_path = '/assets/img/blank.svg' %}#}
+
+{#            {% if product_images.product_img_ext is defined and product_images.product_img_ext is not null %}#}
+{#                {% set img_host =  product_images.product_img_cdn == true  ? CDN_HOST : '' %}#}
+{#                {% set img_dir = product_images.product_img %}#}
+{#                {% set img_file = (img_host is empty ? '/image.' : '/min.') ~ product_images.product_img_ext %}#}
+{#                {% set image_path = img_host ~ img_dir ~ img_file %}#}
+
+{#                {% set image_path = cdn_image_path(product_images.product_img, product_images.product_img_ext, product_images.product_img_cdn) %}#}
+{#            {% endif %}#}
+
+
+{#            <button class="btn btn-link icon bg-cover rounded-4 lazy img-product m-0"#}
+{#                    data-bg="{{ image_path }}"#}
+{#                    style="width: 70px; height: 70px;"#}
+{#                    aria-label="{{ productName }}"#}
+{#            ></button>#}
+
+
+{#        {% endfor %}#}
+
+{#    </div>#}
+
+{#    {{ include(_self|replace({ "images_carousel_modal.html.twig": "_lightbox.html.twig" })) }}#}
+
+{#</div>#}

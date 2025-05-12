@@ -1,0 +1,69 @@
+{# {{ include(_self|replace({ "content.html.twig": "header.html.twig" })) }} #}
+
+<main class="main">
+	
+	
+	<section id="calc">
+		
+		<div class="container d-flex justify-content-start align-items-center my-4 gap-3">
+			
+			<h1 class="h4 text-uppercase fw-bolder mb-0">Шинный калькулятор</h1>
+		
+		</div>
+		
+		
+		{{ include(_self|replace({ "content.html.twig": "calc.html.twig" })) }}
+	
+	
+	</section>
+	
+	{# TODO: Шины по выбранным параметрам #}
+	{# <section class="container shadow ">
+		
+		<div class="pt-4 px-2">
+			<h2 class="text-uppercase h5 fw-bolder">Шины по выбранным параметрам</h2>
+		
+		
+		</div>
+
+		
+		 #}{# <div class="small py-3">
+			{{ include(_self|replace({ "content.html.twig": "alternative.html.twig" })) }}
+		</div> #}{#
+	</section> #}
+	
+	
+	<section id="calc-width" >
+		
+		<div class="container d-flex justify-content-start align-items-center my-4 gap-3">
+			
+			<h1 class="h4 text-uppercase fw-bolder mb-0">Расчет ширины диска</h1>
+		
+		</div>
+		
+		
+		{{ include(_self|replace({ "content.html.twig": "calc.width.html.twig" })) }}
+	
+	
+	</section>
+	
+	{# ПРОСМОТРЕННЫЕ #}
+	{# <section id="viewed" class="mt-4 bg-light">
+		<div class="col-12 p-4">
+			<h2 class="text-uppercase me-4 h5 fw-bolder">Просмотренные</h2>
+		</div>
+
+		<div class="d-flex flex-nowrap gap-4 overflow-auto w-100 px-4 pb-3">
+			{% for i in 0..5 %}
+	#}{# {{ include(_self|replace({ "content.html.twig": "viewed.html.twig" })) }} #}{#
+	{% include('@Template/default/user/mobile/includes/viewed.html.twig') %}
+{% endfor %}
+</div>
+</section> #}
+
+
+</main>
+
+
+
+

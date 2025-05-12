@@ -1,0 +1,42 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/user/base.html.twig') %}
+
+{# {% block title %}Главная{% endblock %} #}
+
+{# ---- CSS ------------------------------------------------------------ #}
+{# {% block stylesheets %} #}
+{#    <link href="{{ path('user_posts_home_css') }}" rel="stylesheet"> #}
+{# {% endblock %} #}
+
+{# ---- HEADER-БЛОК ------------------------------------------------------------ #}
+{# {% block header %}
+    {{ include(_self|replace({ "template.html.twig": "header.html.twig" })) }}
+{% endblock %} #}
+
+
+{# ---- LEFT-БЛОК ------------------------------------------------------------ #}
+{# {% block left %} #}
+{#   {% include '@Template/flowers/left.html.twig' %} #}
+{# {% endblock %} #}
+
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+	
+	{{ include(_self|replace({ "template.html.twig":baks_settings.device~"/content.html.twig" })) }}
+	{# CSS #}
+	<div style="display: none !important;" class=" tooltip bs-tooltip-bottom bs-tooltip-start bs-tooltip-end align-items-center basket-text bg-contain bg-cover border-0 border-5 border-bottom border-primary btn btn-close btn-lg btn-link btn-primary d-flex d-none form-control form-control-lg gap-2 gap-3 h4 h5 h6 icon justify-content-between justify-content-center lazy lh-1 mb-2 modal-body modal-content modal-header mx-1 opacity-50 order-basket p-1 p-3 px-3 rounded-3 rounded-4 rounded-circle small spinner-border spinner-border-sm text-center text-decoration-none text-muted text-nowrap text-uppercase total vertical-middle w-100 w-25 w-50"></div>
+	
+{% endblock %}
+
+
+{# ---- FOOTER-БЛОК ------------------------------------------------------------ #}
+{# {% block footer %}
+    {% extends Template('/user/base.html.twig') %}
+{% endblock %} #}
+
+{% block javascript %}
+{# <script async data-src="/assets/pages/script{{ app.environment != 'dev'?'.min' }}.js" class='lazy'></script> #}
+<script async data-src="/assets/order_orders/modal_basket{{ app.environment != 'dev'?'.min' }}.js" class='lazy'></script>
+{% endblock %}
+

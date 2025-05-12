@@ -1,0 +1,23 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/user/base.html.twig') %}
+
+{#{% block title %}
+    Шины для {{ card.getBrandName() }} {{ card.getModelName() }}
+{% endblock %}#}
+
+{# ---- CSS ------------------------------------------------------------ #}
+{% block stylesheets %}
+    {#<link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet">#}
+{% endblock %}
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+    {{ include(_self|replace({ "template.html.twig" : (baks_settings.device ?: 'pc') ~ "/content.html.twig" })) }}
+{% endblock %}
+
+{% block javascript %}
+
+{#<script data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}' class='lazy'></script>
+<script data-src='/assets/reference-cars/cars_filter.min.js?v={{ version }}' class='lazy'></script>#}
+
+{% endblock %}

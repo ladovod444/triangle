@@ -1,0 +1,50 @@
+<div class="modal fade autotization-modal"
+	 style="--bs-modal-width: 700px;"
+	 id="autorizationModal" tabindex="-1" aria-hidden="true"
+>
+
+	<div class="modal-dialog modal-dialog-centered">
+
+		<div class="modal-content p-3 border-bottom border-5 border-primary">
+			<form name="login_form" method="post" action="/login">
+				<div class="modal-header border-0">
+					<h3 class="modal-title text-uppercase h4 fw-bold">Авторизуйтесь</h3>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" title="Закрыть"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="d-flex justify-content-between gap-3">
+						<div class="w-100">
+							<label for="login_form_email" class="form-label required">Электронная почта:</label>
+							<input type="email" id="login_form_email" name="login_form[email]" required="required" autocomplete="email" class="rounded-4 form-control">
+						</div>
+						<div class="w-100">
+							<label for="login_form_password" class="form-label required">Пароль:</label>
+							<input type="password" id="login_form_password" name="login_form[password]" required="required" autocomplete="new-password" class="rounded-4 form-control">
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer border-0 d-flex flex-grow-3">
+
+					<ul class="d-flex gap-3 list-unstyled">
+						<li>
+							<a href="/reg" title="Регистация"> Регистрация</a>
+						</li>
+						<li>
+							<a href="/restore" title="Забыли пароль?">Забыли пароль?  </a>
+						</li>
+					</ul>
+
+
+					<button type="submit" id="login_form_login" name="login_form[login]" class="btn btn-lg btn-danger rounded-3 small text-uppercase fw-bolder ms-auto btn"><span>Войти</span>
+						<span id="login_form_login-progress" class="spinner-border spinner-border-sm d-none"></span>
+					</button>
+
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+
