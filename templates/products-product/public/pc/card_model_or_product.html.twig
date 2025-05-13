@@ -98,14 +98,7 @@
 {# Свойства продукта #}
 {% set productProperties = card.categorySectionField %}
 
-<div class="card border-0 position-relative p-1 rounded-4 h-100">
-
-    {# В избранное #}
-    {% if card_type == 'product' and card.invariable is not null %}
-        <div class="position-absolute badge-position badge z-1">
-            {{ render_favorite_button(card.invariable|first) }}
-        </div>
-    {% endif %}
+<div data-id='{{ card.productId }}' class="card rounded-5 border-0 mb-3 p-1">
 
     {# Бейдж - Новинка #}
     {% if date() < card.productActiveFrom|date_modify("+1 month") %}
@@ -121,19 +114,32 @@
         </button>
     {% endif %}
 
-    {# Изображение #}
-    <div class="card-img-top rounded-4 border ratio ratio-1x1"
-         style="background: url({{ card_image_path }}) center/contain no-repeat;">
-        <a class="d-block" href="{{ card_url }}">
 
-            {% if productProperties != false %}
-                {% for field in productProperties|filter(v => v.field_photo == true) %}
-                    <div class="position-absolute" style="top: 88% !important; left: 5% !important">
-                        {{ field.field_value|call_twig_func(field.field_type~'_render') }}
-                    </div>
-                {% endfor %}
+    <div class="card-image-wrap overflow-hidden rounded-5 border" style="height: 200px;">
+
+        <div class="d-flex justify-content-between">
+
+            {# В избранное #}
+            {% if card_type == 'product' and card.invariable is not null %}
+                <div class="badge-position badge z-1">
+                    {{ render_favorite_button(card.invariable|first) }}
+                </div>
             {% endif %}
+            <div class="mt-2 me-2"></div>
+        </div>
 
+
+        {# Изображение #}
+        <a href="{{ card_url }}">
+            <div class="lazy h-100 bg-cover position-relative" data-bg="{{ card_image_path }}">
+                {% if productProperties != false %}
+                    {% for field in productProperties|filter(v => v.field_photo == true) %}
+                        <div class="position-absolute bottom-0 mb-5 ms-3">
+                            {{ field.field_value|call_twig_func(field.field_type~'_render') }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </a>
     </div>
 

@@ -1,0 +1,35 @@
+{% set isProducts = baks_basket.counter > 0 ? true : false %}
+
+{# {% set i = 0 %} #}
+<section class="container py-5">
+
+    {% if form %}
+
+        {{ form_start(form) }}
+
+        {{ include(_self|replace({ "_includes/basket.html.twig" : "_dev/dev_accordion.html.twig" })) }}
+
+        {{ form_end(form) }}
+
+    {% else %}
+
+        {# ПУСТАЯ КОРЗИНА #}
+        <div class='d-flex justify-content-between align-items-center'>
+            <div>
+                <h3>Ваша корзина пуста.</h3>
+                Начните с главной страницы или воспользуйтесь поиском.
+            </div>
+
+            <a href='{{ path('core:public.homepage') }}'
+               class="btn bg-primary py-2 px-6 fw-bold rounded-3">
+                <span class="h6 text-uppercase px-3 basket-text">Продолжить покупки</span>
+                <span class="spinner-border spinner-border-sm vertical-middle d-none"></span>
+            </a>
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+

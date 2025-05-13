@@ -1,0 +1,6 @@
+new: 'new'
+package: 'Упаковка'
+completed: 'Выполнен'
+canceled: 'Отменен'
+extradition: 'Собран'
+unpaid: 'Не оплачен'

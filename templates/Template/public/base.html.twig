@@ -158,6 +158,16 @@
 <script nonce="{{ csp_nonce() }}" data-src='/assets/js/script.min.js?v={{ version }}' class="lazy"></script>
 
 
+{# Избранное #}
+<script async nonce="{{ csp_nonce() }}" data-src='/assets/products-favorite/favorite.min.js?v={{ version }}'
+        class="lazy"></script>
+
+{# Поиск #}
+{% if baks_search_form is defined and app.request.attributes.get('_route') != 'search:user.search' %}
+    <script nonce="{{ csp_nonce() }}" data-src="/assets/search/search.min.js?v={{ version }}" class='lazy'></script>
+{#    <script nonce="{{ csp_nonce() }}" data-src="/assets/blackdragon/js/searchModal.js?v={{ version }}" class='lazy'></script>#}
+{% endif %}
+
 {% block javascript %}
 
 {% endblock %}

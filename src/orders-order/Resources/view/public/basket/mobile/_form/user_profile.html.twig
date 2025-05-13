@@ -1,0 +1,48 @@
+{% trans_default_domain('user.order') %}
+
+
+<h3 class="fs-14 fw-bold mb-3">Тип заказа</h3>
+
+{# Тип заказа #}
+{% if form.usr.userProfile.type is defined %}
+    <div class="d-flex justify-content-between mb-3">
+        <div class="w-100 d-flex gap-3">
+            {{ form_widget(form.usr.userProfile.type) }}
+        </div>
+    </div>
+{% endif %}
+
+
+{% if form.usr.userProfile.value.vars.data is defined and form.usr.userProfile.value.vars.data is not empty %}
+
+    <div class="d-flex flex-column gap-3" id='user_profile'>
+        {% set section = null %}
+        {% for value in form.usr.userProfile.value %}
+            {% if section != value.vars.data.section %}
+                {% set section = value.vars.data.section %}
+
+                {# Название секции #}
+                <div class="card-header border-light bg-body">
+                    <div class="card-title">
+                        <h5 class="fs-14 fw-bold mb-3">
+                            {{ value.vars.data.sectionName }}
+                        </h5>
+                    </div>
+                </div>
+
+            {% endif %}
+
+            {% if value.value is  defined %}
+                {{ form_label(value.value, null, {'label_attr': {'class': 'form-label fs-12'}}) }}
+                {{ form_widget(value.value, {'attr': {'class': 'form-control fs-14'}}) }}
+            {% endif %}
+        {% endfor %}
+
+    </div>
+
+{% endif %}
+
+<hr class="border-secondary">
+
+
+

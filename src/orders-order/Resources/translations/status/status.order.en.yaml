@@ -1,0 +1,6 @@
+new: 'New'
+package: 'Packaging'
+completed: 'Completed'
+canceled: 'Canceled'
+extradition: 'Collected'
+unpaid: 'Unpaid'

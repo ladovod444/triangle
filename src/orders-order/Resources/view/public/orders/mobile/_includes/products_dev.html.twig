@@ -1,0 +1,133 @@
+{% for order in orders %}
+
+    {% set products = order.order_products|json_decode %}
+
+    {% set priceTotal = null %}
+    {% set productTotal = null %}
+    {% set productCurrency = null %}
+
+    <div class="d-flex border-top {{ loop.last ? 'border-bottom' : '' }}  justify-content-between gap-3 py-3">
+
+
+        {# ИНФОРМАЦИЯ О ПРОДУКТАХ В ЗАКАЗЕ #}
+        {% for product in products %}
+
+            {# Обложка  #}
+            {% if product.product_image_ext is defined and product.product_image_ext is not null %}
+                {% set image_path = cdn_image_path(product.product_image, product.product_image_ext, product.product_image_cdn) %}
+            {% endif %}
+
+            {% if loop.first == true %}
+
+                <span class="fs-12 mb-0 text-uppercase fw-bold mb-2"> Заказ № {{ order.order_number }} | {{ ('public_' ~order.order_status)|trans({}, 'status.order') }}</span>
+                <span class="text-secondary">{{ order.payment_name }} | {{ order.delivery_name }}</span>
+
+            {% endif %}
+
+            <div class="d-flex">
+
+
+                <a href="{{ path('products-product:public.detail', {
+                    category : product.category_url ,
+                    url : product.product_url ,
+                    offer: product.product_offer_value,
+                    variation: product.product_variation_value,
+                    modification: product.product_modification_value
+                }) }}"
+                   class="icon rounded-4 mb-2 lazy bg-contain p-1"
+                   data-bg="{{ image_path }}"
+                   style="width: 75px; height: 75px;">
+                </a>
+
+                <div class="d-flex flex-column w-75">
+
+                    {# @TODO рейтинг - нет модуля #}
+                    {#  <div class="d-flex align-items-top justify-content-between"> #}
+                    {#  <div> #}
+                    {#  {% set rating = 3 %} #}
+                    {#  {% for i in 1..5 %} #}
+                    {#  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" #}
+                    {#  fill="{% if i > rating %} #d1d1d1 {% else %} #ffc107 {% endif %}" #}
+                    {#  class="bi bi-star-fill me-1" viewBox="0 0 16 16"> #}
+                    {#  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/> #}
+                    {#  </svg> #}
+                    {#  {% endfor %} #}
+                    {#  </div> #}
+                    {#  </div> #}
+
+                    <div class="d-flex align-items-center justify-content-between gap-3">
+                        {# Полное название продукта #}
+                        <a href="{{ path('products-product:public.detail', {
+                            category : product.category_url,
+                            url : product.product_url,
+                            offer: product.product_offer_value,
+                            variation: product.product_variation_value,
+                            modification: product.product_modification_value
+                        }) }}"
+
+                           class="fs-14 text-black fw-bold text-uppercase mb-0 list-group-item best-offers-item">
+                            {{ product.product_name }}
+
+                            {{ product.product_variation_value|call_twig_func(product.product_variation_reference~'_render') ~
+                            product.product_modification_value|call_twig_func(product.product_modification_reference~'_render') }}
+
+                            {{ product.product_offer_value|call_twig_func(product.product_offer_reference~'_render') }}
+                        </a>
+
+                        {#                    <button class="btn btn-link" #}
+                        {#                            aria-label="Добавить в избранное"> #}
+                        {#                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" #}
+                        {#                             fill="lightgray" #}
+                        {#                             class="bi bi-heart-fill" viewBox="0 0 16 16"> #}
+                        {#                            <path fill-rule="evenodd" #}
+                        {#                                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path> #}
+                        {#                        </svg> #}
+                        {#                    </button> #}
+                    </div>
+
+                    {# Артикул #}
+                    <p class="text-secondary mb-0" style="font-size: 12px;">
+                        Артикул: {{ product.product_article }}
+                    </p>
+
+                    {# ЦЕНА #}
+                    <p class="mb-0 fw-bold" style="width:90px;">
+                        {{ money(product.product_price, product.product_price_currency) }}
+                    </p>
+
+                    <div class="lh-1 text-end mb-2">
+                        {#                    <a href='{{ path('orders-order:public.delete', { #}
+                        {#                        product : card.event , #}
+                        {#                        offer: card.product_offer_uid, #}
+                        {#                        variation: card.product_variation_uid, #}
+                        {#                        modification: card.product_modification_uid #}
+                        {#                    }) }}' #}
+                        {#                       class="btn btn-sm btn-link text-dark text-decoration-underline small fw-medium delete-product" #}
+                        {#                       data-id='item_{{ product.vars.id }}'> #}
+                        {#                        <span class="small">Удалить</span> #}
+                        {#                    </a> #}
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+        <p class="fs-18 mb-0 fw-bold" style="width:90px;">
+            Итого: {{ money(priceTotal, productCurrency) }}
+        </p>
+
+        <p class="fs-18 mb-0 fw-bold" style="width:90px;">
+            {{ productTotal }} шт.
+        </p>
+
+    </div>
+
+
+
+{% endfor %}

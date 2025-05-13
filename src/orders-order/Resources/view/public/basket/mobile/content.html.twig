@@ -1,0 +1,37 @@
+<main>
+
+    {{ include(_self|replace({ "content.html.twig" : "_includes/breadcrumb.html.twig" })) }}
+
+    <section class="container py-3">
+
+        {% set isProducts = baks_basket.counter > 0 ? true : false %}
+
+        {% if form %}
+
+            {{ form_start(form) }}
+
+            {{ include(_self|replace({ "content.html.twig" : "_includes/basket_accordion.html.twig" })) }}
+
+            {{ form_end(form) }}
+
+        {% else %}
+
+            <div class='text-center fw-bold pt-2 pb-2'>
+                <h3 class="fw-bold">Ваша корзина пуста.</h3>
+                <p class="lh-1 fs-12">Начните с главной страницы или воспользуйтесь поиском.</p>
+
+                <a href='{{ path('core:public.homepage') }}'
+                   class="btn bg-primary py-2 rounded-3 fw-bold fs-14 w-75 mb-3">
+                    <span class="h6 fw-bold basket-text">Продолжить покупки</span>
+                </a>
+            </div>
+
+        {% endif %}
+
+    </section>
+
+    {{ render_products_viewed() }}
+
+</main>
+
+ 

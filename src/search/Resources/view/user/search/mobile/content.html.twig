@@ -1,0 +1,23 @@
+{% trans_default_domain 'search' %}
+
+<main>
+
+    <hr class="m-0">
+
+    <section class="container pb-5 pt-4">
+
+        <h2 class="fs-24 text-uppercase fw-bold mb-0">{{ 'page.title'|trans }}</h2>
+
+        <div class="mt-3 d-flex justify-content-between">
+            {{ include(_self|replace({ "content.html.twig": "includes/_breadcrumb.html.twig" })) }}
+        </div>
+
+        {# Форма поиска #}
+        {{ include(_self|replace({ "content.html.twig": "form/search_form.html.twig" })) }}
+
+        {# Список результатов #}
+        {{ include(_self|replace({ "content.html.twig" : "includes/search-results.html.twig" })) }}
+
+    </section>
+
+</main>

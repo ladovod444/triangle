@@ -47,11 +47,22 @@
         </button>
     {% endif %}
 
-    {# Изображение #}
-    <div class="card-img-top rounded-4 border ratio ratio-1x1"
-         style="background: url({{ image_path }}) center/contain no-repeat;">
 
-        <a class="d-block" href="{{ path('products-product:user.detail', {
+    <div class="card-image-wrap overflow-hidden rounded-5 border" style="height: 200px;">
+
+        <div class="d-flex justify-content-between">
+
+            {# В избранное #}
+            {% if addFavorite == true %}
+                <div class="position-absolute1 badge-position badge z-1">
+                    {{ render_favorite_button(product.productInvariableId) }}
+                </div>
+            {% endif %}
+            <div class="mt-2 me-2"></div>
+        </div>
+
+        {# Изображение #}
+        <a href="{{ path('products-product:user.detail', {
             category: product.categoryUrl,
             url: product.productUrl,
             offer: product.productOfferValue,
@@ -60,13 +71,18 @@
             postfix: (product.productModificationPostfix ?: product.productVariationPostfix ?: product.productModificationPostfix ?: null )|replace({ '/': '-' }),
         }) }}" aria-label="{{ product.productName }}">
 
-            {% if productProperties != false %}
-                {% for field in productProperties|filter(v => v.field_photo == true) %}
-                    <div class="position-absolute" style="top: 88% !important; left: 5% !important">
-                        {{ field.field_value|call_twig_func(field.field_type~'_render') }}
-                    </div>
-                {% endfor %}
-            {% endif %}
+            <div class="lazy h-100 bg-cover position-relative" data-bg="{{ image_path }}">
+
+
+                    {% if productProperties != false %}
+                        {% for field in productProperties|filter(v => v.field_photo == true) %}
+                            <div class="position-absolute bottom-0 mb-5 ms-3">
+                                {{ field.field_value|call_twig_func(field.field_type~'_render') }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+            </div>
         </a>
     </div>
 

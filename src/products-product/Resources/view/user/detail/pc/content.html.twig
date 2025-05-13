@@ -6,15 +6,17 @@
     {% set categoryCover = cdn_image_path(card.categoryCoverPath, card.categoryCoverExt, card.categoryCoverCdn) %}
 {% endif %}
 
-<main>
+<main class="main container px-4">
 
+    <div class="mt-3">
     {# Хлебные крошки #}
-    {{ include(_self|replace({ "content.html.twig" : "_includes/breadcrumb.html.twig" })) }}
+        {{ include(_self|replace({ "content.html.twig" : "_includes/breadcrumb.html.twig" })) }}
+    </div>
 
     {# Модальное окно - изображение продукта #}
     {% include Template('@products-product/public/'~baks_settings.device~'/images_carousel_modal.html.twig') with {photos: card.productImages, productName: card.productName} only %}
 
-    <section class="main container px-4">
+    <section class="main">
 
         <h1 class="h3 text-uppercase fw-bolder">
             {{ card.productName }}
@@ -27,7 +29,9 @@
             {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null )|replace({ '/': '-' }) }}
         </h1>
 
-        <div class="d-flex align-items-center gap-5 mb-5">
+        <div class="d-flex align-items-center gap-3">
+
+            <span class="small">Артикул: {{ card.productArticle }}</span>
 
             <div class="d-flex align-items-center gap-2">
                 {# Бейджи #}
@@ -45,13 +49,14 @@
 
         </div>
 
-        <div class="row gy-5">
+
+        <div class="d-flex gap-5 mt-5">
 
             <div class="col-8">
                 <div class="row mb-5">
                     {# Изображения #}
                     <div class="col-6">
-                        {% include Template('@products-product/public/'~baks_settings.device~'/images_carousel.html.twig') with {photos: card.productImages} only %}
+                        {% include Template('@products-product/public/'~baks_settings.device~'/images_carousel.html.twig') with {photos: card.productImages, card} only %}
                     </div>
 
                     {# Свойства продукта #}
@@ -79,6 +84,8 @@
                 </div>
             </div>
 
+        </div>
+
             <hr class="mt-5 rounded-circle border-0" style="height: 20px; box-shadow: 0 -20px 20px -6px #000;">
 
             {# Альтернативы #}
@@ -103,7 +110,7 @@
             {% endif %}
 
 
-        </div>
+
 
     </section>
 

@@ -1,0 +1,51 @@
+{{ include(_self|replace({ "content.html.twig": "_includes/breadcrumb.html.twig" })) }}
+
+<main class="main container px-4">
+
+    <section id="orders">
+
+        <h1 class="h4 text-uppercase fw-bolder py-2">Заказ {{ number }}</h1>
+
+        <div class="alert alert-warning" role="alert">
+
+            <div class='d-flex justify-content-between align-items-center'>
+                <div>
+                    <p>Ваш заказ был успешно оформлен и находится в процессе обработки. Наша команда уже начала работу
+                        над ним и постарается выполнить его в кратчайшие сроки.</p>
+
+                    <p>Как только он будет готов к отправке, мы свяжемся с Вами для уточнения деталей доставки или
+                        предоставления необходимой информации.</p>
+
+
+                </div>
+
+                <a href='{{ path('orders-order:user.orders', { status: 'new'}) }}'
+                   class="btn border fw-bold text-secondary btn-alt rounded-5 w-100">
+
+                    <span class="h6 text-uppercase px-3 basket-text">
+                        список активных заказов
+                    </span>
+                    <span class="spinner-border spinner-border-sm vertical-middle d-none"></span>
+                </a>
+            </div>
+
+
+        </div>
+
+    </section>
+
+    <section id="products">
+        <h1 class="h6 text-uppercase fw-bolder py-2">Детали заказа</h1>
+        {{ include(_self|replace({ "content.html.twig": "_includes/products.html.twig" })) }}
+
+        <div class="py-3">
+            Благодарим Вас за выбор нашей компании. Мы ценим оказанное нам доверие и стремимся предоставить Вам
+            наилучший сервис.
+        </div>
+
+
+    </section>
+
+</main>
+
+

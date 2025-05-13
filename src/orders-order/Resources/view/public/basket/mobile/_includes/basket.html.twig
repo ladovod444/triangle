@@ -1,0 +1,119 @@
+{% set cardQty = 2 %}
+
+
+<section class="container py-3">
+
+    <div class="d-flex align-content-center justify-content-between mb-4">
+
+        <h2 class="fs-6 mb-0 fw-bold text-uppercase">
+            Корзина
+        </h2>
+
+        <button class="btn d-flex align-items-center gap-2 p-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="lightgray" class="bi bi-trash"
+                 viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"></path>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"></path>
+            </svg>
+            <u style="font-size: 10px;">Очистить корзину</u>
+        </button>
+
+    </div>
+
+    <hr class="m-0">
+
+    {% for i in 1..cardQty %}
+        <div class="d-flex justify-content-between gap-3 py-3 ">
+
+            <img class="border p-1 rounded-3 " style="height: 80px;" src="/assets/blackdragon/img/tireReview.webp"
+                 alt="Изображения товара">
+
+            <div class="d-flex flex-column w-75">
+                <div class="d-flex align-items-top justify-content-between">
+
+                    <div class="lh-1">
+                        {% set rating = 3 %}
+                        {% for i in 1..5 %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"
+                                 fill="{% if i > rating %} #d1d1d1 {% else %} #ffc107 {% endif %}"
+                                 class="bi bi-star-fill me-1" viewBox="0 0 16 16">
+                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                            </svg>
+                        {% endfor %}
+                    </div>
+
+                    <button class="btn p-0 lh-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="lightgray"
+                             class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <h3 class="fs-12 text-uppercase fw-bold mb-2 w-75">
+                    Очень длинное название шины
+                </h3>
+
+                <p class="text-secondary mb-2" style="font-size: 11px;">
+                    Артикул
+                </p>
+
+                <p class="fw-bold text-uppercase fs-14 mb-0 lh-1">
+                    5 800 Р.
+                </p>
+
+                <div class="lh-1 text-end mb-2">
+                    <button class="btn text-decoration-underline  fs-10 fw-medium p-0">
+                        Удалить
+                    </button>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between">
+
+                    <div class="d-flex align-items-center justify-content-between gap-2 counter-container"
+                         style="width: 115px;">
+                        <button class="btn p-0 lh-1 decrease-btn" id="decrease-btn"
+                                aria-label="Кнопка уменьшения количества товара">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
+                                 class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
+                            </svg>
+                        </button>
+                        <div class="border py-1 rounded-5" style="width:50px;">
+                            <p class="m-0 text-secondary counter text-center" id="counter">1</p>
+                        </div>
+                        <button class="btn p-0 lh-1 increase-btn" id="increase-btn"
+                                aria-label="Кнопка увеличения количества товара">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
+                                 class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <p class="m-0">
+                        <strong>28 500 Р.</strong>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <hr class="m-0">
+    {% endfor %}
+
+    <div class="text-center  fw-bold pt-3">
+        <p class="lh-1 text-uppercase fs-12">Итого: <span class="fs-3">69 000 Р.</span></p>
+        <form class="mb-2" action="{{ path('core:public.homepage') }} ">
+            <button class="btn bg-primary py-2 rounded-3 fw-bold fs-14 w-100">
+                Оформить заказ
+            </button>
+        </form>
+        <a class="text-secondary fs-11 fw-normal" href="#">Назад в каталог</a>
+    </div>
+
+</section>
+
+<hr class="m-0">

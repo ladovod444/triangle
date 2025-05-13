@@ -1,0 +1,109 @@
+{% set path = path('products-product:public.detail', {
+    category: product.category_url,
+    url: product.url,
+    offer: product.product_offer_value,
+    variation: product.product_variation_value,
+    modification: product.product_modification_value,
+    postfix: (product.product_modification_postfix ?: product.product_variation_postfix ?: product.product_offer_postfix ?: null )|replace({ '/': '-' }),
+}) %}
+
+{# Обложка продукта #}
+{% set image_path = '/assets/img/blank.svg' %}
+{% if product.product_image_ext is defined and product.product_image_ext is not null %}
+    {% set image_path = cdn_image_path(product.product_image, product.product_image_ext, product.product_image_cdn) %}
+{% endif %}
+
+{# Персональная скидка #}
+{% set Price = user_profile_discount(product.product_price) ?: product.product_price %}
+{# Старая цена #}
+{% set OldPrice = user_profile_discount(product.product_old_price) ?: product.product_old_price %}
+
+{# Количество продукции #}
+{% set productQuantity = product.product_quantity %}
+
+<div class="col">
+    <div class="card border-0 position-relative p-1 rounded-4 h-100">
+
+        <div class="position-absolute badge-position badge z-1">
+            {{ render_favorite_button(product.product_invariable_id) }}
+        </div>
+
+        {# Изображение #}
+        <div class="card-img-top rounded-4 border ratio ratio-1x1"
+             style="background: url({{ image_path }}) center/contain no-repeat;">
+
+            <a class="d-block" href="{{ path('products-product:public.detail', {
+                category: product.category_url,
+                url: product.url,
+                offer: product.product_offer_value,
+                variation: product.product_variation_value,
+                modification: product.product_modification_value,
+                postfix: (product.product_modification_postfix ?: product.product_variation_postfix ?: product.product_offer_postfix ?: null )|replace({ '/': '-' }),
+            }) }}" aria-label="{{ product.product_name }}">
+            </a>
+
+        </div>
+
+        <div class="d-flex flex-column justify-content-between card-body pb-1 px-0">
+
+            <div>
+                <div class="d-flex align-items-center justify-content-between mb-2 px-3">
+
+                    {# Цена #}
+                    {% if productQuantity > 0 %}
+                        <div class="d-flex align-items-center gap-2">
+
+                            <p class="card-text fs-4 m-0" style="font-size:24px!important;">
+                                <strong>{{ money(Price, product.product_currency) }}</strong>
+                            </p>
+
+                            {% if OldPrice %}
+                                <p class="card-text text-danger small m-0 fw-bold mb-1">
+                                    <del>{{ money(OldPrice, product.product_currency) }}</del>
+                                </p>
+                            {% endif %}
+                        </div>
+                        {% include Template('@products-product/public/'~(baks_settings.device ?: 'pc')~'/button_add_to_basket.html.twig') with {
+                            'product_event': product.event,
+                            'product_offer': product.product_offer_uid,
+                            'product_variation': product.product_variation_uid,
+                            'product_modification': product.product_modification_uid,
+                        } only %}
+                    {% else %}
+                        <p class="card-text fw-bold m-0 text-muted opacity-25" style="font-size:18px!important;">
+                            <strong>Нет в наличии</strong>
+                        </p>
+                    {% endif %}
+                </div>
+
+                {# Название #}
+                <div class="d-flex mb-2">
+                    <a class="text-black text-decoration-none"
+                       href="{{ path('products-product:public.detail', {
+                           category: product.category_url,
+                           url: product.url,
+                           offer: product.product_offer_value,
+                           variation: product.product_variation_value,
+                           modification: product.product_modification_value,
+                           postfix: (product.product_modification_postfix ?: product.product_variation_postfix ?: product.product_offer_postfix ?: null )|replace({ '/': '-' }),
+                       }) }}">
+                        <h3 class="card-title fw-bold px-3 text-uppercase" style="font-size:14px!important;">
+
+                            {# Название продукта #}
+                            {{ product.product_name }}
+                            </br>
+
+                            {# Значение множественного варианта ТП #}
+                            {{ product.product_variation_value|call_twig_func(product.product_variation_reference~'_render')
+                            ~ product.product_modification_value|call_twig_func(product.product_modification_reference~'_render') }}
+
+                            {# Значение торгового предложения #}
+                            {{ (product.product_modification_postfix ?: product.product_variation_postfix ?: product.product_offer_postfix ?: null )|replace({ '/': '-' }) }}
+                        </h3>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
