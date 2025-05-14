@@ -42,14 +42,14 @@
                         <div class='d-flex gap-3 align-items-center'>
 
                             <a href="{{ path('products-product:user.detail', {
-                                category: card.category_url,
-                                url: card.url,
+                                category: card.categoryUrl,
+                                url: card.productUrl,
                                 offer : offers.offer_value,
                                 variation : offers.variation_value,
                                 modification : offers.modification_value,
                                 postfix:  (offers.modification_postfix ?: offers.variation_postfix ?: offers.offer_postfix ?: null )|replace({ '/': '-' })
-                            }) }}">
-                                {{ card.product_name }} <br>
+                            }) }}"
+                                {{ card.productName }} <br>
 
                                 {# Значение множественного варианта ТП #}
                                 {{ offers.variation_value|call_twig_func(offers.variation_reference~'_render') ~
@@ -102,25 +102,32 @@
 
                             {% if offers.price %}
 
-                                <button data-href="{{ path('orders-order:user.add', {
-                                    product: card.event,
-                                    offer : offers.offer_uid,
-                                    variation : offers.variation_uid,
-                                    modification : offers.modification_uid
-                                }) }}"
-                                        class="btn btn-sm btn-primary rounded-circle modal-link add-basket"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modal"
-                                        title="Купить"
-                                >
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor"
-                                             class="text-white" viewBox="0 0 18 18">
-                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
-                                        </svg>
-                                    </div>
-                                </button>
+                                {% include Template('@products-product/public/'~(baks_settings.device ?: 'pc')~'/button_add_to_basket.html.twig') with {
+                                    'product_event': card.productEvent,
+                                    'product_offer': offers.offer_uid,
+                                    'product_variation': offers.variation_uid,
+                                    'product_modification': offers.modification_uid,
+                                } only %}
+
+{#                                <button data-href="{{ path('orders-order:user.add', {#}
+{#                                    product: card.event,#}
+{#                                    offer : offers.offer_uid,#}
+{#                                    variation : offers.variation_uid,#}
+{#                                    modification : offers.modification_uid#}
+{#                                }) }}"#}
+{#                                        class="btn btn-sm btn-primary rounded-circle modal-link add-basket"#}
+{#                                        data-bs-toggle="modal"#}
+{#                                        data-bs-target="#modal"#}
+{#                                        title="Купить"#}
+{#                                >#}
+{#                                    <div>#}
+{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"#}
+{#                                             fill="currentColor"#}
+{#                                             class="text-white" viewBox="0 0 18 18">#}
+{#                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>#}
+{#                                        </svg>#}
+{#                                    </div>#}
+{#                                </button>#}
 
 
                             {% else %}
@@ -188,20 +195,18 @@
                                     <div class='d-flex gap-3 align-items-center'>
 
                                         <a href="{{ path('products-product:user.detail', {
-                                            category: card.category_url,
-                                            url: card.url,
+                                            category: card.categoryUrl,
+                                            url: card.productUrl,
                                             offer : offers.offer_value,
                                             variation : offers.variation_value,
                                             modification : offers.modification_value,
                                             postfix:  (offers.modification_postfix ?: offers.variation_postfix ?: offers.offer_postfix ?: null )|replace({ '/': '-' })
                                         }) }}">
-                                            {{ card.product_name }} <br>
+                                            {{ card.productName }}
 
-                                            {# Значение множественного варианта ТП #}
-                                            {{ offers.variation_value|call_twig_func(offers.variation_reference~'_render') ~
-                                            offers.modification_value|call_twig_func(offers.modification_reference~'_render') }}
+                                            {{ offers.variation_value|call_twig_func(offers.variation_reference~'_render')
+                                            ~ offers.modification_value|call_twig_func(offers.modification_reference~'_render') }}
 
-                                            {# Значение торгового предложения #}
                                             {{ offers.offer_value|call_twig_func(offers.offer_reference~'_render') }}
                                         </a>
 
@@ -240,25 +245,33 @@
 
                                 <td>
                                     {% if offers.price %}
-                                        <button data-href="{{ path('orders-order:user.add', {
-                                            product: card.event,
-                                            offer : offers.offer_uid,
-                                            variation : offers.variation_uid,
-                                            modification : offers.modification_uid
-                                        }) }}"
-                                                class="btn btn-sm btn-primary rounded-circle modal-link add-basket"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modal"
-                                                title="Купить"
-                                        >
-                                            <div>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                     fill="currentColor"
-                                                     class="text-white" viewBox="0 0 18 18">
-                                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
-                                                </svg>
-                                            </div>
-                                        </button>
+
+                                        {# В КОРЗИНУ #}
+                                        {% include Template('@products-product/public/'~(baks_settings.device ?: 'pc')~'/button_add_to_basket.html.twig') with {
+                                            'product_event': card.productEvent,
+                                            'product_offer': offers.offer_uid,
+                                            'product_variation': offers.variation_uid,
+                                            'product_modification': offers.modification_uid,
+                                        } only %}
+{#                                        <button data-href="{{ path('orders-order:user.add', {#}
+{#                                            product: card.event,#}
+{#                                            offer : offers.offer_uid,#}
+{#                                            variation : offers.variation_uid,#}
+{#                                            modification : offers.modification_uid#}
+{#                                        }) }}"#}
+{#                                                class="btn btn-sm btn-primary rounded-circle modal-link add-basket"#}
+{#                                                data-bs-toggle="modal"#}
+{#                                                data-bs-target="#modal"#}
+{#                                                title="Купить"#}
+{#                                        >#}
+{#                                            <div>#}
+{#                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"#}
+{#                                                     fill="currentColor"#}
+{#                                                     class="text-white" viewBox="0 0 18 18">#}
+{#                                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>#}
+{#                                                </svg>#}
+{#                                            </div>#}
+{#                                        </button>#}
 
                                     {% endif %}
                                 </td>

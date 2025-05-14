@@ -174,7 +174,7 @@
             {# Минимальная цена торговых предложений  #}
 
             <div class="d-flex justify-content-between mt-3 mb-3">
-                <h3>от {{ card_min_price }}</h3>
+                <h3>от {{ money(card_min_price)}}</h3>
                 {#				#}
                 {#				{% set img_path = card.category_cover_cdn == true ? cdn_host : '' %}#}
                 {#				{% set category_cover_ext = card.category_cover_cdn == true ? 'small.'~card.category_cover_ext : card.category_cover_ext %}#}
