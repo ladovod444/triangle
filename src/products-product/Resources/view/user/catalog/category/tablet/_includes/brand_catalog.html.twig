@@ -1,0 +1,22 @@
+{# <div class="d-flex gap-5 mb-4"> #}
+{# </div> #}
+
+{% if products.data is not empty %}
+
+    <div class="row row-cols-4 gx-1 gy-2 mb-4">
+        {% for product in products.data %}
+            <div class="col">
+                {% include Template('@products-product/public/'~baks_settings.device~'/card_model_or_product.html.twig')  with { card: product } only %}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% include Template('/user/pc/includes/pagination.html.twig') with { 'pagination' : products } %}
+
+{% else %}
+    <h2 class="fs-18 mb-0 text-uppercase fw-bold">
+        Товар по выбранным параметрам не найден
+    </h2>
+{% endif %}
+
+<hr class="row mb-4">

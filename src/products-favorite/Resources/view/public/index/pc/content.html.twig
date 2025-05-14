@@ -12,7 +12,9 @@
         {% if query is not empty %}
             <div class="row row-cols-5 g-2">
                 {% for card in query %}
-                    {% include Template('@products-product/public/'~baks_settings.device~'/card_product.html.twig') with {product: card, forms} only %}
+                    <div class="col-2">
+                        {% include Template('@products-product/public/'~baks_settings.device~'/card_product.html.twig') with {product: card, forms} only %}
+                    </div>
                 {% endfor %}
             </div>
         {% else %}

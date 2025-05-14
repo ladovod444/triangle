@@ -55,49 +55,59 @@
                 </div>
 
 
-                {% if all_search is defined %}
 
-                        {{ form_start(all_search) }}
+                {# ПОИСК #}
+                {% if baks_search_form is defined and app.request.attributes.get('_route') != 'search:user.search' %}
 
-                        <div class="w-100 d-flex">
-
-                            {{ form_widget(all_search.query, { attr: {
-                                class : 'border-light w-100',
-                                style : 'min-width: 100%; box-shadow: none;',
-                                autocomplete : 'off'
-                            } }) }}
-
-                            <div class="w-100 position-relative">
-                                <button class="btn position-absolute top-0 end-0" type="button" aria-label="Поиск">
-
-                                    <svg id="search_icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                         fill="currentColor"
-                                         class="bi bi-search text-secondary" viewBox="0 0 16 16">
-                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-                                    </svg>
-
-                                    <span id="search_spiner"
-                                          class="spinner-border spinner-border-sm text-secondary d-none" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </span>
-
-                                </button>
-                            </div>
-
-                            <input type="hidden" name="token" value="{{ csrf_token('search') }}"/>
-
-                        </div>
-
-                        <section class="dropdown mt-1">
-                            <h3 class="d-none">Результат поиска:</h3>
-                            <ul id="search_result" class="dropdown-menu border-light w-100 p-1">
-                                <li class="badge bg-secondary"></li>
-                            </ul>
-                        </section>
-
-                        {{ form_end(all_search) }}
+                    {{ include(_self|replace({ "header.html.twig" : "includes/search_form.html.twig" })) }}
 
                 {% endif %}
+
+{#                {% if all_search is defined %}#}
+
+{#                        {{ form_start(all_search) }}#}
+
+{#                        <div class="w-100 d-flex">#}
+
+{#                            {{ form_widget(all_search.query, { attr: {#}
+{#                                class : 'border-light w-100',#}
+{#                                style : 'min-width: 100%; box-shadow: none;',#}
+{#                                autocomplete : 'off'#}
+{#                            } }) }}#}
+
+{#                            <div class="w-100 position-relative">#}
+{#                                <button class="btn position-absolute top-0 end-0" type="button" aria-label="Поиск">#}
+
+{#                                    <svg id="search_icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"#}
+{#                                         fill="currentColor"#}
+{#                                         class="bi bi-search text-secondary" viewBox="0 0 16 16">#}
+{#                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>#}
+{#                                    </svg>#}
+
+{#                                    <span id="search_spiner"#}
+{#                                          class="spinner-border spinner-border-sm text-secondary d-none" role="status">#}
+{#                                        <span class="visually-hidden">Loading...</span>#}
+{#                                    </span>#}
+
+{#                                </button>#}
+{#                            </div>#}
+
+{#                            <input type="hidden" name="token" value="{{ csrf_token('search') }}"/>#}
+
+{#                        </div>#}
+
+{#                        <section class="dropdown mt-1">#}
+{#                            <h3 class="d-none">Результат поиска:</h3>#}
+{#                            <ul id="search_result" class="dropdown-menu border-light w-100 p-1">#}
+{#                                <li class="badge bg-secondary"></li>#}
+{#                            </ul>#}
+{#                        </section>#}
+
+{#                        {{ form_end(all_search) }}#}
+
+{#                {% endif %}#}
+
+
 
             </div>
 

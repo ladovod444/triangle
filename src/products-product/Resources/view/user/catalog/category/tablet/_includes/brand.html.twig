@@ -1,0 +1,21 @@
+<section class="container pb-3 pt-3">
+
+    {{ include(_self|replace({ "_includes/brand.html.twig" : "_form/filter_properties.html.twig" }), {filter}, with_context = false) }}
+
+    {{ include(_self|replace({ "brand.html.twig" : "brand_description.html.twig" }), { category }, with_context = false) }}
+
+    <hr class="row mb-3">
+
+    {{ include(_self|replace({ "brand.html.twig" : "brand_catalog.html.twig" })) }}
+
+    {{ render_all_best_seller(category.category_id) }}
+
+    {# Баннеры #}
+    {#    <div class="row gap-3 px-3 flex-nowrap overflow-x-scroll"> #}
+    {#        {% include Template('/public/'~(baks_settings.device)~'/_includes/banners/banner_lg.html.twig') only %} #}
+    {#        {% include Template('/public/'~(baks_settings.device)~'/_includes/banners/banner_lg.html.twig') only %} #}
+    {#    </div> #}
+
+</section>
+
+<hr class="m-0">

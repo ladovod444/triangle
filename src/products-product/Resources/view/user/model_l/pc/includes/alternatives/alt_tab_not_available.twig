@@ -1,0 +1,118 @@
+{# @var card \BaksDev\Products\Product\Repository\ProductModel\ProductModelResult #}
+{# @var offer \BaksDev\Products\Product\Repository\ProductModel\ProductModelOfferResult #}
+
+{# Нет в наличии #}
+{% set outStockOffersByValues = groupBy(card.outOfStockOffersResult, 'getProductOfferValue') %}
+
+<div class="tab-pane fade"
+     id="nav-r-none"
+     role="tabpanel"
+     aria-labelledby="nav-r-none-tab"
+     tabindex="0">
+
+    <div class="border p-1 rounded-4">
+        <table class="table table-borderless align-middle fs-12 mb-0">
+
+            <thead class="table-warning " style="letter-spacing:normal!important;">
+            <tr>
+                <th class="fw-normal px-3 radius" scope="col" colspan="2">Наименование</th>
+                <th class="fw-normal text-center" scope="col">Размер</th>
+                <th class="fw-normal text-center" scope="col">Характеристики</th>
+                <th class="fw-normal text-center" scope="col">Наличие</th>
+                <th class="fw-normal text-center" scope="col">В избранное</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {% for offers in outStockOffersByValues %}
+
+                {% for offer in offers %}
+
+                    {# Рассчет количества #}
+                    {% set quantityDesc = '' %}
+                    {% set quantity = offer.productQuantity %}
+                    {% set quantityDesc = 'Нет в наличии' %}
+
+                    {# Рассчет скидки #}
+{#                    {% set Discount = offer ? offer.discountPercent : false %}#}
+                    {% set Discount = false %}
+
+                    {# Персональная скидка #}
+                    {% set Price = offer.productPrice %}
+
+                    {# Старая цена #}
+                    {% set OldPrice = offer.productOldPrice %}
+
+                    {% set border = loop.index == offers|length ? '' : 'border-bottom' %}
+
+                    <tr class="{{ border }}">
+
+                        {# рендерим только для первого элемента #}
+                        {% if loop.index0 == 0 %}
+                            <th class="fw-normal py-3 align-top " rowspan="{{ offers|length }}">
+                                <p class="bg-warning-subtle pt-2 pb-5 px-2 fw-bold rounded-3 tabs-rows-title-radius mb-0 fs-14 text-center"
+                                   style="height: {{ 60 * offers|length }}px ;">
+
+                                    {{ offer.productOfferValue|call_twig_func(offer.productOfferReference~'_render') }}
+                                </p>
+                            </th>
+                        {% endif %}
+
+                        <td class="fw-normal py-3 ">
+
+                            <a class="text-black fw-bold text-decoration-none "
+                               href="{{ path('products-product:user.detail', {
+                                   category: card.categoryUrl,
+                                   url: card.productUrl,
+                                   offer: offer.productOfferValue,
+                                   variation: offer.productVariationValue,
+                                   modification: offer.productModificationValue,
+                                   postfix: (offer.productModificationPostfix ?: offer.productVariationPostfix ?: offer.productOfferPostfix ?: null )|replace({ '/': '-' }),
+                               }) }}">
+                                {{ card.productName }}
+                            </a>
+
+                            {# Если дата начала активности меньше 1 месяца - НОВИНКА  #}
+                            {% if date() < card.productActiveFrom|date_modify("+1 month") %}
+                                <a class="btn btn-success fw-bold rounded-5 fs-10 py-1 px-2 ms-1">
+                                    НОВИНКА
+                                </a>
+                            {% endif %}
+
+                        </td>
+
+                        <td class="fw-normal py-3  text-center {{ border }}">
+                            {{ offer.productOfferValue|call_twig_func(offer.productOfferReference~'_render')
+                            ~ offer.productModificationValue|call_twig_func(offer.productModificationReference~'_render') }}
+
+                            {{ offer.productOfferValue|call_twig_func(offer.productOfferReference~'_render') }}
+
+                            {{ (offer.productModificationPostfix ?: offer.productVariationPostfix ?: offer.productOfferPostfix ?: null ) }}
+                        </td>
+
+                        <td class="py-3">
+                            <div class="d-flex align-items-center gap-2">
+                                {% for Field in card.categorySectionField %}
+                                    {{ Field.field_value|call_twig_func(Field.field_type~'_render') }}
+                                {% endfor %}
+                            </div>
+                        </td>
+
+                        <td class="text-danger fw-bold py-3 text-center {{ border }}">
+                            Нет в наличии
+                        </td>
+
+                        <td class="py-3 text-end {{ border }}">
+                            <div class="position-relative">
+                                {{ render_favorite_button(offer.productInvariableId) }}
+                            </div>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

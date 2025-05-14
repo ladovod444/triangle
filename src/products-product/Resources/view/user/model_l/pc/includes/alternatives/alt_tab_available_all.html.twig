@@ -1,0 +1,34 @@
+<div id="nav-availab"
+     class="tab-pane fade show active"
+     aria-labelledby="nav-availab-tab"
+     role="tabpanel"
+     tabindex="0">
+
+    <div class="border p-1 rounded-4">
+
+        <table class="table table-borderless align-middle fs-12 mb-0">
+
+            <thead class="table-warning " style="letter-spacing:normal!important;">
+            <tr>
+                <th class="fw-normal px-3 radius" scope="col" colspan="2">Наименование</th>
+                <th class="fw-normal text-center" scope="col">Размер</th>
+                <th class="fw-normal text-center" scope="col">Характеристики</th>
+                <th class="fw-normal text-center" scope="col">Наличие</th>
+                <th class="fw-normal text-center" scope="col">Стоимость, шт.</th>
+                <th class="fw-normal text-center" scope="col">Купить</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {% for offers in inStockOffersByValues %}
+
+                {% set offersCount = offers|length %}
+
+                {{ include(_self|replace({ "alt_tab_available_all.html.twig" : "card_alt_available.html.twig" })) }}
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

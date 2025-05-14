@@ -52,26 +52,22 @@
 
         <div class="d-flex gap-5 mt-5">
 
-            <div class="col-8">
-                <div class="row mb-5">
+
                     {# Изображения #}
-                    <div class="col-6">
+
                         {% include Template('@products-product/public/'~baks_settings.device~'/images_carousel.html.twig') with {photos: card.productImages, card} only %}
-                    </div>
+
 
                     {# Свойства продукта #}
-                    <div class="col-6">
+                    <section id="product_characteristic" class="w-100">
                         {% include Template('@products-product/public/'~baks_settings.device~'/properties_product.html.twig') with {card} only %}
 
                         <img src="{{ categoryCover }}" style="height: auto; width: 180px;"
                              alt="{{ card.categoryName }}">
-                    </div>
-                </div>
+                    </section>
 
 
-            </div>
-
-            <div class="col-4">
+            <section id="product_payment" class="w-100 d-flex flex-column align-items-start">
                 {# БЛОК С ЦЕНОЙ И КНОПКОЙ ДОБАВЛЕНИЯ В КОРЗИНУ #}
                 {{ include(_self|replace({ "content.html.twig" : "_includes/add_basket.html.twig" }), {card, basket}, with_context = false) }}
 
@@ -82,7 +78,7 @@
                     {# РЕКЛАМНЫЙ БАННЕР #}
 {#                    {% include Template('/public/'~(baks_settings.device ?: 'pc')~'/_includes/banners/ad_banner.html.twig') %}#}
                 </div>
-            </div>
+            </section>
 
         </div>
 

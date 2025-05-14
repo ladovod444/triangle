@@ -1,0 +1,100 @@
+{# @var card \BaksDev\Products\Product\Repository\ProductModel\ProductModelResult #}
+
+{# Модели шин, организованные по value #}
+{% set inStockOffersByValues = groupBy(card.inStockOffersResult, 'getProductOfferValue') %}
+{# {% set inStockOffersByValues = mapping(card.inStockOffersResult, 'offer_value') %} #}
+
+<div class="mb-5">
+    {% if inStockOffersByValues %}
+
+        <div id="tab"
+             role="tablist"
+             class="d-flex align-items-center mb-4 justify-content-between">
+
+            <div class="d-flex align-items-center gap-2">
+
+                <button class="btn border fw-bold text-secondary btn-alt rounded-5 active"
+                        id="nav-availab-tab"
+                        type="button" role="tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-availab"
+                        aria-controls="nav-availab"
+                        aria-selected="true">
+                    В наличии
+                    <small>({{ card.inStockOffersResult|length }})</small>
+                </button>
+
+                {% for key, value in inStockOffersByValues %}
+                    <button class="btn border fw-bold text-secondary btn-alt rounded-5"
+                            type="button" role="tab"
+                            data-bs-target="#nav-{{ key }}"
+                            data-bs-toggle="tab"
+                            aria-controls="nav-{{ key }}"
+                            aria-selected="false"
+                            id="nav-{{ key }}-tab">
+
+                        {{ key|call_twig_func(value|first.productOfferReference~'_render') }}
+
+                    </button>
+                {% endfor %}
+
+            </div>
+
+            {% if card.outOfStockOffersResult %}
+                <button class="btn border fw-bold text-secondary btn-alt rounded-5"
+                        type="button" role="tab"
+                        aria-selected="false"
+                        aria-controls="nav-r-none"
+                        data-bs-target="#nav-r-none"
+                        data-bs-toggle="tab"
+                        id="nav-r-none-tab">
+                    Нет в наличии
+                    <small>({{ card.outOfStockOffersResult|length }})</small>
+                </button>
+            {% endif %}
+
+        </div>
+
+        {# TABS #}
+        <div class="tab-content" id="tabContent">
+
+            {# Вкладка с наличием #}
+            {{ include(_self|replace({ "alternatives.html.twig" : "alt_tab_available_all.html.twig" })) }}
+
+            {# Вкладки с фильтрацией по радиусу #}
+            {{ include(_self|replace({ "alternatives.html.twig" : "alt_tab_available_by.html.twig" })) }}
+
+            {# Вкладки - нет в наличии #}
+            {% if card.outOfStockOffersResult %}
+                {{ include(_self|replace({ "alternatives.html.twig" : "alt_tab_not_available.twig" })) }}
+            {% endif %}
+
+        </div>
+
+    {% else %}
+
+        <div id="tab"
+             role="tablist"
+             class="d-flex align-items-center mb-4 justify-content-between">
+
+            <button class="btn px-3 py-2 fw-bold rounded-5 productCardTabs text-decoration-underline active"
+                    type="button" role="tab"
+                    aria-selected="false"
+                    aria-controls="nav-r-none"
+                    data-bs-target="#nav-r-none"
+                    data-bs-toggle="tab"
+                    id="nav-r-none-tab">
+                Нет в наличии
+                <small>({{ card.outOfStockOffersResult|length }})</small>
+            </button>
+
+        </div>
+
+        {# TABS #}
+        <div class="tab-content" id="tabContent">
+            {# Вкладки - нет в наличии #}
+            {{ include(_self|replace({ "alternatives.html.twig" : "alt_tab_not_available.twig" })) }}
+        </div>
+
+    {% endif %}
+</div>

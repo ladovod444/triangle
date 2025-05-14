@@ -1,17 +1,9 @@
 
 	<div id="banner" class="carousel slide carousel-dark py-3" data-bs-ride="true" >
-		{# <div class="carousel-indicators">
-					<button type="button" data-bs-target="#banner" data-bs-slide-to="0"
-							class="active" aria-current="true" aria-label="Slide 1"></button>
-					<button type="button" data-bs-target="#banner" data-bs-slide-to="1"
-							aria-label="Slide 2"></button>
-					<button type="button" data-bs-target="#banner" data-bs-slide-to="2"
-							aria-label="Slide 3"></button>
-				</div> #}
 
 		<div class="carousel-inner rounded-5">
 
-			{% for i in 0..10 %}
+			{% for i in 1..1 %}
 				<div class="carousel-item{{ loop.first ? ' active' }} lazy bg-cover" data-bg="/temp/img/carosel/01.webp" style="min-height: 155px;">
 
 					{#<img data-src="/temp/img/carosel/01.webp" class="lazy d-block w-100" alt="" style="min-height: 250px;">#}
@@ -53,7 +45,7 @@
 		</div>
 
 		<button class="carousel-control-prev justify-content-start" type="button"
-				aria-label="Предыдущий слайд"
+				title="Предыдущий слайд"
 				data-bs-target="#banner"
 				data-bs-slide="prev">
 
@@ -67,7 +59,7 @@
 		</button>
 
 		<button class="carousel-control-next justify-content-end" type="button"
-				aria-label="Следующий слайд"
+				title="Следующий слайд"
 				data-bs-target="#banner"
 				data-bs-slide="next">
 			<span class="pe-3">

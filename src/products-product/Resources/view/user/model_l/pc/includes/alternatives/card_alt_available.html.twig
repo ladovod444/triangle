@@ -1,0 +1,132 @@
+{# @var card \BaksDev\Products\Product\Repository\ProductModel\ProductModelResult #}
+{# @var offer \BaksDev\Products\Product\Repository\ProductModel\ProductModelOfferResult #}
+
+{% for offer in offers %}
+
+    {# Рассчет количества #}
+    {% set QuantityDesc = '' %}
+    {% set IsStock = true %}
+    {% set Quantity = offer.productQuantity %}
+
+    {% if Quantity == 0 %}
+        {% set QuantityDesc = 'Нет в наличии' %}
+        {% set IsStock = false %}
+    {% elseif Quantity > 20 %}
+        {% set QuantityDesc = 'Более 20 шт.' %}
+    {% elseif Quantity < 20 %}
+        {% set QuantityDesc = 'Менее 20 шт.' %}
+    {% else %}
+        {% set QuantityDesc = (Quantity)~' шт.' %}
+    {% endif %}
+
+    {# Рассчет скидки #}
+{#    {% set Discount = offer and offer.discountPercent and offer.productPrice ? offer.discountPercent : false %}#}
+    {% set Discount = false %}
+
+    {# Персональная скидка #}
+    {% set Price = offer.productPrice %}
+
+    {# Старая цена #}
+    {% set OldPrice = offer.productOldPrice %}
+
+    {% set Border = loop.last ? '' : 'border-bottom' %}
+
+    <tr class="{{ Border }}">
+
+        {# рендерим только для первого элемента #}
+        {% if loop.index0 == 0 %}
+            <th class="fw-normal py-3 align-top"
+                rowspan="{{ offersCount }}">
+                <p class="bg-warning-subtle pt-2 pb-5 px-2 fw-bold rounded-3 tabs-rows-title-radius mb-0 fs-14 text-center"
+                   style="height: {{ 60 * offersCount }}px ;">
+
+                    {{ offer.productOfferValue|call_twig_func(offer.productOfferReference~'_render') }}
+                </p>
+            </th>
+        {% endif %}
+
+        <td class="fw-normal py-3 ">
+
+            <a class="text-black fw-bold text-decoration-none "
+               href="{{ path('products-product:user.detail', {
+                   category: card.categoryUrl,
+                   url: card.productUrl,
+                   offer: offer.productOfferValue,
+                   variation: offer.productVariationValue,
+                   modification: offer.productModificationValue,
+                   postfix: (offer.productModificationPostfix ?: offer.productVariationPostfix ?: offer.productOfferPostfix ?: null )|replace({ '/': '-' }),
+               }) }}">
+                {{ card.productName }}
+            </a>
+
+            {# Если дата начала активности меньше 1 месяца - НОВИНКА  #}
+            {% if date() < card.productActiveFrom|date_modify("+1 month") %}
+                <a class="btn btn-success fw-bold rounded-5 fs-10 py-1 px-2 ms-1">
+                    НОВИНКА
+                </a>
+            {% endif %}
+
+        </td>
+
+        <td class="fw-normal py-3  text-center {{ Border }}">
+            {{ offer.productOfferValue|call_twig_func(offer.productOfferReference~'_render')
+            ~ offer.productModificationValue|call_twig_func(offer.productModificationReference~'_render') }}
+
+            {{ offer.productOfferValue|call_twig_func(offer.productOfferReference~'_render') }}
+
+            {{ (offer.productModificationPostfix ?: offer.productVariationPostfix ?: offer.productOfferPostfix ?: null ) }}
+        </td>
+
+        <td class="py-3">
+            <div class="d-flex align-items-center gap-2">
+                {% for Field in card.categorySectionField %}
+                    {{ Field.field_value|call_twig_func(Field.field_type~'_render') }}
+                {% endfor %}
+            </div>
+        </td>
+
+        {% if IsStock == true %}
+
+            <td class="fw-normal py-3  text-center {{ Border }}"> {{ QuantityDesc }}</td>
+
+            <td class=" py-3 text-center fw-bold {{ Border }}">
+
+                {% if Discount %}
+                    <a class="btn text-white btn-danger fw-bold rounded-5 fs-11 py-1 px-2 me-2">
+                        - {{ Discount }} %
+                    </a>
+                {% endif %}
+
+                {{ money(Price, offer.productCurrency) }}
+            </td>
+
+            <td class=" py-3 text-end {{ Border }}">
+
+                {% include Template('@products-product/public/'~(baks_settings.device ?: 'pc')~'/button_add_to_basket.html.twig') with {
+                    'product_event': card.productEvent,
+                    'product_offer': offer.productOfferUid,
+                    'product_variation': offer.productVariationUid,
+                    'product_modification': offer.productModificationUid,
+                } only %}
+
+                {# В ИЗБРАННОЕ #}
+
+            </td>
+        {% else %}
+            <td class="text-danger fw-normal py-3 text-center {{ Border }}">
+                Нет в наличии
+            </td>
+
+            <td class="py-3 text-center fw-bold">
+
+            </td>
+
+            {# В ИЗБРАННОЕ #}
+            <td class=" py-3 text-end {{ Border }}">
+
+            </td>
+
+        {% endif %}
+    </tr>
+
+{% endfor %}

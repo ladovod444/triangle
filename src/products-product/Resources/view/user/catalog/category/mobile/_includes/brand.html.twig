@@ -1,0 +1,15 @@
+{# Форма фильтрации #}
+{{ include(_self|replace({ "_includes/brand.html.twig" : "_form/filter_properties.html.twig" }), {filter}, with_context = false) }}
+
+<section class="container py-3">
+
+    {{ include(_self|replace({ "brand.html.twig" : "brand_description.html.twig" })) }}
+
+    <hr class="row">
+
+    {{ include(_self|replace({ "brand.html.twig" : "brand_catalog.html.twig" })) }}
+
+    {{ render_one_best_seller(category.category_id) }}
+
+</section>
+

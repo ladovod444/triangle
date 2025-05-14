@@ -1,0 +1,154 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/public/base.html.twig') %}
+
+{% block title %}
+	{{ card.productName }}
+{% endblock %}
+
+
+{# Минимальная цена #}
+{% set card_min_price = user_profile_discount(card.minPrice) ?: card.minPrice %}
+{% block description %}
+{#	{{ dd(card) }}#}
+	Купить по выгодной цене {{ card.productName }} от {{ card_min_price }}
+{% endblock %}
+
+
+{% block meta %}
+	
+{#	{% set product_modification_image = card.product_modification_image|json_decode %}#}
+{#	{% set product_variation_image = card.product_variation_image|json_decode %}#}
+{#	{% set product_offer_images = card.product_offer_images|json_decode %}#}
+{#	{% set product_photo = card.product_photo|json_decode %}#}
+{#	{% set root_image = null %}#}
+	
+	{# Определяем главное фото #}
+{#	{% for modification_image in product_modification_image | filter(img =>  img.product_img_root is defined and img.product_img_root == true) %}#}
+{#		{% set root_image = modification_image %}#}
+{#	{% endfor %}#}
+{#	#}
+{#	{% if root_image is null %}#}
+{#		{% for variation_image in product_variation_image | filter(img => img.product_img_root is defined and img.product_img_root == true) %}#}
+{#			{% set root_image = variation_image %}#}
+{#		{% endfor %}#}
+{#	{% endif %}#}
+{#	#}
+{#	{% if root_image is null %}#}
+{#		{% for offer_images in product_offer_images | filter(img => img.product_img_root is defined and img.product_img_root == true) %}#}
+{#			{% set root_image = offer_images %}#}
+{#		#}
+{#		{% endfor %}#}
+{#	{% endif %}#}
+{#	#}
+{#	{% if root_image is null %}#}
+{#		{% for product_images in product_photo | filter(img => img.product_img_root is defined and img.product_img_root == true) %}#}
+{#			{% set root_image = product_images %}#}
+{#		#}
+{#		{% endfor %}#}
+{#	{% endif %}#}
+
+
+{#	{% set root_image = card.productImages|first %}#}
+{#	{% set img_path = root_image.product_img_cdn == true ? cdn_host : '' %}#}
+{#	{% set root_image_ext = root_image.product_img_cdn == true ? 'medium.'~root_image.product_img_ext : root_image.product_img_ext %}#}
+
+	{% set photo = card.productImages|first %}
+	{% if photo.product_img_ext is defined and photo.product_img_ext is not null %}
+		{% set image_path = cdn_image_path(photo.product_img, photo.product_img_ext, photo.product_img_cdn, 'medium') %}
+	{% endif %}
+
+{#	{{ dd(image_path) }}#}
+	
+	<meta property="og:locale" content="{{ app.request.getLocale() }}_{{ app.request.getLocale()|upper }}">
+	<meta property="og:type" content="product">
+	<meta property="og:site_name" content="{{ app.request.host }}">
+	<meta property="og:title" content="{{ card.productName }}">
+	<meta property="og:description"
+			content="Купить по выгодной цене {{ card.productName }} от {{ card_min_price }}">
+	<meta property="og:url" content="{{ app.request.uri }}">
+	<meta property="og:image"
+			content="{{ absolute_url( image_path ? image_path : '/logo.webp' ) }}">
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@https://{{ app.request.host }}">
+	<meta name="twitter:title" content="{{ card.productName }}">
+	<meta name="twitter:description"
+			content="Купить по выгодной цене {{ card.productName }} от {{ card_min_price }}">
+	<meta name="twitter:image:src"
+		  content="{{ absolute_url( image_path ? image_path : '/logo.webp' ) }}">
+
+{% endblock %}
+
+
+
+
+
+
+{# ---- CSS ------------------------------------------------------------ #}
+{#  {% block stylesheets %}
+	 
+	 <style>
+
+	 </style>
+
+ {% endblock %} #}
+
+{# ---- HEADER-БЛОК ------------------------------------------------------------ #}
+{# {% block header %}
+    {{ include(_self|replace({ "template.html.twig": "header.html.twig" })) }}
+{% endblock %} #}
+
+
+{# ---- LEFT-БЛОК ------------------------------------------------------------ #}
+{# {% block left %} #}
+{#   {% include '@Template/flowers/left.html.twig' %} #}
+{# {% endblock %} #}
+
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+
+{#	{{ dd(card) }}#}
+
+	{% set arr_property = card.categorySectionField %}
+	{% set product_offers = card.productOffers %}
+
+
+	{% set current_offer = product_offers|first %}
+	{% set name_offer = current_offer.offer_name %}
+	{% set name_variation = current_offer.variation_name %}
+	{% set name_modification = current_offer.modification_name %}
+
+
+	{{ include(_self|replace({ "template.html.twig":baks_settings.device~"/content.html.twig" })) }}
+	<div style="display: none !important;"
+			class='accordion accordion-button btn-link p-0 collapsed tooltip bs-tooltip-bottom bs-tooltip-start bs-tooltip-end alert alert-warning rounded-4 mt-3'>
+	</div>
+	
+{% endblock %}
+
+
+
+
+{#{% block javascript %}#}
+{#<script async data-src="/assets/order_orders/modal_basket{{ app.environment != 'dev'?'.min' }}.js" class='lazy'></script>#}
+{#<script nonce="{{ csp_nonce() }}">#}
+{#document.querySelectorAll('.img-product').forEach((el) => el.addEventListener('click', () => document.getElementById('img-product').style.backgroundImage = el.style.backgroundImage ));#}
+{#</script>#}
+
+{#{% endblock %}#}
+
+
+{% block javascript %}
+<script nonce='{{ csp_nonce() }}'  data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}' class='lazy'></script>
+
+{#<script nonce="{{ csp_nonce() }}" data-src="/assets/blackdragon/js/scroll.js" class="lazy"></script>#}
+{#<script nonce="{{ csp_nonce() }}" data-src="/assets/blackdragon/js/clickOnCarousel.js" class="lazy"></script>#}
+
+{# Для корзины #}
+<script nonce="{{ csp_nonce() }}" data-src="/assets/orders-order/orders_basket.min.js?v={{ version }}" class='lazy'></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/orders-order/modal_basket.min.js?v={{ version }}" class='lazy'></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/orders-order/basket_items.min.js?v={{ version }}" class='lazy'></script>
+{% endblock %}
+
+

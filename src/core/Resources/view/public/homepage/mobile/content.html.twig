@@ -5,7 +5,7 @@
 
 
     {# Карусель банеров  #}
-    {# {{ include(_self|replace({ "content.html.twig": "banner.html.twig" })) }} #}
+     {{ include(_self|replace({ "content.html.twig": "banner.html.twig" })) }}
 
     {# <div class="container d-flex">
 		<h2 class="text-uppercase h5 fw-bolder py-4 me-2">подбор шин</h2>
@@ -22,36 +22,41 @@
 
     {# Фильтр подбора  #}
 
-    {# {{ include(_self|replace({ "content.html.twig": "filter.html.twig" })) }} #}
+     {{ include(_self|replace({ "content.html.twig": "filter.html.twig" })) }}
 
 
 
 
 
-    {% for key, cat in category %}
+{#    {% for key, cat in category %}#}
 
 
-        {% if products[key]|length %}
-
+{#        {% if products[key]|length %}#}
+            {% if cards|length %}
 
             <section class="cards-box shadow pb-3">
                 <div class="container">
 
                     <div class="d-flex  mt-3">
-                        <h2 class="text-uppercase h5 fw-bolder py-4 me-3">{{ cat.category_name }}</h2>
+                        <h2 class="text-uppercase h5 fw-bolder py-4 me-3">Автомобильные шины</h2>
                         <div class="d-flex align-items-center">
                             <div class="small mb-1">
-                                <a href="{{ path('Product:user.catalog.category', { url : cat.category_url }) }}"
-                                   class="small text-lowercase">Все {{ cat.category_name }}</a>
+{#                                <a href="#}
+{#                                {{ path('Product:user.catalog.category', { url : cat.category_url }) }}#}
+{#"#}
+{#                                   class="small text-lowercase">Все шины#}
+{#                                    {{ cat.category_name }}#}
+{#                                </a>#}
                             </div>
                         </div>
                     </div>
 
 
                     <div class="cards-box-body d-flex flex-wrap">
-                        {% for product in products[key] %}
+                        {% for card in cards %}
                             <div class="w-50">
-                                {% include Template('/user/mobile/includes/card.html.twig') with { 'card': product } %}
+{#                                {% include Template('/user/mobile/includes/card.html.twig') with { 'card': product } %}#}
+                                {% include Template('@products-product/public/' ~baks_settings.device~ '/card_model_or_product.html.twig') with {card} only %}
                             </div>
                         {% endfor %}
                     </div>
@@ -59,7 +64,8 @@
                     <a
                             class="btn btn-primary w-100 rounded-3 text-uppercase fw-bolder my-2"
                             aria-label="Показать еще"
-                            href="{{ path('Product:user.catalog.category', { url : cat.category_url }) }}"
+{#                            href="{{ path('Product:user.catalog.category', { url : cat.category_url }) }}"#}
+                            href="{{ path('products-product:public.catalog.index') }}"
                     >
                         Показать еще
                     </a>
@@ -76,14 +82,16 @@
                     </div>
 
                     <div class="bg-light rounded-4 px-2 py-1 mt-4">
-                        {% include Template('user/'~baks_settings.device~'/includes/leader.html.twig') with { 'leader' : leader[key] } %}
+{#                        {% include Template('user/'~baks_settings.device~'/includes/leader.html.twig') with { 'leader' : leader[key] } %}#}
+
+                        {{ include (_self|replace({ "content.html.twig" : "includes/best_offers.html.twig" }), { bestOffers}, with_context = false) }}
                     </div>
                 </div>
             </section>
 
         {% endif %}
 
-    {% endfor %}
+{#    {% endfor %}#}
 
 
 
