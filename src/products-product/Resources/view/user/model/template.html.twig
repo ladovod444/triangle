@@ -9,11 +9,8 @@
 {# Минимальная цена #}
 {% set card_min_price = user_profile_discount(card.minPrice) ?: card.minPrice %}
 
-
-
 {#{% set card_max_price = user_profile_discount(card.maxPrice) ?: card.maxPrice %}#}
 {% block description %}
-{#    	{{ dd(card) }}#}
     Купить по выгодной цене {{ card.productName }} от {{ card_min_price }}
 {% endblock %}
 

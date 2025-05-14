@@ -34,13 +34,17 @@
             {% set inStock = true %}
             {% set quantity = alt.productQuantity %}
 
+            {% set text_class = ' fw-bold' %}
+
             {% if quantity == 0 %}
                 {% set alternativeQuantity = 'Нет в наличии' %}
                 {% set inStock = false %}
             {% elseif quantity > 20 %}
                 {% set alternativeQuantity = 'Более 20 шт.' %}
+                {% set text_class = 'text-success' ~ text_class %}
             {% elseif quantity < 20 %}
                 {% set alternativeQuantity = 'Менее 20 шт.' %}
+                {% set text_class = 'text-warning' ~ text_class%}
             {% else %}
                 {% set alternativeQuantity = (quantity)~' шт.' %}
             {% endif %}
@@ -107,7 +111,7 @@
                 {# НАЛИЧИЕ, СТОИМОСТЬ, СКИДКА, КНОПКИ "ИЗБРАННОЕ/КОРЗИНА" #}
                 {% if inStock == true %}
 
-                    <td class="text-success fw-bold"> {{ alternativeQuantity }}</td>
+                    <td class="{{ text_class }}"> {{ alternativeQuantity }}</td>
 
                     <td>
 

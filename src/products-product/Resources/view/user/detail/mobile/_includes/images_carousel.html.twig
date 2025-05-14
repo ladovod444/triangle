@@ -1,10 +1,10 @@
 {# Сортируем изображения, где первое в массиве - главное (root) #}
-{% set producPhotosSortByRoot = photos|json_decode|sort((a, b) => (b.product_img_root == true ? 1 : 0) <=> (a.product_img_root == true ? 1 : 0)) %}
+{% set producPhotosSortByRoot = photos|sort((a, b) => (b.product_img_root == true ? 1 : 0) <=> (a.product_img_root == true ? 1 : 0)) %}
 {# Переиндексирую массив после сортировки #}
 {% set newProducPhotos = producPhotosSortByRoot|keys|map(key => producPhotosSortByRoot[key]) %}
 
-<div id="productPageCarousel" class="carousel slide mb-2" data-bs-ride="carousel">
-    <div class="carousel-inner " style="min-height: 280px">
+<div id="productPhoto" class="carousel slide mb-2" data-bs-ride="carousel">
+    <div class="carousel-inner rounded-5 border">
 
         {% for key, photo in newProducPhotos %}
 
@@ -19,9 +19,21 @@
             {% endif %}
 
             <div class="carousel-item {{ key == 0 ? 'active' : '' }} h-100 position-relative border rounded-4"
-                 data-bs-interval="3000">
 
-                <img src=" {{ image_path}} " class="w-100 h-100 d-block rounded-4" alt="Изображение товара">
+                 data-bs-interval="3000"
+
+
+            >
+
+                <div class="rounded-5 lazy bg-contain my-3" style="height: 250px; width: 100%;"
+
+                     data-bg="{{ image_path }}"
+
+                >
+
+                </div>
+
+                {#                <img src=" {{ image_path}} " class="w-100 h-100 d-block rounded-4" alt="Изображение товара"> #}
 
                 <span class="position-absolute badge-position badge z-3 ">
                     <a href="#" aria-label="Иконка добавления в избранное">
@@ -39,6 +51,21 @@
 
         {% endfor %}
     </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#productPhoto" data-bs-slide="prev">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-caret-left-fill"
+             viewBox="0 0 16 16">
+            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path>
+        </svg>
+        <span class="visually-hidden">Previous</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#productPhoto" data-bs-slide="next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-caret-right-fill"
+             viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"></path>
+        </svg>
+        <span class="visually-hidden">Next</span></button>
 
 </div>
 

@@ -8,22 +8,27 @@
 {% endif %}
 
 {# Свойства продукта #}
-{% set productFields = card.category_section_field|json_decode %}
+{% set productFields = card.categorySectionField %}
 {% set tireEuroField = productFields|filter(v => v.field_type == 'tire_euro_field')|first %}
 
-<section class="container">
+<section id="card" class="container mt-4">
 
-    <h2 class="fs-6 text-uppercase fw-bold ">
-        {{ card.product_name }}
+    <h1 class="fs-6 text-uppercase fw-bold ">
+        {{ card.productName }}
 
-        {{ card.product_variation_value|call_twig_func(card.product_variation_reference~'_render')
-        ~ card.product_modification_value|call_twig_func(card.product_modification_reference~'_render') }}
+        {{ card.productVariationValue|call_twig_func(card.productVariationReference~'_render')
+        ~ card.productModificationValue|call_twig_func(card.productModificationReference~'_render') }}
 
-        {{ card.product_offer_value|call_twig_func(card.product_offer_reference~'_render') }}
-    </h2>
+        {{ card.productOfferValue|call_twig_func(card.productOfferReference~'_render') }}
+
+        {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null )|replace({ '/': '-' }) }}
+        </h1>
 
 
-    <div class="d-flex align-items-center justify-content-between mb-3">
+
+    <div class="d-flex align-items-center gap-2 mb-1 small">
+
+        <span class="small">Артикул: {{ card.productArticle }}</span>
 
         {# @TODO нужен отдельный модуль! #}
         {# Рейтинг #}
@@ -48,7 +53,7 @@
         {#                ТОП #}
         {#            </button> #}
 
-        {% if date() < card.active_from|date_modify("+1 month") %}
+        {% if date() < card.productActiveFrom|date_modify("+1 month") %}
             <button class="btn btn-success fw-bold rounded-5 fs-8 py-1 px-2">
                 НОВИНКА
             </button>
@@ -65,27 +70,34 @@
     </div>
 
     {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/tireCarousel.html.twig') %} #}
-    {{ include(_self|replace({ "product_page.html.twig" : "images_carousel.html.twig" }), {photos: card.product_photo}, with_context = false) }}
+    {{ include(_self|replace({ "product_page.html.twig" : "images_carousel.html.twig" }), {photos: card.productImages}, with_context = false) }}
 
     {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/productPriceCount.html.twig') %} #}
     {{ include(_self|replace({ "product_page.html.twig" : "add_basket.html.twig" })) }}
+</section>
 
-    <hr class="row mb-0">
 
-    {% include Template('/public/'~(baks_settings.device ?: 'pc')~'/_includes/product_fields_tabs.html.twig') with {card} only %}
 
-    <div class="mb-3">
+{#    <hr class="row mb-0">#}
+
+
+    {% include Template('@products-product/public/'~baks_settings.device~'/properties_product.html.twig') with {card} only %}
+
+
+    {#    {% include Template('/public/'~(baks_settings.device ?: 'pc')~'/_includes/product_fields_tabs.html.twig') with {card} only %}#}
+
+    <section class="container shadow ">
 
         {# АЛЬТЕРНАТИВЫ - СПИСОК #}
         {#        {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/productTable.html.twig') %} #}
+
         {{ include(_self|replace({ "product_page.html.twig" : "alternatives.html.twig" })) }}
 
-    </div>
+    </section>
 
     {# @TODO нет модуля #}
     {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/reviewSm.html.twig') %} #}
 
     {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/bestseller.html.twig') %} #}
-    {{ render_bestseller(baks_settings.device) }}
+{#    {{ render_bestseller(baks_settings.device) }}#}
 
-</section>
