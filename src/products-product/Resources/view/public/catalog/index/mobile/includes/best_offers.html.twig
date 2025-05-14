@@ -1,0 +1,28 @@
+<div class="block-heading">
+{#    <h2 class="text-uppercase h5 fw-bolder mb-4">Лидеры продаж {{ cat.category_name }}</h2>#}
+    <h2 class="text-uppercase h5 fw-bolder mb-4">Лидеры продаж </h2>
+</div>
+
+
+
+<div class="rounded-4 bg-light d-flex flex-column gap-3 p-3 mb-4">
+
+    <ul class="leader list-group list-group-flush list-group-numbered" >
+
+        {% for offer in bestOffers %}
+            <li class="list-group-item bg-transparent border-0 text-truncate rounded-5">
+
+                <a class="text-decoration-none text-dark "
+                   href="{{ path('products-product:user.model', {
+                       category: offer.category_url,
+                       url: offer.url
+                   }) }}">
+                    {{ offer.product_name }}
+                </a>
+
+            </li>
+        {% endfor %}
+
+    </ul>
+
+</div>
