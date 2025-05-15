@@ -1,21 +1,44 @@
-<section class="container pb-3 pt-3">
+<section class="container pb-5 pt-4">
+    <div class="row">
 
-    {{ include(_self|replace({ "_includes/brand.html.twig" : "_form/filter_properties.html.twig" }), {filter}, with_context = false) }}
+        <div class="col-3">
+            {{ include(_self|replace({ "_includes/brand.html.twig" : "_form/filter_properties.html.twig" }), {filter, category_name:category.category_name}, with_context = false) }}
 
-    {{ include(_self|replace({ "brand.html.twig" : "brand_description.html.twig" }), { category }, with_context = false) }}
+            {# БЛОК BEST_OFFERS #}
+            {#            {{ render_one_best_seller(category.category_id) }} #}
 
-    <hr class="row mb-3">
+            {#            {% include Template('/public/'~baks_settings.device~'/_includes/banners/ad_banner.html.twig') only %} #}
+        </div>
 
-    {{ include(_self|replace({ "brand.html.twig" : "brand_catalog.html.twig" })) }}
+        <div class="col-9">
 
-    {{ render_all_best_seller(category.category_id) }}
+            {#            {{ include(_self|replace({ "brand.html.twig" : "description.html.twig" }), { category }, with_context = false) }} #}
 
-    {# Баннеры #}
-    {#    <div class="row gap-3 px-3 flex-nowrap overflow-x-scroll"> #}
-    {#        {% include Template('/public/'~(baks_settings.device)~'/_includes/banners/banner_lg.html.twig') only %} #}
-    {#        {% include Template('/public/'~(baks_settings.device)~'/_includes/banners/banner_lg.html.twig') only %} #}
-    {#    </div> #}
+            <div class="d-flex gap-3 small align-items-center mb-3"><h1 class="text-uppercase h4 fw-bolder mb-0 me-3">
+                    {{ category.category_name }}
+                </h1></div>
 
+            {# КАРТОЧКИ ПРОДУКТА #}
+            {% if products.data is not empty %}
+                <div class="row row-cols-4 gx-2 gy-5">
+
+                    {% for product in products.data %}
+                        <div class="col p-1 px-2">
+                            {% include Template('@products-product/public/' ~baks_settings.device~ '/card_model_or_product.html.twig') with {card: product} only %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% include Template('/user/pc/includes/pagination.html.twig') with { 'pagination' : products } %}
+
+            {% else %}
+
+                <h2 class="fs-18 mb-0 text-uppercase fw-bold">
+                    Товар по выбранным параметрам не найден
+                </h2>
+
+            {% endif %}
+        </div>
+
+    </div>
 </section>
-
-<hr class="m-0">

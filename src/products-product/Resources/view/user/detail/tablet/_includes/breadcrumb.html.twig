@@ -1,12 +1,21 @@
-<section class="container py-4 px-4">
+{# @var card \BaksDev\Products\Product\Repository\ProductDetailByValue\ProductDetailByValueResult #}
+
+
     <h2 class="visually-hidden">Хлебные крошки</h2>
-    <nav class="d-flex align-items-center gap-2" aria-label="breadcrumb" style="--bs-breadcrumb-divider: '-';">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right"
-             viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-        </svg>
-        <ol class="breadcrumb m-0" style="font-size: 11px;">
+    <nav class="small" aria-label="breadcrumb" style="--bs-breadcrumb-divider: '-';">
+        {#        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" #}
+        {#             viewBox="0 0 16 16"> #}
+        {#            <path fill-rule="evenodd" #}
+        {#                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path> #}
+        {#        </svg> #}
+        <ol class="breadcrumb text-secondary small opacity-75" style="font-size: 11px;">
+
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                     class="bi bi-caret-right-fill text-muted me-1" viewBox="0 0 16 16">
+                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"></path>
+                </svg>
+            </li>
 
             <li class="breadcrumb-item">
                 <a class="text-secondary" href="{{ path('core:user.homepage') }}">
@@ -20,34 +29,33 @@
                 </a>
             </li>
 
-            <li class="breadcrumb-item active" aria-current="page" title="{{ card.category_name }}">
+            <li class="breadcrumb-item active" aria-current="page" title="{{ card.categoryName }}">
                 <a class="text-secondary" href="{{ path('products-product:user.catalog.category', {
-                    category: card.category_url,
-                }) }}" aria-label="{{ card.category_name }}">
-                    {{ card.category_name }}
+                    category: card.categoryUrl,
+                }) }}" aria-label="{{ card.categoryName }}">
+                    {{ card.categoryName }}
                 </a>
             </li>
 
-            <li class="breadcrumb-item active" aria-current="page" title="{{ card.product_name }}">
+            <li class="breadcrumb-item active" aria-current="page" title="{{ card.productName }}">
                 <a class="text-secondary" href="{{ path('products-product:user.model', {
-                    category: card.category_url,
-                    url: card.url
+                    category: card.categoryUrl,
+                    url: card.productUrl
                 }) }}">
-                    {{ card.product_name }}
+                    {{ card.productName }}
                 </a>
             </li>
 
-            {% set productIdentifiers = card.product_offer_value
-                ~ '/' ~ card.product_variation_value
-                ~ '/' ~ card.product_modification_value
-                ~ '/' ~ card.product_modification_postfix %}
+            {% set productIdentifiers = card.productOfferValue
+                ~ '/' ~ card.productVariationValue
+                ~ '/' ~ card.productModificationValue
+                ~ '/' ~ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null )|replace({ '/': '-' }) %}
 
             <li class="breadcrumb-item active" aria-current="page"
-                aria-label="{{ card.product_name }}"
-                title="{{ card.product_name }}">
+                aria-label="{{ card.productName }}"
+                title="{{ card.productName }}">
                 {{ productIdentifiers }}
             </li>
 
         </ol>
     </nav>
-</section>

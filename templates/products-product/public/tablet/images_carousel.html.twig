@@ -1,0 +1,39 @@
+{# КАРУСЕЛЬ ДЛЯ ПРОСМОТРА ИЗОБРАЖЕНИЙ #}
+<div class="w-100">
+
+    {% set photo = photos|first %}
+    {% if photo.product_img_ext is defined and photo.product_img_ext is not null %}
+        {% set image_path = cdn_image_path(photo.product_img, photo.product_img_ext, photo.product_img_cdn) %}
+    {% endif %}
+    <div id="img-product" data-bs-toggle="modal" data-bs-target="#lightboxModal"
+         class="icon rounded-5 border lazy bg-cover shadow-none" style="width: 350px; height: 350px;"
+         data-bg="{{ photo ? image_path : '/assets/img/blank.svg' }}"
+         title="{{ card.productName }}"
+    >
+    </div>
+
+
+    {# ДОПОЛНИТЕЛЬНЫЕ ФОТО #}
+
+    <div class="d-flex justify-content-center gap-3 mt-4 ">
+
+        {% for key, photo in photos %}
+
+            {# Обложка #}
+            {% if photo.product_img_ext is defined and photo.product_img_ext is not null %}
+                {% set image_path = cdn_image_path(photo.product_img, photo.product_img_ext, photo.product_img_cdn) %}
+            {% endif %}
+
+            <button class="btn btn-link icon bg-cover rounded-4 lazy img-product m-0"
+                    data-bg="{{ image_path }}"
+                    style="width: 70px; height: 70px;"
+                    aria-label="{{ card.productName }}"
+            ></button>
+
+        {% endfor %}
+
+    </div>
+
+    {{ include(_self|replace({ "images_carousel.html.twig": "_lightbox.html.twig" })) }}
+
+</div>

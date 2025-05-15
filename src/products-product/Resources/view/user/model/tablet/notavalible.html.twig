@@ -46,17 +46,17 @@
                                 <a
                                         class="text-decoration-none"
                                         href="{{ path('products-product:user.detail', {
-                                            category: card.category_url,
-                                            url: card.url,
+                                            category: card.categoryUrl,
+                                            url: card.productUrl,
                                             offer : offers.offer_value,
                                             variation : offers.variation_value,
                                             modification : offers.modification_value,
                                             postfix:  (offers.modification_postfix ?: offers.variation_postfix ?: offers.offer_postfix ?: null )|replace({ '/': '-' })
                                         }) }}"
-                                        title="{{ card.product_name }}"
+                                        title="{{ card.productName }}"
                                 >
 
-                                    {{ card.product_name }}
+                                    {{ card.productName }}
 
                                     {{ offers.variation_value|call_twig_func(offers.variation_reference~'_render')
                                     ~ offers.modification_value|call_twig_func(offers.modification_reference~'_render') }}

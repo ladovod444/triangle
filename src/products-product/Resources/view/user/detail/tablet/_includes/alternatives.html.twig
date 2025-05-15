@@ -1,27 +1,27 @@
-{# БЛОК АЛТЕРНАТИВ ПРОДУКТА #}
+{# @var alt \BaksDev\Products\Product\Repository\Cards\ProductCardResultInterface #}
 
-<h3 class="fs-18 text-uppercase fw-bold mb-4">
-    Альтернатива
-</h3>
+<div class="d-flex justify-content-between">
 
-<div class="border p-1 rounded-4">
+    <h3 class="h5 text-uppercase fw-bolder py-3">
+        Альтернатива
+    </h3>
+</div>
+
+<div class="border rounded-4 p-3 small">
 
     <table class="table table-borderless link-parent align-middle fs-12 mb-0">
-        <thead class="table-warning " style="letter-spacing:normal!important;">
+        <thead>
 
         <tr>
-            <th class="fw-normal px-3 radius" scope="col">Наименование</th>
-            <th class="fw-normal text-center" scope="col">Размер</th>
-            <th class="fw-normal text-center" scope="col">Характеристики</th>
-            <th class="fw-normal text-center" scope="col">Наличие</th>
-            <th class="fw-normal text-center" scope="col">Стоимость, шт.</th>
-            <th class="fw-normal text-center" scope="col">Купить</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Размер</th>
+            <th scope="col">Характеристики</th>
+            <th scope="col">Наличие</th>
+            <th scope="col">Стоимость, шт.</th>
+            <th scope="col">Купить</th>
         </tr>
 
         </thead>
-
-        {# @TODO для тестирования #}
-        {#     {% set alternative = null %} #}
 
         {% if alternative %}
 
@@ -32,27 +32,31 @@
             {# Рассчет количества #}
             {% set alternativeQuantity = '' %}
             {% set inStock = true %}
-            {% set quantity = alt.quantity %}
+            {% set quantity = alt.productQuantity %}
+
+            {% set text_class = ' fw-bold' %}
 
             {% if quantity == 0 %}
                 {% set alternativeQuantity = 'Нет в наличии' %}
                 {% set inStock = false %}
             {% elseif quantity > 20 %}
                 {% set alternativeQuantity = 'Более 20 шт.' %}
+                {% set text_class = 'text-success' ~ text_class %}
             {% elseif quantity < 20 %}
                 {% set alternativeQuantity = 'Менее 20 шт.' %}
+                {% set text_class = 'text-warning' ~ text_class%}
             {% else %}
                 {% set alternativeQuantity = (quantity)~' шт.' %}
             {% endif %}
 
             {# Свойства для алтернативных предложений #}
-            {% set alternativeProperties = alt.category_section_field|json_decode %}
+            {% set alternativeProperties = alt.categorySectionField %}
 
             {# Рассчет скидки #}
             {% set discount = false %}
 
-            {% if alt.price and alt.product_old_price > alt.price %}
-                {% set discount = (((alt.product_old_price - alt.price) / alt.product_old_price) * 100)|round %}
+            {% if alt.productPrice and alt.productOldPrice > alt.productPrice %}
+                {% set discount = (((alt.productOldPrice - alt.productPrice) / alt.productOldPrice) * 100)|round %}
                 {#    {% set discount = (100 - (alt.price / (oldPrice / 100)))|round %} #}
             {% endif %}
 
@@ -62,33 +66,28 @@
 
                 {# НАИМЕНОВАНИЕ #}
                 <th class="fw-normal py-3" scope="row">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex gap-3 align-items-center">
 
-                        <a class="text-black fw-bold text-decoration-none "
+                        <a class="text-decoration-none"
                            href="{{ path('products-product:user.detail', {
-                               category: alt.category_url,
-                               url: alt.product_url,
-                               offer: alt.product_offer_value,
-                               variation: alt.product_variation_value,
-                               modification: alt.product_modification_value,
-                               postfix: (alt.product_modification_postfix ?: alt.product_variation_postfix ?: alt.product_offer_postfix ?: null )|replace({ '/': '-' }),
+                               category: alt.categoryUrl,
+                               url: alt.productUrl,
+                               offer: alt.productOfferValue,
+                               variation: alt.productVariationValue,
+                               modification: alt.productModificationValue,
+                               postfix: (alt.productModificationPostfix ?: alt.productVariationPostfix ?: alt.productOfferPostfix ?: null )|replace({ '/': '-' }),
                            }) }}">
-                            {{ alt.product_name }}
+                            {{ alt.productName }}
                         </a>
 
                         <div class="d-flex align-items-center text-nowrap">
 
                             {# Если дата начала активности меньше 1 месяца - НОВИНКА  #}
-                            {% if date() < alt.active_from|date_modify("+1 month") %}
+                            {% if date() < alt.productActiveFrom|date_modify("+1 month") %}
                                 <a href="#" class="btn btn-success fw-bold rounded-5 fs-10 py-1 px-2 ms-1">
                                     НОВИНКА
                                 </a>
                             {% endif %}
-
-                            {# @TODO пока не реализуем #}
-                            {# <a href="#" class="btn text-white btn-warning fw-bold rounded-5 fs-10 py-1 px-2 ms-1"> #}
-                            {# ТОП #}
-                            {# </a> #}
                         </div>
 
                     </div>
@@ -96,10 +95,10 @@
 
                 {# РАЗМЕР #}
                 <td class="fw-normal py-3  text-center">
-                    {{ alt.product_variation_value|call_twig_func(alt.product_variation_reference~'_render')
-                    ~ alt.product_modification_value|call_twig_func(alt.product_modification_reference~'_render') }}
-                    {{ alt.product_offer_value|call_twig_func(alt.product_offer_reference~'_render') }}
-                    {{ alt.product_modification_postfix }}
+                    {{ alt.productVariationValue|call_twig_func(alt.productVariationReference~'_render')
+                    ~ alt.productModificationValue|call_twig_func(alt.productModificationReference~'_render') }}
+                    {{ alt.productOfferValue|call_twig_func(alt.productOfferReference~'_render') }}
+                    {{ (alt.productModificationPostfix ?: alt.productVariationPostfix ?: alt.productOfferPostfix ?: null )|replace({ '/': '-' }) }}
                 </td>
 
                 {# ХАРАКТЕРИСТИКИ #}
@@ -112,9 +111,9 @@
                 {# НАЛИЧИЕ, СТОИМОСТЬ, СКИДКА, КНОПКИ "ИЗБРАННОЕ/КОРЗИНА" #}
                 {% if inStock == true %}
 
-                    <td class="py-3 fw-bold text-center"> {{ alternativeQuantity }}</td>
+                    <td class="{{ text_class }}"> {{ alternativeQuantity }}</td>
 
-                    <td class="py-3 text-center fw-bold">
+                    <td>
 
                         {% if discount %}
 
@@ -124,40 +123,33 @@
 
                         {% endif %}
 
-                        {{ money(alt.price, alt.currency) }}
+                        {{ money(alt.productPrice, alt.productCurrency) }}
 
                     </td>
 
                     <td class="py-3 text-end">
 
                         {# В КОРЗИНУ #}
-                        {% include Template('/public/'~(baks_settings.device ?: 'pc')~'/_includes/add_basket.html.twig') with {
-                            'model_event': alt.event,
-                            'product_offer': alt.product_offer_uid,
-                            'product_variation': alt.product_variation_uid,
-                            'product_modification': alt.product_modification_uid,
+                        {% include Template('@products-product/public/'~(baks_settings.device ?: 'pc')~'/button_add_to_basket.html.twig') with {
+                            'product_event': alt.productEvent,
+                            'product_offer': alt.productOfferUid,
+                            'product_variation': alt.productVariationUid,
+                            'product_modification': alt.productModificationUid,
                         } only %}
-
-                        {# В ИЗБРАННОЕ #}
-                        {% include Template('/public/'~(baks_settings.device ?: 'pc')~'/_includes/add_favorites.html.twig') %}
 
                     </td>
 
                 {% else %}
 
-                    <td class="text-danger fw-bold py-3 text-center">Нет в наличии</td>
+                    <td class="text-danger fw-bold py-3">Нет в наличии</td>
 
-                    <td class="text-danger fw-bold py-3 text-center">Цена по запросу</td>
+                    <td class="text-danger fw-bold py-3">Цена по запросу</td>
 
+                    {# В ИЗБРАННОЕ #}
                     <td class="py-3 text-end">
-
-                        {# В ИЗБРАННОЕ #}
-                        {% include Template('/public/'~(baks_settings.device ?: 'pc')~'/_includes/add_favorites.html.twig') %}
-
                     </td>
 
                 {% endif %}
-
             </tr>
             </tbody>
 
