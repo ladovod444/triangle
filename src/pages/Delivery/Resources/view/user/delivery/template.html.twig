@@ -1,0 +1,56 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{#{% extends Template('/user/base.html.twig') %}#}
+{% extends Template('/public/base.html.twig') %}
+
+{% block title %}Доставка{% endblock %}
+
+
+{# ---- CSS ------------------------------------------------------------ #}
+{% block stylesheets %}
+    <link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet">
+{% endblock %}
+
+{# ---- HEADER-БЛОК ------------------------------------------------------------ #}
+{# {% block header %}
+    {{ include(_self|replace({ "template.html.twig": "header.html.twig" })) }}
+{% endblock %} #}
+
+
+{# ---- LEFT-БЛОК ------------------------------------------------------------ #}
+{# {% block left %} #}
+{#   {% include '@Template/flowers/left.html.twig' %} #}
+{# {% endblock %} #}
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+{#    {{ dd(1) }}#}
+    {{ include(_self|replace({ "template.html.twig" : (baks_settings.device ?: 'pc') ~ "/content.html.twig" })) }}
+{% endblock %}
+
+
+{# ---- FOOTER-БЛОК ------------------------------------------------------------ #}
+{#{% block footer %}
+    #}{#{{ include(_self|replace({ "template.html.twig": "footer.html.twig" })) }}#}{#
+{% endblock %}#}
+
+ {% block javascript %}
+ <script nonce="{{ csp_nonce() }}" data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}' class='lazy'></script>
+ 
+  <script nonce="{{ csp_nonce() }}" >
+  
+  document.getElementById('region_filter_form_region').addEventListener('change', () => {
+      let $form = document.forms.namedItem("region_filter_form");
+      if ($form) { $form.submit(); }
+  });
+  
+  document.getElementById('btn_pickup').addEventListener('click', () => {
+      /* Плавная прокрутка к элементу */
+        document.getElementById('pickup').scrollIntoView({block: "center", inline: "center", behavior: "smooth"});
+  });
+  
+  
+</script>
+ 
+ 
+ {% endblock %}
+

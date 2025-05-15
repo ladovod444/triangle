@@ -1,31 +1,22 @@
 {# {{ include(_self|replace({ "content.html.twig": "header.html.twig" })) }} #}
 
-{# {{ dd(current) }} #}
-
-<main class="main container px-4">
+<main class="main">
 	
-	<div class="mt-3">
-		{{ include(_self|replace({ "content.html.twig": "breadcrumb.html.twig" })) }}
+	
+	<div class="map-wrap d-flex overflow-hidden mb-3">
+		<div id="map" class='w-100 bg-cover'
+				style='height: 250px; background-image: url("/triangle/map.webp");'
+		></div>
 	</div>
 	
 	
 	{% if current %}
 		
-		
-		<section id='info' class='mb-5'>
+		<section id='info' class='mb-3 container'>
 			
-			<div class="map-wrap d-flex overflow-hidden rounded-4 mb-5">
-				<div id="map" class='w-100 bg-cover'
-						style='height: 300px; background-image: url("/triangle/map.webp");'
-				>
-				</div>
-			</div>
-			
-			
-			<div class='d-flex justify-content-between gap-3 small'>
+			<div class='d-flex flex-column gap-2 small'>
 				
-				
-				<div class='w-100 d-flex gap-3 p-2 border-end border-2' style='height: 80px;'>
+				<div class='w-100 d-flex gap-3 p-2' style='height: 80px;'>
 					
 					<div>
 					<span class="icon rounded-circle bg-contain lazy p-1 mb-2"
@@ -54,7 +45,7 @@
 				</div>
 				
 				
-				<div class='w-100 d-flex gap-3 p-2 border-end border-2' style='height: 80px;'>
+				<div class='w-100 d-flex gap-3 p-2' style='height: 80px;'>
 					<div>
 					<span class="icon rounded-circle bg-contain lazy p-1 mb-2"
 							style="width: 43px; height: 43px;"
@@ -91,7 +82,7 @@
 				</div>
 				
 				
-				<div class='w-100 d-flex gap-3 p-2 border-end border-2' style='height: 80px;'>
+				<div class='w-100 d-flex gap-3 p-2 ' style='height: 80px;'>
 					<div>
 					<span class="icon rounded-circle bg-contain lazy p-1 mb-2"
 							style="width: 43px; height: 43px;"
@@ -167,28 +158,31 @@
 				</div>
 			</div>
 		</section>
+		
+		<div class='container'>
+			<hr>
+		</div>
+	
 	{% endif %}
 	
-	<section id='contact'>
+	
+	<section id="regional" class="container">
 		
 		
-		<div class='d-flex gap-3 align-items-center mb-3'>
+		<h1 class="text-uppercase h5 fw-bolder lh-1">Региональные представительства</h1>
+		
+		
+		<div class='w-100' style='height: 55px;'>
+			{{ form_start(form) }}
 			
-			
-			<h1 class="text-uppercase h5 fw-bolder lh-1">Региональные представительства</h1>
-			
-			<div class='w-25'>
-				{{ form_start(form) }}
-				
-				{{ form_widget(form.region, { attr: {
-					'data-select' : 'select2'
-				} }) }}
-				{{ form_end(form) }}
-			</div>
+			{{ form_widget(form.region) }}
+			{{ form_end(form) }}
 		</div>
+		
 		
 		<p>Наша компания имеет широкую сеть региональных представительств и дилеров. Вы можете обратиться в ближайший к
 		   Вам офис для получения дополнительных консультаций. </p>
+		
 		
 		<div class='mt-3'>
 			
@@ -221,14 +215,15 @@
 			
 			{# {{ dump(calls) }} #}
 			
-			<div class="row row-cols-4 g-4">
+			<ul class="list-group list-group-flush">
 				
 				{% for call in calls %}
 					
-					<div class="col small d-flex flex-column gap-1">
+					
+					
+					<li class="list-group-item p-3">
 						
-						
-						<div class="d-flex gap-3 align-items-center {{ call.call_description ?:'mb-1' }}">
+						<div class="d-flex gap-3 align-items-center {{ call.call_description ?:'mb-2' }}">
 							<div class='mb-2'>
 								<svg xmlns="http://www.w3.org/2000/svg"
 										width="15"
@@ -240,17 +235,17 @@
 									<path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
 								</svg>
 							</div>
-							<h2 class='h6'>{{ call.call_name }}</h2>
+							<h2 class='h6 w-100'>{{ call.call_name }}</h2>
+							
 						</div>
-						
 						{% if call.call_description %}
-							<div class="mb-1">
+							<div class="mb-2">
 								<span class='text-muted'>{{ call.call_description }}</span>
 							</div>
 						{% endif %}
 						
 						
-						<div class="d-flex gap-3 align-items-center mb-1 text-primary">
+						<div class="d-flex gap-3 align-items-center mb-2 text-primary">
 							<div>
 								<svg xmlns="http://www.w3.org/2000/svg"
 										width="15"
@@ -264,16 +259,16 @@
 							</div>
 							
 							<div class='map-change pointer'
-							data-address='{{ call.call_address }}'
-							data-latitude='{{ call.call_latitude }}'
-							data-longitude='{{ call.call_longitude }}'
+									data-address='{{ call.call_address }}'
+									data-latitude='{{ call.call_latitude }}'
+									data-longitude='{{ call.call_longitude }}'
 							>
 								{{ call.call_address }}
 							</div>
-							
+						
 						</div>
 						
-						<div class="d-flex gap-3 align-items-center mb-1">
+						<div class="d-flex gap-3 align-items-center mb-2">
 							<div>
 								<svg xmlns="http://www.w3.org/2000/svg"
 										width="15"
@@ -303,7 +298,7 @@
 						</div>
 						
 						
-						<div class="d-flex gap-3 mb-1 align-items-center">
+						<div class="d-flex gap-3 mb-2 align-items-center">
 							<div>
 								<svg xmlns="http://www.w3.org/2000/svg"
 										width="15"
@@ -331,24 +326,25 @@
 							</div>
 						
 						</div>
-
-						{% if call.call_email %}
-							<div class="d-flex gap-3 align-items-center mb-1">
-								<div>
-									<svg xmlns="http://www.w3.org/2000/svg"
-										 width="16"
-										 height="16"
-										 fill="currentColor"
-										 class="text-muted"
-										 viewBox="0 0 16 16">
-										<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
-									</svg>
-								</div>
-								<span>{{ call.call_email }}</span>
+						
+						
+						<div class="d-flex gap-3 align-items-center mb-2">
+							<div>
+								<svg xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										fill="currentColor"
+										class="text-muted"
+										viewBox="0 0 16 16">
+									<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
+								</svg>
 							</div>
-						{% endif %}
-
-					</div>
+							<span>{{ call.call_email }}</span>
+						</div>
+					
+					</li>
+				
+				
 				{% else %}
 					
 					<div class="alert alert-warning rounded-4" role="alert">
@@ -358,7 +354,7 @@
 										style="width: 10px; height: 10px;"><span class="small">!</span></div>
 							</div>
 							<div class="small lh-1">
-								К сожалению в Вашем регионе нет контактных центров или пунктов выдачи товаров
+								К сожалению в Вашем регионе нет контактныйх центров или пунктов выдачи товаров
 							</div>
 						</div>
 					</div>
@@ -366,19 +362,16 @@
 				{% endfor %}
 			
 			
-			</div>
+			</ul>
 		
 		
 		</div>
 	
-	</section>
 	
-	<hr class="mt-5 rounded-circle border-0" style="height: 20px; box-shadow: 0 20px 20px -6px #000;">
+	</section>
+
 
 </main>
-
-
-
 
 
 
