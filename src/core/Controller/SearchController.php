@@ -21,23 +21,17 @@
  *  THE SOFTWARE.
  */
 
-namespace Core\Controller\User;
+namespace Core\Controller;
 
-use Core\Repository\Modification\ProductsModificationSearchRepositoryInterface;
-use Core\Repository\Products\ProductsSearchRepositoryInterface;
 use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Form\Search\SearchForm;
-use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
-use ReflectionAttribute;
-use ReflectionClass;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Core\Repository\Modification\ProductsModificationSearchRepositoryInterface;
+use Core\Repository\Products\ProductsSearchRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
-
 
 #[AsController]
 final class SearchController extends AbstractController
@@ -58,7 +52,6 @@ final class SearchController extends AbstractController
 
         $searchForm->handleRequest($request);
 
-        $modification = null;
         $products = null;
 
         /** Поиск по модификации */
@@ -71,10 +64,7 @@ final class SearchController extends AbstractController
             return $this->render(['result' => $modification], file: 'modification.html.twig');
         }
 
-        /** Поиск по множественному варианту */
-
         /** Поиск по торговому предложению */
-
         if(!$modification)
         {
             /** Поиск по продукции */
@@ -94,5 +84,4 @@ final class SearchController extends AbstractController
             'modification' => $modification
         ]);
     }
-
 }

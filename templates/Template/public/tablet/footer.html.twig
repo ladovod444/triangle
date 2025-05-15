@@ -85,7 +85,7 @@
 
                         {% if app.user %}
                         {% else %}
-                            <a href="{{ path('auth-email:user.login') }}"
+                            <a href="{{ path('auth-email:public.login') }}"
                                class="btn btn-link btn-sm text-decoration-none modal-link"
                                data-bs-toggle="modal"
                                data-bs-target="#modal"
@@ -103,7 +103,7 @@
 
                             </a>
 
-                            <a href="{{ path('auth-email:user.login') }}"
+                            <a href="{{ path('auth-email:public.login') }}"
                                class="small btn btn-link btn-sm text-decoration-none modal-link"
                                data-bs-toggle="modal"
                                data-bs-target="#modal"
@@ -170,19 +170,19 @@
 
                             <a
                                     class="nav-link rounded-3 px-3 text-dark w-50 h6"
-                                    href="{{ path('pages:user.about') }}">О компании</a>
+                                    href="{{ path('about:public.index') }}">О компании</a>
                             <a
                                     class="nav-link rounded-3 px-3 text-dark w-50 h6"
                                     href="{{ path('delivery:user.delivery') }}">Доставка</a>
                             <a
                                     class="nav-link rounded-3 px-3 text-dark w-50 h6"
-                                    href="{{ path('pages:user.wholesale') }}">Опт</a>
+                                    href="{{ path('wholesale:public.index') }}">Опт</a>
                             <a
                                     class="nav-link rounded-3 px-3 text-dark w-50 h6"
-                                    href="{{ path('pages:user.guaranty') }}">Гарантия</a>
+                                    href="{{ path('guaranty:public.index') }}">Гарантия</a>
                             <a
                                     class="nav-link rounded-3 px-3 text-dark w-50 h6"
-                                    href="{{ path('pages:user.calc') }}">Шинный калькулятор</a>
+                                    href="{{ path('calc:public.index') }}">Шинный калькулятор</a>
                             <a
                                     class="nav-link rounded-3 px-3 text-dark w-50 h6"
                                     href="{{ path('contacts-region:user.contact') }}">Контакты</a>
@@ -197,6 +197,6 @@
     </div>
 </footer>
 
-{% if app.user == null and route != 'auth-email:user.login' %}
+{% if app.user == null and route != 'auth-email:public.login' %}
     {{ include(_self|replace({ "footer.html.twig": "modal/autotization.html.twig" })) }}
 {% endif %}

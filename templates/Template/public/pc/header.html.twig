@@ -117,7 +117,7 @@
                     {# href="#autorizationModal" class="link-block" data-bs-toggle="modal" #}
 
 
-                    {# <a href="{{ path('auth-email:user.login') }}"
+                    {# <a href="{{ path('auth-email:public.login') }}"
 					   class="btn btn-primary modal-link"
 					   data-bs-toggle="modal"
 					   data-bs-target="#modal"
@@ -143,10 +143,16 @@
 
                     {% else %}
 
-                        <a href="{{ path('auth-email:user.login') }}"
+                        <a
+
                            class="btn btn-link btn-sm h-25 lh-1 text-decoration-none modal-link w-75"
+
+                           data-href="{{ path('auth-email:public.login') }}"
                            data-bs-toggle="modal"
                            data-bs-target="#modal"
+
+                           role="button"
+
                            style="width: 150px;"
                            title="{{ 'user.link.breadcrumb.page'|trans({}, 'user.login') }}"
                         >

@@ -171,19 +171,19 @@
 	{% endif %}
 	
 	
-	<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.about' ? ' active' }}"
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'about:public.index' ? ' active' }}"
 			href="{{ path('about:public.index') }}">О компании</a>
 	<a class="nav-link rounded-3 px-3 text-white{{ route == 'delivery:user.delivery' ? ' active' }}"
 			href="{{ path('delivery:user.delivery') }}">Доставка</a>
 
-		<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.services' ? ' active' }}"
+		<a class="nav-link rounded-3 px-3 text-white{{ route == 'services:public.index' ? ' active' }}"
 		   href="{{ path('services:public.index') }}">Шиномонтаж</a>
 
-	<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.wholesale' ? ' active' }}"
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'wholesale:public.index' ? ' active' }}"
 			href="{{ path('wholesale:public.index') }}">Опт</a>
-	<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.guaranty' ? ' active' }}"
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'guaranty:public.index' ? ' active' }}"
 			href="{{ path('guaranty:public.index') }}">Гарантия</a>
-	<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.calc' ? ' active' }}"
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'calc:public.index' ? ' active' }}"
 			href="{{ path('calc:public.index') }}">Шинный калькулятор</a>
 	<a class="nav-link rounded-3 px-3 text-white{{ route == 'contacts-region:user.contact' ? ' active' }}"
 			href="{{ path('contacts-region:user.contact') }}">Контакты</a>

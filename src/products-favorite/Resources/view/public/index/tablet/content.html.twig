@@ -1,29 +1,28 @@
+{# @var card \BaksDev\Products\Product\Repository\Cards\ProductCardResultInterface #}
+
 <main class="main ">
+    <section id="favorites " class="container py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="h4 text-uppercase fw-bolder py-2">Избранное</h1>
+        </div>
 
+        {{ include(_self|replace({ "content.html.twig": "includes/breadcrumb.html.twig" })) }}
 
-	<section id="favorites " class="container py-3">
-		<div class="d-flex justify-content-between align-items-center">
-			<h1 class="h4 text-uppercase fw-bolder py-2">Избранное</h1>
-		</div>
+        {% if query %}
+            <div class="row row-cols-4 g-2 mt-3">
 
-		{{ include(_self|replace({ "content.html.twig": "includes/breadcrumb.html.twig" })) }}
+                {% for card in query %}
+                    <div class="col">
+                        {% include Template('@products-product/public/'~baks_settings.device~'/card_product.html.twig') with {product: card, forms} only %}
+                    </div>
+                {% endfor %}
 
-		{% if query %}
-			<div class="row row-cols-4 g-2">
+            </div>
+        {% else %}
+            <p>Здесь пока ничего нет</p>
+        {% endif %}
 
-				{% for card in query %}
-					{% include Template('@products-product/public/'~baks_settings.device~'/card-product-result.html.twig') with {product: card, forms} only %}
-				{% endfor %}
-
-			</div>
-
-
-		{% else %}
-			<p>Здесь пока ничего нет</p>
-		{% endif %}
-
-	</section>
-
+    </section>
 </main>
 
 <hr class="my-0">

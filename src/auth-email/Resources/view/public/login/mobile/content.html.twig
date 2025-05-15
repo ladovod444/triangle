@@ -1,0 +1,11 @@
+{% set dir = 'login' %}
+<main>
+
+    {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/breadcrumb.html.twig') %} #}
+    {{ include(_self|replace({ "content.html.twig" : "_includes/breadcrumb.html.twig" })) }}
+
+    {#    {% include Template('/public/'~baks_settings.device~'/_includes/'~ dir ~'/authorization.html.twig') %} #}
+    {{ include(_self|replace({ "content.html.twig" : "_form/auth.html.twig" })) }}
+
+</main>
+<hr class="m-0">

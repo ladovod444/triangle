@@ -1,0 +1,51 @@
+<section class="container pt-4 pb-5 mb-5">
+
+    <div class="d-flex bg-pic-tablet ">
+
+        <div class="border rounded-4 px-4 py-4 bg-white bg-opacity-75 position-relative " style="width:60%">
+
+            <div class="d-flex align-items-center justify-content-between  mb-3">
+                <h2 class="fs-6 mb-0 text-uppercase fw-bold">
+                    Вход в личный кабинет
+                </h2>
+                <a href="{{ path('auth-email:public.registration') }}"
+                   class="btn btn shadow rounded-5 fs-12 text-decoration-underline px-3">
+                    Регистрация
+                </a>
+            </div>
+
+            {{ include(_self|replace({ "_includes/auth.html.twig" : "_form/auth.html.twig" })) }}
+
+            {# @TODO  #}
+            {#                <div class="d-flex align-items-center justify-content-between px-5"> #}
+            {#                    <div class="d-flex align-items-center gap-3"> #}
+            {#                        <span class="fs-12 text-decoration-underline">Войти с помощью:</span> #}
+            {#                        <a href="#"> #}
+            {#                            <img src="/assets/blackdragon/img/vk.svg" alt="Логотип VK"> #}
+            {#                        </a> #}
+            {#                        <a href="#"> #}
+            {#                            <img src="/assets/blackdragon/img/google.svg" alt="Логотип Google"> #}
+            {#                        </a> #}
+            {#                    </div> #}
+            {#                    <a href="#" class="text-black fs-12">Вспомнить пароль</a> #}
+            {#                </div> #}
+
+        </div>
+
+        <div style="width:40%">
+            <a href="{{ path('core:public.homepage') }}">
+                <img class="w-100 d-block lazy"
+                     src="/assets/img/empty.png"
+                     data-src="/assets/blackdragon/img/Logo.svg"
+                     style="height: 160px;"
+                     alt="Логотип компании">
+            </a>
+        </div>
+
+
+    </div>
+
+</section>
+
+
+

@@ -2,15 +2,100 @@
 
 {% extends Template('/public/base.html.twig') %}
 
-{% block title %}
-    {{ card.productName }}
+{% if card.productSeoTitle %}
+    {% set PRODUCT_NAME = card.productSeoTitle|trans({
+        '%PRODUCT_NAME%' : card.productName,
+        '%PRODUCT_OFFER%' : card.productOfferValue|call_twig_func(card.productOfferReference),
+        '%PRODUCT_VARIATION%' : card.productVariationValue|call_twig_func(card.productVariationReference),
+        '%PRODUCT_MOD%' : card.productModificationValue|call_twig_func(card.productModificationReference),
+    }) %}
+{% else %}
+    {% set PRODUCT_NAME = card.productName %}
+    {% set PRODUCT_NAME = PRODUCT_NAME ~ ' ' ~ card.productOfferValue|call_twig_func(card.productOfferReference) %}
+    {% set PRODUCT_NAME = PRODUCT_NAME ~ ' ' ~ card.productVariationValue|call_twig_func(card.productVariationReference)
+        ~ card.productModificationValue|call_twig_func(card.productModificationReference) %}
+    {% set PRODUCT_NAME = PRODUCT_NAME ~ ' ' ~card.productOfferNamePostfix %}
 
-    {{ card.productVariationValue|call_twig_func(card.productVariationReference~'_render')
-    ~ card.productModificationValue|call_twig_func(card.productModificationReference~'_render') }}
 
-    {{ card.productOfferValue|call_twig_func(card.productOfferReference~'_render') }}
+{% endif %}
 
-    {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null )|replace({ '/': '-' }) }}
+
+{% if card.productSeoDescription %}
+    {% set PRODUCT_DESC = card.productSeoDescription|trans({
+        '%PRODUCT_NAME%' : card.productName,
+        '%PRODUCT_OFFER%' : card.productOfferValue|call_twig_func(card.productOfferReference)|trim,
+        '%PRODUCT_VARIATION%' : card.productVariationValue|call_twig_func(card.productVariationReference)|trim,
+        '%PRODUCT_MOD%' : card.productModificationValue|call_twig_func(card.productModificationReference)|trim,
+    })|trim %}
+{% else %}
+    {% set PRODUCT_DESC = card.productPreview|striptags %}
+{% endif %}
+
+{% if card.productSeoKeywords %}
+    {% set PRODUCT_KEYWORDS = card.productSeoKeywords|trans({
+        '%PRODUCT_NAME%' : card.productName,
+        '%PRODUCT_OFFER%' : card.productOfferValue|call_twig_func(card.productOfferReference)|trim,
+        '%PRODUCT_VARIATION%' : card.productVariationValue|call_twig_func(card.productVariationReference)|trim,
+        '%PRODUCT_MOD%' : card.productModificationValue|call_twig_func(card.productModificationReference)|trim,
+    })|trim %}
+{% else %}
+    {% set PRODUCT_KEYWORDS = 'Купить ' ~ card.productName ~ ' по выгодной цене' %}
+{% endif %}
+
+{% block title %} {{ PRODUCT_NAME }}{% endblock %}
+{% block description %}{{ PRODUCT_DESC }}{% endblock %}
+{% block keywords %}{{ PRODUCT_KEYWORDS }}{% endblock %}
+
+
+
+{% block meta %}
+
+    {% set root_image = card.getProductImagesSortByRoot|first %}
+
+    {# Обложка  #}
+    {% set image_path = '/assets/img/blank.svg' %}
+
+    {% if root_image.product_img_ext is defined and root_image.product_img_ext is not null %}
+        {% set image_path = cdn_image_path(root_image.product_img, root_image.product_img_ext, root_image.product_img_cdn) %}
+    {% endif %}
+
+    <meta property="og:locale" content="{{ app.request.getLocale() }}_{{ app.request.getLocale()|upper }}">
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="{{ app.request.host }}">
+    <meta property="og:title" content="{{ PRODUCT_NAME }}">
+    <meta property="og:description" content="{{ PRODUCT_DESC }}">
+    <meta property="og:url" content="{{ app.request.uri }}">
+    <meta property="og:image" content="{{ absolute_url( image_path ) }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@https://{{ app.request.host }}">
+    <meta name="twitter:title" content="{{ PRODUCT_NAME }}">
+    <meta name="twitter:description" content="{{ PRODUCT_DESC }}">
+    <meta name="twitter:image:src" content="{{ absolute_url( image_path ) }}">
+
+    <script type="application/ld+json">
+
+        {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": "{{ PRODUCT_NAME }}",
+			"image": "{{ absolute_url( image_path ) }}",
+			"description": "{{ PRODUCT_DESC }}",
+			"brand": {
+				"@type": "Brand",
+				"name": "{{ card.categoryName }}"
+			},
+			"offers": {
+				"@type": "Offer",
+				"url": "{{ app.request.uri }}",
+				"priceCurrency": "{{ card.productCurrency|upper }}",
+				"price": "{{ card.productPrice.value / 100 }}",
+				"availability": "https://schema.org/InStock",
+				"itemCondition": "https://schema.org/NewCondition"
+
+		}
+    </script>
+
 
 {% endblock %}
 

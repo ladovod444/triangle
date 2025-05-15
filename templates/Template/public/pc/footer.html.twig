@@ -85,7 +85,7 @@
 
                         {% if app.user %}
                         {% else %}
-                            <a href="{{ path('auth-email:user.login') }}"
+                            <a href="{{ path('auth-email:public.login') }}"
                                class="btn btn-link btn-sm text-decoration-none modal-link"
                                data-bs-toggle="modal"
                                data-bs-target="#modal"
@@ -103,7 +103,7 @@
 
                             </a>
 
-                            <a href="{{ path('auth-email:user.login') }}"
+                            <a href="{{ path('auth-email:public.login') }}"
                                class="small btn btn-link btn-sm text-decoration-none modal-link"
                                data-bs-toggle="modal"
                                data-bs-target="#modal"
@@ -197,6 +197,6 @@
     </div>
 </footer>
 
-{% if app.user == null and route != 'auth-email:user.login' %}
+{% if app.user == null and route != 'auth-email:public.login' %}
     {{ include(_self|replace({ "footer.html.twig": "modal/autotization.html.twig" })) }}
 {% endif %}
