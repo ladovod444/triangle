@@ -2,20 +2,11 @@
 {# @var Price \BaksDev\Reference\Money\Type\Money #}
 {# @var OldPrice \BaksDev\Reference\Money\Type\Money #}
 
-{# Персональная скидка #}
-{% set Price = card.productPrice %}
-
-{# Старая цена #}
-{% set OldPrice = card.productOldPrice %}
-
-{# Рассчет скидки #}
-{% set Discount = card.discountPercent %}
-
 {% trans_default_domain 'user.order' %}
 
 {% set arr_property = card.categorySectionField %}
 
-<div class="modal-dialog modal-dialog-centered ">
+<div class="modal-dialog modal-lg modal-dialog-centered justify-content-center">
 
     <div class="modal-content p-3 border-bottom border-5 border-primary" style="max-width: 700px;">
 
@@ -38,6 +29,7 @@
 
                     {# Постфикс #}
                     {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null ) }}
+
 
                     {# Свойства, учавствующие в названии #}
                     {% for name_property in arr_property | filter(props => props.field_name == true) %}
@@ -70,10 +62,21 @@
                 {# ФОТО ПРОДУКТА  #}
                 <div>
                     <div class="icon rounded-4 mb-2 bg-contain p-1"
-                         style="width: 75px; height: 75px; background-image: url('{{ card.productImage ? img_path ~ card.productImage ~ product_image_ext : '/assets/img/blank.svg' }}');">
+                         style="width: 75px; height: 75px;
+                                 background-image: url('{{ card.productImage ? img_path ~ card.productImage ~ product_image_ext : '/assets/img/blank.svg' }}');">
                     </div>
                 </div>
 
+                {# Персональная скидка #}
+                {% set Price = card.productPrice %}
+
+                {# Старая цена #}
+                {% set OldPrice = card.productOldPrice %}
+
+                {# Рассчет скидки #}
+                {#                {% set DiscountPercent = card.discountPercent %}#}
+
+                {# Стоимость #}
                 <div class='w-25'>
 
                     <span class='small text-muted'>Стоимость</span>
@@ -94,14 +97,14 @@
                         </svg>
                     </button>
 
-                    {#                    {% set default_count = card.product_quantity < 4 ? card.product_quantity : 4 %} #}
+                    {# {% set default_count = card.product_quantity < 4 ? card.product_quantity : 4 %} #}
                     {% set default_count = card.productQuantity < card.categoryInput ? card.productQuantity : card.categoryInput %}
 
                     {{ form_widget(form.price.total, {
                         label: false,
                         attr: {
-                            class : 'form-control-lg border py-2 px-4 rounded-5 m-0 text-secondary text-center total',
-                            style: 'width: 95px;',
+                            class : 'form-control-lg mx-1 rounded-3 total form-control',
+                            style: 'width: 60px;',
                             value : default_count,
                             'data-max' : card.productQuantity,
                             'data-min': card.categoryMinimal,
@@ -125,6 +128,7 @@
                 </div>
 
                 <div class='w-25'>
+
                     {% set summ = (default_count * Price.value) * 100 %}
 
                     <div class='small text-muted text-nowrap'>
@@ -134,16 +138,17 @@
                     {# поле участвует в modal_basket.js #}
                     <div id='summ_{{ form.price.total.vars.id }}'
                          data-price='{{ Price.value * 100 }}'
-                            {#                         data-discount='{{ card.profileDiscount is not null ? card.profileDiscount }}' #}
+                            {# data-discount='{{ card.profileDiscount is not null ? card.profileDiscount }}' #}
                          data-currency='{{ card.productCurrency|upper }}'>
 
                         {{ money(summ, card.productCurrency) }}
                     </div>
+
                 </div>
 
                 <button type="submit"
-                        class="btn bg-primary py-2 fw-bold rounded-3 w-100 mb-4">
-                    <span class="basket-text">В корзину</span>
+                        class="btn btn-lg btn-primary text-nowrap btn ">
+                    <span class="h6 text-uppercase px-3 basket-text">В корзину</span>
                     <span class="spinner-border spinner-border-sm vertical-middle d-none"></span>
                 </button>
 
