@@ -1,143 +1,136 @@
-{# @var card \BaksDev\Orders\Order\Repository\ProductUserBasket\ProductUserBasketResult #}
-{# @var Price \BaksDev\Reference\Money\Type\Money #}
-{# @var OldPrice \BaksDev\Reference\Money\Type\Money #}
-
 {% trans_default_domain 'user.order' %}
+
 
 {% set arr_property = card.categorySectionField %}
 
-<div class="modal-dialog modal-dialog-centered p-3">
 
-    <div class="modal-content p-3 border-bottom border-5 border-primary" style="max-width: 700px;">
+<div class="modal-dialog modal-dialog-centered p-3" style="max-width: 700px;">
+
+    <div class="modal-content p-3 border-bottom border-5 border-primary">
         {{ form_start(form) }}
-
-        <div class="modal-header border-0 px-1">
+        <div class="modal-header border-0">
 
             <div class='d-flex gap-3'>
-                <strong class='lh-1'>
-                    {{ card.productName }}
-                </strong>
-            </div>
-
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-        </div>
-
-        <div class="modal-body">
-
-            <div class="d-flex justify-content-center gap-3 align-items-center w-100 mb-3">
-
-                {% set img_path = card.productImageCdn == true ? CDN_HOST : '' %}
-                {% set product_image_ext = card.productImageCdn == true ? 'small.'~card.productImageExt : card.productImageExt %}
-                {# ФОТО ПРОДУКТА  #}
-                <div>
-                    <div class="icon rounded-4 mb-2 bg-contain p-1"
-                         style=" width: 50px; height: 50px;
-                                 background-image: url('{{ card.productImage ? img_path ~ card.productImage ~ product_image_ext : '/assets/img/blank.svg' }}');">
-
-                    </div>
-                </div>
-
-
-                <div>
-                    {# Значение множественного варианта ТП #}
-                    {{ card.productVariationValue|call_twig_func(card.productVariationReference~'_render')
-                    ~ card.productModificationValue|call_twig_func(card.productModificationReference~'_render') }}
+                <strong class='lh-1'>{{ card.productName }}
 
                     {# Значение торгового предложения #}
-                    {{ card.productOfferValue|call_twig_func(card.productOfferReference~'_render') }}
+                    {{ card.productOfferValue|call_twig_func(card.productOfferReference) }}
 
-                    {# Постфикс #}
-                    {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null ) }}
+
+
+                    {# Значение множественного варианта ТП #}
+                    {{ card.productVariationValue|call_twig_func(card.productVariationReference) }}
+
+                    {# Значение модификации множественного варианта ТП #}
+                    {{ card.productModificationValue|call_twig_func(card.productModificationReference) }}
 
                     {# Свойства, учавствующие в названии #}
                     {% for name_property in arr_property | filter(props => props.field_name == true) %}
                         {{ name_property.field_name|call_twig_func(name_property.field_type) }}
                     {% endfor %}
 
+                </strong>
+
+            </div>
 
 
-                    {# Персональная скидка #}
-                    {% set Price = card.productPrice %}
 
-                    {# Старая цена #}
-                    {% set OldPrice = card.productOldPrice %}
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
 
-                    {# Рассчет скидки #}
-{#                    {% set DiscountPercent = card.discountPercent %}#}
+        <div class="modal-body d-flex justify-content-between ">
 
-                    <div class='w-100'>
+            <div class="d-flex justify-content-between gap-3 align-items-center w-100">
 
-                        <span class='small text-muted'>Стоимость:</span>
+                {% set img_path = card.productImageCdn == true ? CDN_HOST : '' %}
+                {% set product_image_ext = card.productImageCdn == true ? 'small.'~card.productImageExt : card.productImageExt %}
 
-                        {{ money(Price, card.productCurrency) }}
+                {# ФОТО ПРОДУКТА  #}
+                <div>
+                    <div class="icon rounded-4 mb-2 bg-contain p-1"
+                         style="width: 50px; height: 50px; background-image: url('{{ card.productImage ? img_path ~ card.productImage ~ product_image_ext : '/assets/img/blank.svg' }}');"
+                    ></div>
+                </div>
 
-                    </div>
+
+                {# Персональная скидка #}
+                {% set Price = card.productPrice %}
+
+                {# Старая цена #}
+                {% set OldPrice = card.productOldPrice %}
+                <div class='w-25'>
+
+                    <span class='small text-muted'>Стоимость</span>
+                    {{ money(Price, card.productCurrency) }}
+
+
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center text-center w-50">
+
+                    <button type='button' class="btn btn-lg btn-link text-decoration-none"
+                            aria-label="Отнять количество" id="minus"
+                    >
+                        <span class="h4 text-muted opacity-50">-</span>
+                    </button>
+
+
+                    {% set default_count = card.productQuantity < card.categoryInput ? card.productQuantity : card.categoryInput %}
+
+
+                    {{ form_widget(form.price.total, {
+                        label: false,
+                        attr: {
+                            class : 'form-control-lg mx-1 rounded-3 total',
+                            style: 'width: 60px;',
+                            value : default_count,
+                            'data-max' : card.productQuantity,
+                            'data-min': card.categoryMinimal,
+                            'data-price' : ''~Price.value * 100,
+                            'data-discount' : '',
+                            'data-currency' : card.productCurrency|upper,
+                        } } ) }}
+
+
+                    <button type='button' class="btn btn-lg btn-link text-decoration-none"
+                            aria-label="Добавить количество" id="plus"
+                    >
+                        <span class="h5 text-muted opacity-50">+</span>
+                    </button>
 
                 </div>
 
             </div>
-
-
-
-
-            <div class="d-flex justify-content-center align-items-center text-center gap-3 w-100 mb-3">
-
-                <button type='button' class="btn btn-lg btn-link text-decoration-none p-0"
-                        aria-label="Отнять количество" id="minus">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-dash"
-                         viewBox="0 0 16 16">
-                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"></path>
-                    </svg>
-                </button>
-
-                {#                    {% set default_count = card.product_quantity < 4 ? card.product_quantity : 4 %} #}
-                {% set default_count = card.productQuantity < card.categoryInput ? card.productQuantity : card.categoryInput %}
-
-                {{ form_widget(form.price.total, {
-                    label: false,
-                    attr: {
-                        class : 'form-control-lg border py-2 px-4 rounded-5 m-0 text-secondary text-center total',
-                        style: 'width: 95px;',
-                        value : default_count,
-                        'data-max' : card.productQuantity,
-                        'data-min': card.categoryMinimal,
-                        'data-price' : ''~Price.value * 100,
-                        'data-discount' : '',
-                        'data-currency' : card.productCurrency|upper,
-                    } } ) }}
-
-                <button id="plus"
-                        type='button'
-                        class="btn btn-lg btn-link text-decoration-none p-0"
-                        aria-label="Добавить количество">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-plus"
-                         viewBox="0 0 16 16">
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
-                    </svg>
-                </button>
-
-            </div>
         </div>
 
-        <div class='d-flex gap-3 align-items-center w-100'>
-            {% set summ = (default_count * Price.value) * 100 %}
 
-            <span class='text-muted text-nowrap'>
-                Сумма
-            </span>
+        <div class="modal-footer d-flex justify-content-between">
+            <div class='w-25'>
+                {% set summ = (default_count * Price.value) * 100 %}
+                {% set discount = user_profile_discount(summ) %}
 
-            <div id='summ_{{ form.price.total.vars.id }}'
-                 data-price='{{ Price.value * 100 }}'
-                    {# data-discount='{{ card.profileDiscount is not null ? card.profileDiscount }}' #}
-                 data-currency='{{ card.productCurrency|upper }}'>
+                <span class='small text-muted text-nowrap'>
+						Сумма
+{#						{% if discount %}#}
+{#                            <span class="badge bg-danger rounded-2 ms-2">- {{ baks_profile.profile_discount }}%</span>#}
+{#                        {% endif %}#}
+					</span>
 
-                {{ money(summ, card.productCurrency) }}
+
+                {# поле участвует в modal_basket.js #}
+                <div id='summ_{{ form.price.total.vars.id }}'
+                     data-price='{{ Price.value * 100 }}'
+                        {# data-discount='{{ card.profileDiscount is not null ? card.profileDiscount }}' #}
+                     data-currency='{{ card.productCurrency|upper }}'>
+
+                    {{ money(summ, card.productCurrency) }}
+                </div>
             </div>
 
-            <button type="submit"
-                    class="btn bg-primary py-2 fw-bold rounded-3 w-100">
-                <span class="basket-text">В корзину</span>
+            <button
+                    type="submit"
+                    class="btn btn-lg btn-primary text-nowrap btn">
+                <span class="h6 text-uppercase px-3 basket-text">В корзину</span>
                 <span class="spinner-border spinner-border-sm vertical-middle d-none"></span>
             </button>
         </div>

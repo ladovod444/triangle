@@ -4,16 +4,12 @@
 	
 	<div class="navbar-nav justify-content-between flex-grow-1 p-1">
 		
-		<a class="nav-link rounded-3 px-3 text-white{{ route == 'core:user.homepage' ? ' active' }}"
-				href="{{ path('core:user.homepage') }}">
+		<a class="nav-link rounded-3 px-3 text-white{{ route == 'core:public.homepage' ? ' active' }}"
+				href="{{ path('core:public.homepage') }}">
 			{{ 'breadcrumb.homepage.user'|trans({}, 'pages') }}
 		</a>
 		
-		{#  <a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.catalog.category' ? ' active' }}"
-               href="{{ path('products-product:user.catalog.category') }}">Продукция</a> #}
-		
-		
-		
+	
 		{% if baks_user_menu is defined %}
 		
 		
@@ -21,7 +17,7 @@
 		{% if baks_user_menu|length > 1 %}
 		
 		<a href='#'
-				class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.catalog.category' ? ' active' }}"
+				class="nav-link rounded-3 px-3 text-white{{ route == 'pages:public.catalog.category' ? ' active' }}"
 				type="button"
 				id="dropdownMenu2"
 				data-bs-toggle="dropdown"
@@ -67,7 +63,7 @@
 						
 						>
 							
-							<a href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}"
+							<a href="{{ path('products-product:public.catalog.category', { category : menu.category_url }) }}"
 									class="text-decoration-none text-dark d-flex gap-3 align-items-center w-100 justify-content-start">
 								
 
@@ -112,7 +108,7 @@
 							{% for parent in parent_category %}
 								
 								{% if parent.parent_category_counter %}
-									<a href="{{ path('products-product:user.catalog.category', { category : parent.parent_category_url }) }}"
+									<a href="{{ path('products-product:public.catalog.category', { category : parent.parent_category_url }) }}"
 											class="text-decoration-none text-dark justify-content-start small text-decoration-none"
 											style='width: 23%;'>
 										{{ parent.parent_category_name }}
@@ -138,7 +134,7 @@
 							<li class="list-group-item bg-transparent border-0 text-truncate rounded-5"
 									style='width: 32%;'>
 								
-								<a href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}"
+								<a href="{{ path('products-product:public.catalog.category', { category : menu.category_url }) }}"
 										class="text-decoration-none text-dark d-flex gap-3 align-items-center w-100 justify-content-start"
 										title="{{ menu.category_name }}">
 									
@@ -161,8 +157,8 @@
 	
 	{% else %}
 		{% for menu in baks_user_menu %}
-			<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.catalog.category' ? ' active' }}"
-					href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}">
+			<a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:public.catalog.category' ? ' active' }}"
+					href="{{ path('products-product:public.catalog.category', { category : menu.category_url }) }}">
 				Каталог
 			</a>
 		{% endfor %}
@@ -173,8 +169,8 @@
 	
 	<a class="nav-link rounded-3 px-3 text-white{{ route == 'about:public.index' ? ' active' }}"
 			href="{{ path('about:public.index') }}">О компании</a>
-	<a class="nav-link rounded-3 px-3 text-white{{ route == 'delivery:user.delivery' ? ' active' }}"
-			href="{{ path('delivery:user.delivery') }}">Доставка</a>
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'delivery:public.delivery' ? ' active' }}"
+			href="{{ path('delivery:public.delivery') }}">Доставка</a>
 
 		<a class="nav-link rounded-3 px-3 text-white{{ route == 'services:public.index' ? ' active' }}"
 		   href="{{ path('services:public.index') }}">Шиномонтаж</a>
@@ -185,8 +181,8 @@
 			href="{{ path('guaranty:public.index') }}">Гарантия</a>
 	<a class="nav-link rounded-3 px-3 text-white{{ route == 'calc:public.index' ? ' active' }}"
 			href="{{ path('calc:public.index') }}">Шинный калькулятор</a>
-	<a class="nav-link rounded-3 px-3 text-white{{ route == 'contacts-region:user.contact' ? ' active' }}"
-			href="{{ path('contacts-region:user.contact') }}">Контакты</a>
+	<a class="nav-link rounded-3 px-3 text-white{{ route == 'contacts-region:public.contact' ? ' active' }}"
+			href="{{ path('contacts-region:public.contact') }}">Контакты</a>
 	</div>
 
 </nav>

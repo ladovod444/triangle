@@ -133,7 +133,7 @@ final class CatalogController extends AbstractController
             $filterForm = $formFactory->createNamed(
                 $category['id'],
                 ProductFilterForm::class, $filter, [
-                'action' => $this->generateUrl('products-product:user.catalog.category',
+                'action' => $this->generateUrl('products-product:public.catalog.category',
                     ['category' => $category['category_url']]
                 ),
                 'attr' => ['class' => 'product_filter_form w-100']

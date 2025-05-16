@@ -15,7 +15,7 @@
 					</a>
 				</li>
 				<li class="breadcrumb-item">
-					<a href="{{ path('products-product:user.catalog.category', { category : card.category_url }) }}" class="text-muted" title="Каталог">Каталог</a>
+					<a href="{{ path('products-product:public.catalog.category', { category : card.category_url }) }}" class="text-muted" title="Каталог">Каталог</a>
 				</li>
 
 				{% set breadcrumb_active_name = card.product_offer_value|call_twig_func(card.product_offer_reference~'_render')

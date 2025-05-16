@@ -1,0 +1,15 @@
+<main>
+
+    {# Хлебные крошки #}
+    {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/breadcrumb.html.twig') %} #}
+{#    {{ include(_self|replace({ "content.html.twig" : "_includes/breadcrumb.html.twig" })) }}#}
+
+    {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/productPage.html.twig') %} #}
+    {{ include(_self|replace({ "content.html.twig" : "_includes/product_page.html.twig" })) }}
+
+    {# @TODO адаптировать к мобилке #}
+    {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/viewed.html.twig') %} #}
+
+</main>
+
+<script nonce='{{ csp_nonce() }}'  data-src='/assets/blackdragon/js/noZoom.js?v={{ version }}' class='lazy'></script>

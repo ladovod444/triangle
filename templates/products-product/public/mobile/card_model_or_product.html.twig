@@ -32,7 +32,7 @@
 {% set card_type = 'product' %}
 
 {# Путь карточки #}
-{% set card_url = path('products-product:user.detail', {
+{% set card_url = path('products-product:public.detail', {
     category : card.categoryUrl,
     url : card.productUrl,
     offer: card.productOfferValue,

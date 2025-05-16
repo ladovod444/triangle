@@ -12,7 +12,7 @@
         {% for category in categories %}
 
             <li class="list-group-item bg-transparent border-0 text-truncate " style="min-width: 50%;">
-                <a href="{{ path('products-product:user.catalog.category', { category : category.category_url }) }}"
+                <a href="{{ path('products-product:public.catalog.category', { category : category.category_url }) }}"
                    class="d-flex align-items-center justify-content-center fw-medium text-black text-uppercase rounded-5 fs-18 text-decoration-none py-3 gap-2 ps-2">
 
                     <div class="icon m-0 rounded-3 bg-contain lazy p-1 shadow"

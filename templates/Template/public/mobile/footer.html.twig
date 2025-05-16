@@ -70,10 +70,10 @@
 
                                     <a
                                             class="nav-link rounded-3 px-3 text-dark w-50 h6"
-                                            href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}">Продукция</a>
+                                            href="{{ path('products-product:public.catalog.category', { category : menu.category_url }) }}">Продукция</a>
 
-                                    {# <a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:user.catalog.category' ? ' active' }}"
-                                           href="{{ path('products-product:user.catalog.category', { url : menu.category_url }) }}">
+                                    {# <a class="nav-link rounded-3 px-3 text-white{{ route == 'pages:public.catalog.category' ? ' active' }}"
+                                           href="{{ path('products-product:public.catalog.category', { url : menu.category_url }) }}">
                                             Каталог
                                         </a> #}
                                 {% endfor %}
@@ -84,23 +84,23 @@
                         {% endif %}
 
                         <a
-                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'pages:user.about' ? ' active text-white' }}"
+                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'pages:public.about' ? ' active text-white' }}"
                                 href="{{ path('about:public.index') }}">О компании</a>
                         <a
-                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'delivery:user.delivery' ? ' active text-white' }}"
-                                href="{{ path('delivery:user.delivery') }}">Доставка</a>
+                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'delivery:public.delivery' ? ' active text-white' }}"
+                                href="{{ path('delivery:public.delivery') }}">Доставка</a>
                         <a
-                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'pages:user.wholesale' ? ' active text-white' }}"
+                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'pages:public.wholesale' ? ' active text-white' }}"
                                 href="{{ path('wholesale:public.index') }}">Опт</a>
                         <a
-                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'pages:user.guaranty' ? ' active text-white' }}"
+                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'pages:public.guaranty' ? ' active text-white' }}"
                                 href="{{ path('guaranty:public.index') }}">Гарантия</a>
                         <a
-                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'pages:user.calc' ? ' active text-white' }}"
+                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'pages:public.calc' ? ' active text-white' }}"
                                 href="{{ path('calc:public.index') }}">Шинный калькулятор</a>
                         <a
-                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'contacts-region:user.contact' ? ' active text-white' }}"
-                                href="{{ path('contacts-region:user.contact') }}">Контакты</a>
+                                class="nav-link rounded-3 px-3 text-dark w-50 h6{{ route == 'contacts-region:public.contact' ? ' active text-white' }}"
+                                href="{{ path('contacts-region:public.contact') }}">Контакты</a>
                     </div>
                 </div>
             </nav>

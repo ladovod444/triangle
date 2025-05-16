@@ -1,0 +1,114 @@
+{# БЛОК С ЦЕНОЙ И КНОПКОЙ ДОБАВЛЕНИЯ В КОРЗИНУ #}
+
+{# {% set oldPrice = 910000 %} #}
+{% set oldPrice = card.productOldPrice %}
+
+{# Рассчет скидки #}
+{% set discount = false %}
+
+{% if card.productPrice and oldPrice > card.productPrice %}
+    {% set discount = (((oldPrice - card.productPrice) / oldPrice) * 100)|round %}
+    {#    {% set discount = (100 - (card.product_price / (oldPrice / 100)))|round %} #}
+{% endif %}
+
+{# Рассчет наличия и количества #}
+ {% set productQuantity = '' %}
+ {% set inStock = true %}
+ {% set quantity = card.productQuantity %}
+
+ {% if quantity == 0 %}
+     {% set productQuantity = 'Нет в наличии' %}
+     {% set inStock = false %}
+ {% elseif quantity > 20 %}
+     {% set productQuantity = 'Более 20 шт.' %}
+ {% elseif quantity < 20 %}
+     {% set productQuantity = 'Менее 20 шт.' %}
+ {% else %}
+     {% set productQuantity = (quantity)~' шт.' %}
+ {% endif %}
+
+<div >
+
+    {% if inStock == true %}
+
+        <div class="d-flex align-items-center justify-content-center gap-3 my-3">
+            {# Старая цена #}
+            {% if discount %}
+                <p class="text-danger fw-bold mb-0 me-5 lh-1">
+                    <del class="me-2">
+                        {{ money(oldPrice, card.productCurrency) }}
+                    </del>
+                </p>
+            {% endif %}
+
+            {# Текущая цена #}
+            <p class="fw-bolder lh-normal h3 mb-0">
+                {{ money(card.productPrice, card.productCurrency) }}
+
+                {% if discount %}
+                    <span class="badge bg-danger text-uppercase rounded-5 fs-11 h-100 py-2">скидка {{ discount }} % </span>
+                {% endif %}
+            </p>
+        </div>
+
+        {# Добаление товаров в корзину #}
+        {{ include(_self|replace({ "_includes/add_basket.html.twig" : "_form/add_basket_form.html.twig" })) }}
+
+
+        <div class="d-flex flex-column gap-3 small rounded-4 bg-light p-3">
+            <div class="d-flex gap-3">
+                <p class="text-success fw-bold mb-0 lh-1">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-lg"
+                         viewBox="0 0 16 16">
+                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                    </svg>
+
+                    В наличии
+                    <span class="text-secondary fw-normal fs-12">{{ productQuantity }}</span>
+                </p>
+            </div>
+            <div class="d-flex gap-2 align-items-end">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-truck text-secondary" viewBox="0 0 16 16">
+                    <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+                </svg>
+                <a href="/delivery" class="text-secondary" title="Рассчитать доставку">Рассчитать доставку
+                </a>
+            </div>
+
+            <div class="d-flex gap-2 align-items-end ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-boxes text-secondary " viewBox="0 0 16 16">
+                    <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z"></path>
+                </svg>
+                <strong>Опт:</strong><a href="/wholesale" class="text-secondary" title="оптовое предложение">оптовое
+                    предложение</a>
+            </div>
+
+            <div class="d-flex gap-2 align-items-end ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-info-circle text-secondary" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                </svg>
+                <span class="small">Расчет стоимости и сроков доставки уточняйте у менеджера.</span>
+            </div>
+        </div>
+
+
+
+    {% else %}
+
+        {# @TODO что добавить при отсутствии? #}
+        <div class="d-flex gap-3">
+            <p class="text-danger fw-bold mb-0 lh-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
+                     viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+                Нет в наличии
+            </p>
+        </div>
+    {% endif %}
+</div>

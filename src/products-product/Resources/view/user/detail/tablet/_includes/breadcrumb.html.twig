@@ -30,7 +30,7 @@
             </li>
 
             <li class="breadcrumb-item active" aria-current="page" title="{{ card.categoryName }}">
-                <a class="text-secondary" href="{{ path('products-product:user.catalog.category', {
+                <a class="text-secondary" href="{{ path('products-product:public.catalog.category', {
                     category: card.categoryUrl,
                 }) }}" aria-label="{{ card.categoryName }}">
                     {{ card.categoryName }}
@@ -38,7 +38,7 @@
             </li>
 
             <li class="breadcrumb-item active" aria-current="page" title="{{ card.productName }}">
-                <a class="text-secondary" href="{{ path('products-product:user.model', {
+                <a class="text-secondary" href="{{ path('products-product:public.model', {
                     category: card.categoryUrl,
                     url: card.productUrl
                 }) }}">

@@ -1,0 +1,94 @@
+{# БЛОК С ОПИСАНИЕМ КАТЕГОРИИ #}
+
+{# Обложка категории  #}
+{% set image_path = '/assets/img/blank.svg' %}
+
+{% if category.category_cover_ext is defined and category.category_cover_ext is not null %}
+    {% set image_path = cdn_image_path(category.category_cover_path, category.category_cover_ext, category.category_cover_cdn) %}
+{% endif %}
+
+<div class="mb-3">
+
+    <div class="d-flex flex-column justify-content-between">
+
+        {# Название / Страна #}
+        <div class="d-flex align-items-center justify-content-between">
+            <h2 class="fs-6 text-uppercase fw-bold mb-0">
+                Шины {{ category.category_name }}
+            </h2>
+
+            {#            <img src="{{ image_path }}" alt="Логотип бренда" style="height: 40px;"> #}
+            <img src="{{ image_path }}" style="width: 220px;" alt="{{ category.category_name }}">
+
+        </div>
+
+        {# @TODO страна только Китай - пока хардкод? #}
+        <div class="d-flex align-items-center gap-1 mb-3">
+            <img src="/assets/blackdragon/img/China.png" alt="Страна">
+            <p class="mb-0">
+                Китай
+            </p>
+        </div>
+
+        {# Картинка шин - хардкод #}
+        <div class="text-center mb-3">
+            <img src="/assets/blackdragon/img/brandsTire.png" alt="Изображение товара бренда" style="width: 230px;">
+        </div>
+
+        <p class="fs-12">
+            {{ category.category_header|raw }}
+        </p>
+
+        <a class="d-flex  align-items-center mb-0 fw-bold text-black btn-collapsed collapsed" data-bs-toggle="collapse"
+           href="#collapseRead" role="button" aria-expanded="false" aria-controls="collapseRead">
+            <span class="me-2 fs-11">Читать полностью</span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                 class="bi bi-chevron-up btn-collapsed-icon" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"></path>
+            </svg>
+        </a>
+
+    </div>
+
+    <div class="collapse" id="collapseRead">
+        <p class="mb-0 pt-3 fs-12">
+            {{ category.category_bottom|raw }}
+        </p>
+    </div>
+
+    {# Хардкод свойств категории - хардкод #}
+    <div class="pt-3">
+        <div class="d-flex flex-wrap row-gap-4">
+            <div class="d-flex align-items-center border-end  border-2 gap-3 w-50 px-3 py-2">
+                <img src="/assets/blackdragon/img/brandIcon-5.svg" style="height: 24px;"
+                     alt="Ихображение характеристики">
+                <p class="mb-0 fs-10">
+                    Экономия топлива
+                </p>
+            </div>
+            <div class="d-flex align-items-center   gap-3 w-50 px-3 py-2">
+                <img src="/assets/blackdragon/img/brandIcon-7.svg" style="height: 24px;"
+                     alt="Ихображение характеристики">
+                <p class="mb-0 fs-10">
+                    Выгодная цена
+                </p>
+            </div>
+            <div class="d-flex align-items-center border-end border-2 gap-3 w-50 px-3 py-2">
+                <img src="/assets/blackdragon/img/brandIcon-3.svg" style="height: 24px;"
+                     alt="Ихображение характеристики">
+                <p class="mb-0 fs-10">
+                    Оптом<br> и&nbsp;в&nbsp;розницу
+                </p>
+            </div>
+            <div class="d-flex align-items-center  gap-3 w-50 px-3 py-2">
+                <img src="/assets/blackdragon/img/brandIcon-6.svg" style="height: 24px;"
+                     alt="Ихображение характеристики">
+                <p class="mb-0 fs-10">
+                    В&nbsp;наличии
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

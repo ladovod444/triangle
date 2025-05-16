@@ -1,15 +1,10 @@
 {# @var card \BaksDev\Products\Product\Repository\ProductDetailByValue\ProductDetailByValueResult #}
 
 
-
-
-
 {% set iterate = 1 %}
 {% set odd = 'bg-light' %}
 {% set even = '' %}
 
-
-<section id="product_characteristic" class="w-100">
 
 <h2 class="h6 mb-3 ms-2">Характеристики:</h2>
 <div class="d-flex flex-column gap-3">
@@ -28,7 +23,7 @@
 
             <div class="w-50 d-flex gap-3 align-items-center">
                 {# Модель #}
-                <a href="{{ path('products-product:user.model', { category: card.categoryUrl, url: card.productUrl }) }}"
+                <a href="{{ path('products-product:public.model', { category: card.categoryUrl, url: card.productUrl }) }}"
                    class="text-muted"
                    aria-label="{{ card.productName }}"
                    title="{{ card.productName }}">
@@ -176,19 +171,6 @@
     {% endfor %}
 
 
-
-
-{#    <dl class="text-secondary">#}
-{#        {% for key,property in properties %}#}
-{#            {% set iterate = iterate + 1 %}#}
-{#            <dt>{{ property.field_trans }}</dt>#}
-
-{#            <dd>{{ property.field_value|call_twig_func(property.field_type~'_template') }}</dd>#}
-
-{#        {% endfor %}#}
-{#    </dl>#}
-
-
 </div>
 
-</section>
+

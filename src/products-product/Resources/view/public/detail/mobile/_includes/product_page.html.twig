@@ -1,0 +1,103 @@
+{# Обложка категории  #}
+{% set categoryCoverPath = '/assets/img/blank.svg' %}
+{% if card.category_cover_ext is defined and card.category_cover_ext is not null %}
+    {% set img_host = card.category_cover_cdn == true  ? CDN_HOST : '' %}
+    {% set img_dir = card.category_cover_path %}
+    {% set img_file = (img_host is empty ? '/image.' : '/small.') ~ card.category_cover_ext %}
+    {% set categoryCoverPath = img_host ~ img_dir ~ img_file %}
+{% endif %}
+
+{# Свойства продукта #}
+{% set productFields = card.categorySectionField %}
+{% set tireEuroField = productFields|filter(v => v.field_type == 'tire_euro_field')|first %}
+
+<section id="card" class="container mt-4">
+
+    <h1 class="fs-6 text-uppercase fw-bold ">
+        {{ card.productName }}
+
+        {{ card.productVariationValue|call_twig_func(card.productVariationReference~'_render')
+        ~ card.productModificationValue|call_twig_func(card.productModificationReference~'_render') }}
+
+        {{ card.productOfferValue|call_twig_func(card.productOfferReference~'_render') }}
+
+        {{ (card.productModificationPostfix ?: card.productVariationPostfix ?: card.productOfferPostfix ?: null )|replace({ '/': '-' }) }}
+        </h1>
+
+
+
+    <div class="d-flex align-items-center gap-2 mb-1 small">
+
+        <span class="small">Артикул: {{ card.productArticle }}</span>
+
+        {# @TODO нужен отдельный модуль! #}
+        {# Рейтинг #}
+        {#        <div class="d-flex align-items-center gap-3"> #}
+        {#            <div class="d-flex align-items-center gap-1 "> #}
+        {#                {% set rating = 4 %} #}
+
+        {#                {% for i in 1..5 %} #}
+        {#                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" #}
+        {#                         fill="{% if i > rating %} #d1d1d1 {% else %} #ffc107 {% endif %}" class="bi bi-star-fill" #}
+        {#                         viewBox="0 0 16 16"> #}
+        {#                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/> #}
+        {#                    </svg> #}
+        {#                {% endfor %} #}
+        {#            </div> #}
+        {#            #}
+        {#            <a href="#" class="fs-10 text-black">15 отзывов</a> #}
+        {#        </div> #}
+
+        {# @TODO времменно не используется #}
+        {#            <button class="btn text-white btn-warning fw-bold rounded-5 fs-8 py-1 px-2 "> #}
+        {#                ТОП #}
+        {#            </button> #}
+
+        {% if date() < card.productActiveFrom|date_modify("+1 month") %}
+            <button class="btn btn-success fw-bold rounded-5 fs-8 py-1 px-2">
+                НОВИНКА
+            </button>
+        {% endif %}
+
+        {# Иконки свойств продукта #}
+        <div class="d-flex align-items-center gap-1">
+
+            {% for field in productFields %}
+                {{ field.field_value|call_twig_func(field.field_type~'_render') }}
+            {% endfor %}
+
+        </div>
+    </div>
+
+    {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/tireCarousel.html.twig') %} #}
+    {{ include(_self|replace({ "product_page.html.twig" : "images_carousel.html.twig" }), {photos: card.productImages}, with_context = false) }}
+
+    {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/productPriceCount.html.twig') %} #}
+    {{ include(_self|replace({ "product_page.html.twig" : "add_basket.html.twig" })) }}
+</section>
+
+
+
+{#    <hr class="row mb-0">#}
+
+
+    {% include Template('@products-product/public/'~baks_settings.device~'/properties_product.html.twig') with {card} only %}
+
+
+    {#    {% include Template('/public/'~(baks_settings.device ?: 'pc')~'/_includes/product_fields_tabs.html.twig') with {card} only %}#}
+
+    <section class="container shadow ">
+
+        {# АЛЬТЕРНАТИВЫ - СПИСОК #}
+        {#        {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/productTable.html.twig') %} #}
+
+        {{ include(_self|replace({ "product_page.html.twig" : "alternatives.html.twig" })) }}
+
+    </section>
+
+    {# @TODO нет модуля #}
+    {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/reviewSm.html.twig') %} #}
+
+    {#    {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/bestseller.html.twig') %} #}
+{#    {{ render_bestseller(baks_settings.device) }}#}
+

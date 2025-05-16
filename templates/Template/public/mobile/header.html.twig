@@ -12,7 +12,7 @@
 		
 		<div class="row">
 			<div class="col-8" style="height: 38px;">
-				<a href="{{ path('core:user.homepage') }}" title="Главная">
+				<a href="{{ path('core:public.homepage') }}" title="Главная">
 					<img src="/logo.webp"
 						 width="432" height="100"
 						 alt="..."
@@ -45,7 +45,7 @@
 				{% if baks_basket is defined %}
 
 					{# КОРЗИНА #}
-					<a href="{{ path('orders-order:user.basket') }}"
+					<a href="{{ path('orders-order:public.basket') }}"
 							class="btn rounded-circle shadow m-3 pt-2 bg-white position-relative"
 					        title="Корзина"
 							style="width: 50px; height: 50px">
@@ -112,7 +112,7 @@
 
 
 						<li class="nav-item">
-							<a href="{{ path('core:user.homepage') }}"
+							<a href="{{ path('core:public.homepage') }}"
 							   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
 							   title="Главная"
 							>
@@ -152,7 +152,7 @@
 									{% for menu in baks_user_menu %}
 
 										<li class="nav-item mb-1">
-											<a href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}"
+											<a href="{{ path('products-product:public.catalog.category', { category : menu.category_url }) }}"
 											   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
 											   title="{{ menu.category_name }}"
 											>
@@ -175,7 +175,7 @@
 								{% for menu in baks_user_menu %}
 
 									<li class="nav-item">
-										<a href="{{ path('products-product:user.catalog.category', { category : menu.category_url }) }}"
+										<a href="{{ path('products-product:public.catalog.category', { category : menu.category_url }) }}"
 										   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
 										   title="{{ menu.category_name }}"
 										>
@@ -249,7 +249,7 @@
 
 
 						<li class="nav-item">
-							<a href="{{ path('delivery:user.delivery') }}" class="btn nav-link btn-primary active rounded-4 px-2  text-start w-100"
+							<a href="{{ path('delivery:public.delivery') }}" class="btn nav-link btn-primary active rounded-4 px-2  text-start w-100"
 							   title="Доставка"
 							  >
 
@@ -308,7 +308,7 @@
 						</li>
 
 						<li class="nav-item">
-							<a href="{{ path('contacts-region:user.contact') }}" class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
+							<a href="{{ path('contacts-region:public.contact') }}" class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
 							   title="Контакты"
 							   >
 
@@ -326,7 +326,7 @@
 						{% if app.user %}
 							<li class="nav-item">
 
-								<a href="{{ path('auth-email:user.logout') }}"
+								<a href="{{ path('auth-email:public.logout') }}"
 								   class="btn nav-link btn-primary active rounded-4 px-2 text-start w-100"
 								   title="Контакты"
 								>

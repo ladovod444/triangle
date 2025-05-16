@@ -4,6 +4,44 @@
 	Официальный магазин шин Triangle (Триангл)
 {% endblock %}
 
+{# ---- META ------------------------------------------------------------ #}
+{% block meta %}
+
+	<link rel="canonical" href="{{ absolute_url(path('core:user.homepage')) }}">
+
+{#	{% for preload in preloads %}#}
+{#		<link rel="preload" fetchpriority="high" as="image" href="{{ preload }}">#}
+{#	{% endfor %}#}
+
+
+	<script type='application/ld+json'>
+		{
+			"@context": "http://www.schema.org",
+			"@type": "AutoPartsStore",
+			"name": "Официальный магазин шин Triangle (Триангл)",
+			"url": "https://trianglerus.ru/",
+			"logo": "https://trianglerus.ru/logo.webp",
+			"description": "Официальный дилер Triangle Россия. Летних и зимних шин из Китая",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "Адрес",
+				"addressLocality": "Дзержинский, Денисьевский проезд, 17к1",
+				"addressRegion": "Московская область",
+				"postalCode": "140090",
+				"addressCountry": "Россия"
+			},
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "55.627915",
+				"longitude": "37.816280"
+			},
+			"telephone": "+7(495)260-17-17"
+		}
+	</script>
+
+
+{% endblock %}
+
 {% block stylesheets %}
 	<link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet">
 {% endblock %}

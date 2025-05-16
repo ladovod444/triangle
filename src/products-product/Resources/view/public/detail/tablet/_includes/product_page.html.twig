@@ -1,0 +1,113 @@
+{# Обложка категории  #}
+
+{# Свойства продукта #}
+{% set productFields = card.category_section_field|json_decode %}
+{% set tireEuroField = productFields|filter(v => v.field_type == 'tire_euro_field')|first %}
+
+{% include Template('/public/'~baks_settings.device~'/_includes/images_carousel_modal.html.twig') with {photos: card.product_photo} only %}
+{# {% include Template('/public/'~baks_settings.device~'/_includes/'~dir~'/tireModalCarousel.html.twig') %} #}
+
+<section class="container pt-3">
+
+    {# Польное название #}
+    <h2 class="fs-5 text-uppercase fw-bold">
+        {{ card.product_name }}
+
+        {{ card.product_variation_value|call_twig_func(card.product_variation_reference~'_render')
+        ~ card.product_modification_value|call_twig_func(card.product_modification_reference~'_render') }}
+
+        {{ card.product_offer_value|call_twig_func(card.product_offer_reference~'_render') }}
+    </h2>
+
+
+    <div class="d-flex align-items-center gap-4 mb-4">
+
+        {# @TODO нужен отдельный модуль! #}
+        {% include Template('/public/'~baks_settings.device~'/_includes/rating.html.twig') only %}
+
+        <div class="d-flex align-items-center gap-1">
+
+            {# Иконки свойств продукта и бейджики #}
+            <div class="d-flex align-items-center gap-1">
+
+                {% for field in productFields %}
+                    {{ field.field_value|call_twig_func(field.field_type~'_render') }}
+                {% endfor %}
+
+            </div>
+
+            {# @TODO времменно не используется #}
+            {#            <button class="btn text-white btn-warning fw-bold rounded-5 fs-8 py-1 px-2 "> #}
+            {#                ТОП #}
+            {#            </button> #}
+
+            {% if date() < card.active_from|date_modify("+1 month") %}
+                <button class="btn btn-success fw-bold rounded-5 fs-10 py-1 px-2">
+                    НОВИНКА
+                </button>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="row gy-4">
+
+        {# Изображения продукта с каруселью #}
+        <div class="col-6">
+            {#            {% include Template('/public/'~baks_settings.device~'/_includes/'~dir~'/tireCarousel.html.twig') %} #}
+            {% include Template('/public/'~baks_settings.device~'/_includes/images_carousel.html.twig') with {photos: card.product_photo} only %}
+
+        </div>
+
+        {# Блок с ценой и кнопками добавления в корзину #}
+        <div class="col-6">
+            {#                {% include Template('/public/'~baks_settings.device~'/_includes/'~dir~'/productPriceCount.html.twig') %} #}
+            {{ include(_self|replace({ "product_page.html.twig" : "add_basket.html.twig" })) }}
+        </div>
+
+        <div class="col-6">
+            <h3 class="fs-6 text-uppercase fw-bold mb-4">
+                описание
+            </h3>
+
+            {#            {% include Template('/public/'~baks_settings.device~'/_includes/'~dir~'/productProps.html.twig') %} #}
+            {% include Template('/public/'~(baks_settings.device)~'/_includes/product_fields.html.twig') with {card} only %}
+        </div>
+
+        {# @TODO нет модуля  #}
+        {#        <div class="col-6"> #}
+        {#            {% include Template('@blackdragon:Template/'~baks_settings.device~'/includes/tireProps.html.twig') %} #}
+        {#        </div> #}
+
+        <hr class="mb-0">
+
+        <div class="col-12">
+            {# АЛЬТЕРНАТИВЫ - СПИСОК #}
+            {#            {% include Template('/public/'~baks_settings.device~'/_includes/'~dir~'/productTable.html.twig') %} #}
+            {{ include(_self|replace({ "product_page.html.twig" : "alternatives.html.twig" })) }}
+
+        </div>
+
+        <div class="col-12 mb-2">
+            {# @TODO нет модуля #}
+            {#            {% include Template('/public/'~baks_settings.device~'/_includes/'~dir~'/reviewSm.html.twig') %} #}
+        </div>
+    </div>
+
+    <hr class="row mb-4">
+
+    <h3 class="fs-6 text-uppercase mb-3 fw-bold">
+        лидер продаж
+    </h3>
+
+    <div class="row gap-3 px-3 flex-nowrap overflow-x-scroll">
+        {{ render_bestseller(baks_settings.device) }}
+
+        {% include Template('/public/'~(baks_settings.device)~'/_includes/banner_lg.html.twig') only %}
+        {% include Template('/public/'~(baks_settings.device)~'/_includes/banner_lg.html.twig') only %}
+    </div>
+
+
+    <hr class="row mt-4 mb-2">
+
+</section>

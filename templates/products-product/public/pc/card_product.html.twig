@@ -59,7 +59,7 @@
         </div>
 
         {# Изображение #}
-        <a href="{{ path('products-product:user.detail', {
+        <a href="{{ path('products-product:public.detail', {
             category: product.categoryUrl,
             url: product.productUrl,
             offer: product.productOfferValue,
@@ -115,7 +115,7 @@
             {# Название #}
             <div class="d-flex mb-2">
                 <a class="text-black text-decoration-none"
-                   href="{{ path('products-product:user.detail', {
+                   href="{{ path('products-product:public.detail', {
                        category: product.categoryUrl,
                        url: product.productUrl,
                        offer: product.productOfferValue,

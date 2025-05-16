@@ -1,0 +1,45 @@
+{# Сортируем изображения, где первое в массиве - главное (root) #}
+{% set producPhotosSortByRoot = photos|json_decode|sort((a, b) => (b.product_img_root == true ? 1 : 0) <=> (a.product_img_root == true ? 1 : 0)) %}
+{# Переиндексирую массив после сортировки #}
+{% set newProducPhotos = producPhotosSortByRoot|keys|map(key => producPhotosSortByRoot[key]) %}
+
+<div id="productPageCarousel" class="carousel slide mb-2" data-bs-ride="carousel">
+    <div class="carousel-inner " style="min-height: 280px">
+
+        {% for key, photo in newProducPhotos %}
+
+            {# Обложка #}
+            {% set image_path = '/assets/img/blank.svg' %}
+
+            {% if photo.product_img_ext is defined and photo.product_img_ext is not null %}
+                {% set img_host = photo.product_img_cdn == true  ? CDN_HOST : '' %}
+                {% set img_dir = photo.product_img %}
+                {% set img_file = (img_host is empty ? '/image.' : '/small.') ~ photo.product_img_ext %}
+                {% set image_path = img_host ~ img_dir ~ img_file %}
+            {% endif %}
+
+            <div class="carousel-item {{ key == 0 ? 'active' : '' }} h-100 position-relative border rounded-4"
+                 data-bs-interval="3000">
+
+                <img src=" {{ image_path}} " class="w-100 h-100 d-block rounded-4" alt="Изображение товара">
+
+                <span class="position-absolute badge-position badge z-3 ">
+                    <a href="#" aria-label="Иконка добавления в избранное">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="lightgray"
+                         class="bi bi-heart-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                    </svg>
+                    </a>
+                    <span class="visually-hidden">Иконка добавления в избранное</span>
+                </span>
+
+            </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+
+
