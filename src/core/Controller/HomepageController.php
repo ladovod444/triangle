@@ -34,8 +34,6 @@ final class HomepageController extends AbstractController
 
         $categories = $allCategoryRec->getRecursive();
 
-//        dump($categories);
-
         $westlake = array_filter($categories, function(array $category) {
             return $category['category_url'] === 'westlake';
         });

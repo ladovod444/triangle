@@ -291,20 +291,9 @@
 
 												</label>
 
-
-												{# {{ dump(row.vars.value) }} #}
-
 												{% set ms = null %}
 
 											{% else %}
-
-												{# {{ dump(field_name(other)) }}
-                                                {{ dump(field_value(other)) }}
-                                                {{ dump(field_label(other)) }} #}
-
-												{# {{ dump(other.vars.id) }} #}
-
-
 
 												{% if field_label(other) == 'Средство против скольжения' %}
 													<label for="{{ other.vars.id }}">

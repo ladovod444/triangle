@@ -89,7 +89,7 @@
 				"@type": "Offer",
 				"url": "{{ app.request.uri }}",
 				"priceCurrency": "{{ card.productCurrency|upper }}",
-				"price": "{{ card.productPrice.value / 100 }}",
+				"price": "{{ card.productPrice ? card.productPrice.value / 100 : 'Цена по запросу' }}",
 				"availability": "https://schema.org/InStock",
 				"itemCondition": "https://schema.org/NewCondition"
 

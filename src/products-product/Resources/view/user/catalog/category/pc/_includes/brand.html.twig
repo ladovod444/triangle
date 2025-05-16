@@ -1,16 +1,18 @@
-<section class="container pb-5 pt-4">
-    <div class="row">
+<section class="container pb-5 pt-3">
+    <div class="d-flex gap-3">
 
-        <div class="col-3">
+        <div class="w-25">
             {{ include(_self|replace({ "_includes/brand.html.twig" : "_form/filter_properties.html.twig" }), {filter, category_name:category.category_name}, with_context = false) }}
 
             {# БЛОК BEST_OFFERS #}
             {#            {{ render_one_best_seller(category.category_id) }} #}
 
             {#            {% include Template('/public/'~baks_settings.device~'/_includes/banners/ad_banner.html.twig') only %} #}
+
+                        {{ include(_self|replace({ "brand.html.twig" : "banners/ad_banner.html.twig" })) }}
         </div>
 
-        <div class="col-9">
+        <div class="cards-box w-75">
 
             {#            {{ include(_self|replace({ "brand.html.twig" : "description.html.twig" }), { category }, with_context = false) }} #}
 
